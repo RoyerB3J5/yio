@@ -1,0 +1,448 @@
+import Banners from "@/components/sections/Banners";
+import GridProducts from "@/components/sections/fragances/GridProducts";
+import BestSeller from "@/components/sections/main/BestSeller";
+import Hero from "@/components/sections/main/Hero";
+import ProductsBanner from "@/components/sections/ProductsBanner";
+
+const content = {
+  men: {
+    hero: {
+      title: "Fragancias <br class='block md:hidden'/>  Que Inspiran ",
+      image: "/images/fragances/men-hero.webp",
+      changeColor: true,
+    },
+    gridProducts: {
+      title: "PRODUCTOS",
+      filter1: "FILTROS",
+      filter2: "ORDENAR POR",
+      image1: "men-grid-1",
+      image2: "men-grid-2",
+    },
+  },
+  women: {
+    hero: {
+      title: "Fragancias <br class='block md:hidden'/>  Que Inspiran ",
+      image: "/images/fragances/women-hero.webp",
+      changeColor: false,
+    },
+    gridProducts: {
+      title: "PRODUCTOS",
+      filter1: "FILTROS",
+      filter2: "ORDENAR POR",
+      image1: "women-grid-1",
+    },
+  },
+};
+const productBanner = [
+  {
+    title: "Jean Paul Gaultier <br/>Le Male ",
+    description:
+      "Le Male, tan viril como sexy, rinde homenaje a la figura simbólica que siempre ha inspirado a Jean Paul Gaultier: el marinero.Este perfume masculino tiene una visión inconformista de la masculinidad. La lavanda, que evoca el familiar y reconfortante aroma de la espuma de afeitar, se ve realzada por la sensualidad de la vainilla.",
+    button: {
+      label: "comprar",
+      link: "#",
+    },
+    image: "/images/products/jean-paul.webp",
+  },
+  {
+    title: "Dior <br/> sauvage ",
+    description:
+      "Sauvage se ha convertido en un nombre inconfundible en el ámbito del perfume para hombre. Disponible en eau de toilette, eau de parfum, parfum —recargables— o elixir, Sauvage despliega fragancias características que combinan frescura, potencia y nobleza.",
+    button: {
+      label: "comprar",
+      link: "#",
+    },
+    image: "/images/products/dior-savage.webp",
+  },
+  {
+    title: "alo <br/> Yoga Accolade hoodie ",
+    description:
+      "A todo el mundo le encanta la colección Accolade. Nuestra sudadera con capucha más vendida presenta un diseño informal con hombros caídos para un estilo impecable en el estudio de yoga y para salir a la calle, un bolsillo de canguro de gran tamaño, y un cómodo acanalado en los puños y el dobladillo. Se ha confeccionado con felpa francesa de peso medio con caída, suave por fuera y con forro polar por dentro. Sácale el máximo partido con el pantalón de chándal Accolade a juego. Encuentra el ajuste perfecto y descubre todas las formas de lucirlo.",
+    button: {
+      label: "comprar",
+      link: "#",
+    },
+    image: "/images/products/alo-hoddie.webp",
+  },
+  {
+    title: "Essentials <br/> hoodie  ",
+    description:
+      "Los hoodies de Essentials (de la marca Fear of God) son prendas urbanas premium. Destacan por su estilo minimalista, corte holgado (oversize) y tejido grueso (algodón afelpado). Ofrecen máxima comodidad y se volvieron un básico de lujo muy popular",
+    button: {
+      label: "comprar",
+      link: "#",
+    },
+    image: "/images/products/essentials-hoddie.webp",
+  },
+];
+
+const productsMen = [
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "Extradose ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "The Gold ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-gold.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Purple Melancholia ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-purple.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "LE LABO",
+    category: "Santal 33",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/le-labo.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "Extradose ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "The Gold ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-gold.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Purple Melancholia ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-purple.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "LE LABO",
+    category: "Santal 33",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/le-labo.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "Extradose ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "The Gold ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-gold.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Purple Melancholia ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-purple.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "LE LABO",
+    category: "Santal 33",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/le-labo.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "Extradose ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "The Gold ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-gold.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Purple Melancholia ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-purple.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "LE LABO",
+    category: "Santal 33",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/le-labo.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "Extradose ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "The Gold ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-gold.webp",
+  },
+];
+const productsWomen = [
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Donna",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-donna.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Baccarat",
+    category: "Eau de Parfum ",
+    info: "2.4 OZ / 70ml",
+    price: 90.0,
+    rate: 4.5,
+    img: "/images/products/baccarat.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Baccarat",
+    category: "Extrait de Parfum ",
+    info: "2.4 OZ / 70ml",
+    price: 90.0,
+    rate: 4.5,
+    img: "/images/products/baccarat-extrait.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Carolina Herrera ",
+    category: "good girl Very elixir ",
+    info: "2.7 OZ / 80ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/carolina-herrera.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Donna",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-donna.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Baccarat",
+    category: "Eau de Parfum ",
+    info: "2.4 OZ / 70ml",
+    price: 90.0,
+    rate: 4.5,
+    img: "/images/products/baccarat.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Baccarat",
+    category: "Extrait de Parfum ",
+    info: "2.4 OZ / 70ml",
+    price: 90.0,
+    rate: 4.5,
+    img: "/images/products/baccarat-extrait.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Carolina Herrera ",
+    category: "good girl Very elixir ",
+    info: "2.7 OZ / 80ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/carolina-herrera.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Donna",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-donna.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Baccarat",
+    category: "Eau de Parfum ",
+    info: "2.4 OZ / 70ml",
+    price: 90.0,
+    rate: 4.5,
+    img: "/images/products/baccarat.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Baccarat",
+    category: "Extrait de Parfum ",
+    info: "2.4 OZ / 70ml",
+    price: 90.0,
+    rate: 4.5,
+    img: "/images/products/baccarat-extrait.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Carolina Herrera ",
+    category: "good girl Very elixir ",
+    info: "2.7 OZ / 80ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/carolina-herrera.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Donna",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-donna.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Baccarat",
+    category: "Eau de Parfum ",
+    info: "2.4 OZ / 70ml",
+    price: 90.0,
+    rate: 4.5,
+    img: "/images/products/baccarat.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Baccarat",
+    category: "Extrait de Parfum ",
+    info: "2.4 OZ / 70ml",
+    price: 90.0,
+    rate: 4.5,
+    img: "/images/products/baccarat-extrait.webp",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "Carolina Herrera ",
+    category: "good girl Very elixir ",
+    info: "2.7 OZ / 80ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/carolina-herrera.webp",
+  },
+];
+import { content as fixedContent } from "@/content/main";
+
+interface PageProps {
+  params: Promise<{ gender: string }>;
+}
+export default async function Page({ params }: PageProps) {
+  const { gender } = await params;
+  const currentGender = gender === "women" || gender === "men" ? gender : "men";
+
+  return (
+    <main className="w-full flex flex-col justify-center items-center pt-(--top-bar-height)">
+      <Hero
+        content={content[currentGender].hero}
+        changeColor={content[currentGender].hero.changeColor}
+      />
+      <GridProducts
+        content={content[currentGender].gridProducts}
+        products={currentGender === "men" ? productsMen : productsWomen}
+        gender={currentGender}
+      />
+      <BestSeller content={fixedContent.bestSeller} />
+      <Banners content={fixedContent.banners} />
+      <ProductsBanner content={productBanner} />
+    </main>
+  );
+}
