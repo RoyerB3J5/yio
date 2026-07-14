@@ -50,7 +50,6 @@ export default function Header() {
       : "bg-white text-black";
   const match = pathname.match(/^\/(en|es)/);
   const lang = match ? match[1] : "en";
-  const isSalonExperience = normalized.startsWith("/salon-experience");
 
   useEffect(() => {
     const header = headerRef.current;

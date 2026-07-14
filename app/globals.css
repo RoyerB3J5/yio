@@ -120,6 +120,19 @@ html {
   }
 }
 
+.title-h2 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 100%;
+  text-transform: uppercase;
+  font-family: var(--font-din-condensed);
+}
+@media (max-width: 769px) {
+  .title-h2 {
+    font-size: 23px;
+  }
+}
+
 .title-h3 {
   font-size: 24px;
   font-weight: 700;
@@ -132,7 +145,17 @@ html {
     font-size: 23px;
   }
 }
-
+.paragraph-price {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 150%;
+  text-transform: uppercase;
+}
+@media (max-width: 769px) {
+  .paragraph-price {
+    font-size: 23px;
+  }
+}
 .link-style {
   color: #000;
   text-align: center;

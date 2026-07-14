@@ -1,4 +1,5 @@
 import { ChevronDown, SlidersHorizontal, Star } from "lucide-react";
+import Link from "next/link";
 
 interface GridProductsProps {
   content: {
@@ -18,6 +19,7 @@ interface GridProductsProps {
     price: number;
     rate: number;
     img: string;
+    href: string;
   }[];
 }
 export default function GridProducts({
@@ -42,7 +44,7 @@ export default function GridProducts({
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-dense">
         {/* IMAGEN 1: Fila 3 y 4, Columna 3 y 4 (Ocupa 2x2 bloques del grid) */}
-        <div className="hidden lg:block lg:col-start-3 lg:row-start-3 lg:col-span-2 lg:row-span-2 w-full h-full min-h-[400px]">
+        <div className="hidden lg:block lg:col-start-3 lg:row-start-2 lg:col-span-2 lg:row-span-2 w-full h-full min-h-[400px]">
           <img
             src={`/images/fragances/${content.image1}.webp`}
             alt="Banner Promocional 1"
@@ -56,7 +58,7 @@ export default function GridProducts({
 
         {/* IMAGEN 2: Fila 6 y 7, Columna 1 y 2 (Ocupa 2x2 bloques del grid) */}
         {gender === "men" && (
-          <div className="hidden lg:block lg:col-start-1 lg:row-start-6 lg:col-span-2 lg:row-span-2 w-full h-full min-h-[400px]">
+          <div className="hidden lg:block lg:col-start-1 lg:row-start-5 lg:col-span-2 lg:row-span-2 w-full h-full min-h-[400px]">
             <img
               src={`/images/fragances/${content.image2}.webp`}
               alt="Banner Promocional 2"
@@ -70,7 +72,8 @@ export default function GridProducts({
         )}
 
         {products.map((item, index) => (
-          <div
+          <Link
+            href="#"
             className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4"
             key={index}
           >
@@ -88,14 +91,20 @@ export default function GridProducts({
                 )}
               </div>
               <div className="flex justify-center items-center gap-2">
-                <Star className="w-[14px] h-[14px] bg-[#151515]" />
+                <img
+                  src="/images/start.svg"
+                  alt="Star"
+                  className="w-[14px] h-[14px] text-[#151515]"
+                  width={14}
+                  height={14}
+                />
                 <p className="paragraph text-[#181818]">{item.rate}</p>
               </div>
             </div>
             <img
               src={item.img}
               alt={item.name}
-              className="w-[80%] h-auto"
+              className="w-[65%] h-auto"
               width={203}
               height={270}
               decoding="async"
@@ -109,7 +118,7 @@ export default function GridProducts({
               </div>
               <p className="paragraph-bold">${item.price.toFixed(2)}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

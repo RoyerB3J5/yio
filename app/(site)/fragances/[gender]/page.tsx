@@ -86,6 +86,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -96,6 +97,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -106,6 +108,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-purple.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -116,6 +119,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/le-labo.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -126,6 +130,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -136,6 +141,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -146,6 +152,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-purple.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -156,6 +163,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/le-labo.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -166,6 +174,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -176,6 +185,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -186,6 +196,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-purple.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -196,6 +207,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/le-labo.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -206,6 +218,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -216,6 +229,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -226,6 +240,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-purple.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -236,6 +251,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/le-labo.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -246,6 +262,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -256,6 +273,7 @@ const productsMen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
 ];
 const productsWomen = [
@@ -268,6 +286,7 @@ const productsWomen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-donna.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -278,6 +297,7 @@ const productsWomen = [
     price: 90.0,
     rate: 4.5,
     img: "/images/products/baccarat.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -288,6 +308,7 @@ const productsWomen = [
     price: 90.0,
     rate: 4.5,
     img: "/images/products/baccarat-extrait.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -298,6 +319,7 @@ const productsWomen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/carolina-herrera.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -308,6 +330,7 @@ const productsWomen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-donna.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -318,6 +341,7 @@ const productsWomen = [
     price: 90.0,
     rate: 4.5,
     img: "/images/products/baccarat.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -328,6 +352,7 @@ const productsWomen = [
     price: 90.0,
     rate: 4.5,
     img: "/images/products/baccarat-extrait.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -338,6 +363,7 @@ const productsWomen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/carolina-herrera.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -348,6 +374,7 @@ const productsWomen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-donna.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -358,6 +385,7 @@ const productsWomen = [
     price: 90.0,
     rate: 4.5,
     img: "/images/products/baccarat.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -368,6 +396,7 @@ const productsWomen = [
     price: 90.0,
     rate: 4.5,
     img: "/images/products/baccarat-extrait.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -378,6 +407,7 @@ const productsWomen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/carolina-herrera.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -388,6 +418,7 @@ const productsWomen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-donna.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -398,6 +429,7 @@ const productsWomen = [
     price: 90.0,
     rate: 4.5,
     img: "/images/products/baccarat.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -408,6 +440,7 @@ const productsWomen = [
     price: 90.0,
     rate: 4.5,
     img: "/images/products/baccarat-extrait.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -418,6 +451,7 @@ const productsWomen = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/carolina-herrera.webp",
+    href: "#",
   },
 ];
 import { content as fixedContent } from "@/content/main";
