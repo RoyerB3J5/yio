@@ -48,7 +48,7 @@ html {
   line-height: 150%;
   font-weight: 400;
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .paragraph {
     font-size: 12px;
   }
@@ -59,7 +59,7 @@ html {
   line-height: 150%;
   font-weight: 700;
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .paragraph-bold {
     font-size: 14px;
   }
@@ -70,9 +70,9 @@ html {
   line-height: 100%;
   font-weight: 400;
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .paragraph-xs {
-    font-size: 14px;
+    font-size: 8px;
   }
 }
 
@@ -83,7 +83,7 @@ html {
   text-transform: uppercase;
   font-family: var(--font-din-condensed);
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .title-h1 {
     font-size: 64px;
   }
@@ -101,9 +101,9 @@ html {
     font-size: 54px;
   }
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .title-banner {
-    font-size: 48px;
+    font-size: 40px;
   }
 }
 
@@ -114,7 +114,7 @@ html {
   text-transform: uppercase;
   font-family: var(--font-din-condensed);
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .subtitle {
     font-size: 40px;
   }
@@ -127,7 +127,7 @@ html {
   text-transform: uppercase;
   font-family: var(--font-din-condensed);
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .title-h2 {
     font-size: 23px;
   }
@@ -140,9 +140,9 @@ html {
   text-transform: uppercase;
   font-family: var(--font-din-condensed);
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .title-h3 {
-    font-size: 23px;
+    font-size: 16px;
   }
 }
 .paragraph-price {
@@ -151,7 +151,7 @@ html {
   line-height: 150%;
   text-transform: uppercase;
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   .paragraph-price {
     font-size: 23px;
   }
@@ -159,7 +159,7 @@ html {
 .link-style {
   color: #000;
   text-align: center;
-  font-family: "DIN Next LT Pro";
+  font-family: var(--font-din-condensed);
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -170,4 +170,14 @@ html {
   text-decoration-thickness: auto;
   text-underline-offset: auto;
   text-underline-position: from-font;
+}
+
+.title-small {
+  color: #000;
+  font-family: var(--font-din-condensed);
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 48px */
+  letter-spacing: -0.5px;
 }

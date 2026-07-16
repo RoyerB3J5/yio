@@ -112,7 +112,7 @@ export default function RootLayout({
       <body className="w-full font-family antialiased overflow-x-clip bg-white flex flex-col justify-center items-center ">
         <Header />
         {children}
-        {/* <Footer />*/}
+        <Footer />
         <CartDrawer />
       </body>
     </html>

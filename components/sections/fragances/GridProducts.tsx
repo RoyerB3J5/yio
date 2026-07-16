@@ -34,7 +34,7 @@ export default function GridProducts({
           <SlidersHorizontal className="w-6 h-6" />
           {content.filter1}
         </button>
-        <h3 className="paragraph uppercase">
+        <h3 className="paragraph uppercase hidden md:block">
           {products.length} {content.title}
         </h3>
         <button className="flex justify-center items-center gap-2">
@@ -42,7 +42,7 @@ export default function GridProducts({
           <ChevronDown className="w-6 h-6" />
         </button>
       </div>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-dense">
+      <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-dense">
         {/* IMAGEN 1: Fila 3 y 4, Columna 3 y 4 (Ocupa 2x2 bloques del grid) */}
         <div className="hidden lg:block lg:col-start-3 lg:row-start-2 lg:col-span-2 lg:row-span-2 w-full h-full min-h-[400px]">
           <img
@@ -74,18 +74,18 @@ export default function GridProducts({
         {products.map((item, index) => (
           <Link
             href="#"
-            className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4"
+            className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 px-2.5 py-4.5 md:p-4"
             key={index}
           >
             <div className="w-full flex justify-between items-center">
               <div className="flex justify-center items-start gap-2">
                 {item.isNew && (
-                  <div className="py-2 px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
+                  <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
                     New
                   </div>
                 )}
                 {item.isBestSeller && (
-                  <div className="py-2 px-4 bg-[#181818] paragraph-xs text-white uppercase hidden lg:block">
+                  <div className="py-2 px-1 md:px-4 bg-[#181818] paragraph-xs text-white uppercase">
                     Best Seller
                   </div>
                 )}

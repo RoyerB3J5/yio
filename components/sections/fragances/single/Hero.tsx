@@ -19,8 +19,8 @@ interface HeroProps {
 }
 export default function Hero({ productInfo, content }: HeroProps) {
   return (
-    <section className="w-full flex justify-center items-center h-[calc(100vh-var(--header-height))]">
-      <div className="w-[60%] h-full relative overflow-hidden">
+    <section className="w-full flex flex-col md:flex-row justify-center items-center h-[calc(100vh-var(--header-height))] md:h-[50vh] xl:h-[calc(100vh-var(--header-height))]">
+      <div className="w-full md:w-[60%] h-auto md:h-full relative overflow-hidden aspect-375/358 md:aspect-auto">
         <img
           src={productInfo.image}
           alt={productInfo.infoProduct.name}
@@ -31,7 +31,7 @@ export default function Hero({ productInfo, content }: HeroProps) {
           loading="eager"
         />
       </div>
-      <div className="w-[40%] h-full flex flex-col justify-center items-center gap-6 px-10 bg-[#CAD6F2]">
+      <div className="w-full md:w-[40%] h-full flex flex-col justify-center items-center gap-6 px-10 bg-[#CAD6F2]">
         <div className="w-full flex justify-between items-center">
           <div className="flex justify-center items-start ">
             {productInfo.infoProduct.isNew && (

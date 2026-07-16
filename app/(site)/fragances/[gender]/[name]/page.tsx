@@ -2,6 +2,8 @@ import Banners from "@/components/sections/Banners";
 import Descriptions from "@/components/sections/fragances/single/Descriptions";
 import Hero from "@/components/sections/fragances/single/Hero";
 import Information from "@/components/sections/fragances/single/Information";
+import Recommended from "@/components/sections/fragances/single/Recommended";
+import CollectionsCarousel from "@/components/sections/main/CollectionsCarousel";
 import ProductsBanner from "@/components/sections/ProductsBanner";
 import { content as fixedContent } from "@/content/main";
 interface PageProps {
@@ -9,6 +11,8 @@ interface PageProps {
 }
 const content = {
   button: "Comprar ahora",
+  recomendado:
+    "Encuentra tu <br /> siguiente <br class='hidden md:block'/> favorito.",
 };
 const productInfo = {
   section1: {
@@ -34,8 +38,8 @@ const productInfo = {
     "/images/fragances/single/image-5.webp",
   ],
   section4: {
-    tag: "NOTAS ALTAS- NOTAS DEL CORAZÓN- NOTAS BÁSICAS",
-    title: "Menta. Lavanda. Vainilla",
+    tag: "NOTAS ALTAS- NOTAS DEL CORAZÓN- NOTAS BÁSICAS",
+    title: "Menta. Lavanda. Vainilla",
     subtitle: "Ámbar aromático",
     description:
       "El poder y la frescura de la menta. La lavanda, que evoca el aroma familiar y reconfortante del jabón de afeitar, se transforma en la sensualidad de la vainilla",
@@ -43,6 +47,52 @@ const productInfo = {
   },
 };
 
+const productRecommended = [
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "Extradose ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino.webp",
+    href: "#",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "The Gold ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-gold.webp",
+    href: "#",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "VALENTINO",
+    category: "Purple Melancholia ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-purple.webp",
+    href: "#",
+  },
+  {
+    isNew: true,
+    isBestSeller: false,
+    name: "VALENTINO",
+    category: "The Gold ",
+    info: "3.4 OZ / 100ml",
+    price: 80.0,
+    rate: 4.5,
+    img: "/images/products/valentino-gold.webp",
+    href: "#",
+  },
+];
 const productBanner = [
   {
     title: "Jean Paul Gaultier <br/>Le Male ",
@@ -91,7 +141,7 @@ export default async function SingleFragrance({ params }: PageProps) {
     <main className="w-full flex flex-col justify-center items-center pt-(--header-height)">
       <Hero productInfo={productInfo.section1} content={content} />
       <Descriptions product={productInfo.section2} content={content} />
-      <section className="w-full grid grid-cols-2 gap-6">
+      <section className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
         {productInfo.section3.map((image, index) => (
           <div
             key={index}
@@ -110,6 +160,8 @@ export default async function SingleFragrance({ params }: PageProps) {
         ))}
       </section>
       <Information product={productInfo.section4} content={content} />
+      <Recommended label={content.recomendado} products={productRecommended} />
+      <CollectionsCarousel content={productRecommended} />
       <Banners content={fixedContent.banners} />
       <ProductsBanner content={productBanner} />
     </main>

@@ -17,7 +17,7 @@ export default function Hero({ content, changeColor = false }: HeroProps) {
         width={1440}
         height={800}
       />
-      <div className="relative z-10 text-center h-full  flex justify-center items-start pt-[20%] md:pt-[6%] px-4 md:px-0">
+      <div className="relative z-10 text-center h-full  flex justify-center items-start pt-[20%] md:pt-[9%] lg:pt-[10%] xl:pt-[6%] px-4 md:px-0">
         <h1
           className={`title-h1 ${changeColor ? "text-black" : "text-white "}`}
           dangerouslySetInnerHTML={{ __html: content.title }}

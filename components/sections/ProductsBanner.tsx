@@ -173,7 +173,7 @@ export default function ProductsBanner({ content }: BannersProps) {
   const currentLogicalIndex = (((currentIndex - N) % N) + N) % N;
 
   return (
-    <div className="w-full relative overflow-hidden flex justify-center items-center flex-col py-8 md:py-10 lg:py-20 gap-3 md:gap-0">
+    <div className="w-full relative overflow-hidden flex justify-center items-center flex-col py-8 md:py-10 lg:py-20 gap-6 md:gap-0">
       <div
         ref={containerRef2}
         className="w-full overflow-hidden cursor-grab active:cursor-grabbing select-none relative"
@@ -200,7 +200,7 @@ export default function ProductsBanner({ content }: BannersProps) {
               className="w-full shrink-0 flex justify-center items-center "
               key={index}
             >
-              <div className="flex flex-col md:flex-row justify-center md:justify-start items-center container-full gap-6 md:gap-16 lg:gap-34">
+              <div className="flex flex-col md:flex-row justify-center md:justify-start items-center container-full gap-6 md:gap-16 xl:gap-34">
                 <div className="aspect-343/409 md:aspect-149/178 w-full md:w-[50%] h-auto relative overflow-hidden">
                   <img
                     src={content.image}
@@ -210,12 +210,12 @@ export default function ProductsBanner({ content }: BannersProps) {
                     className="w-full h-full object-cover inset-0 absolute object-center"
                   />
                 </div>
-                <div className="flex flex-col justify-center items-start gap-4 lg:gap-8 text-center w-full md:w-[50%]">
+                <div className="flex flex-col justify-center items-start gap-4 lg:gap-3 xl:gap-8 text-center w-full md:w-[50%]">
                   <h3
                     className="subtitle text-black text-start"
                     dangerouslySetInnerHTML={{ __html: content.title }}
                   />
-                  <p className="paragraph text-[#6A6A6A] text-start w-full lg:w-[80%] grow">
+                  <p className="paragraph text-[#6A6A6A] text-start w-full xl:w-[80%] grow">
                     {content.description}
                   </p>
                   <Button
@@ -230,7 +230,7 @@ export default function ProductsBanner({ content }: BannersProps) {
       </div>
 
       <div className="relative md:absolute md:bottom-[2%] lg:bottom-[18%] md:left-0 w-full flex justify-center pointer-events-none">
-        <div className="flex justify-start items-center container-full gap-16 lg:gap-34 w-full">
+        <div className="flex justify-start items-center container-full gap-16 xl:gap-34 w-full">
           {/* Espejo de la columna de la imagen (Vacía) */}
           <div className="w-[50%] hidden md:block" />
 

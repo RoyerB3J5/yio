@@ -7,7 +7,7 @@ import ProductsBanner from "@/components/sections/ProductsBanner";
 const content = {
   men: {
     hero: {
-      title: "Fragancias <br class='block md:hidden'/>  Que Inspiran ",
+      title: "Fragancias <br class='block lg:hidden'/>  Que Inspiran ",
       image: "/images/fragances/men-hero.webp",
       changeColor: true,
     },
@@ -21,7 +21,7 @@ const content = {
   },
   women: {
     hero: {
-      title: "Fragancias <br class='block md:hidden'/>  Que Inspiran ",
+      title: "Fragancias <br class='block lg:hidden'/>  Que Inspiran ",
       image: "/images/fragances/women-hero.webp",
       changeColor: false,
     },
