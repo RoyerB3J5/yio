@@ -60,7 +60,7 @@ export default function Footer() {
             <div className="w-full border border-black px-6 py-3"></div>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-8 justify-start md:justify-center items-start w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-8 justify-start md:justify-center items-start w-full md:w-auto">
           <div className="flex flex-col justify-center items-start md:items-center lg:items-start gap-7">
             <h3 className="font-din-condensed text-[40px] font-bold leading-[100% ] tracking-[-0.5px] text-black">
               {content.women.title}
