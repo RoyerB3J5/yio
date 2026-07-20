@@ -6,7 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "@/components/ui/Button";
 
-import { ChevronDown, MapPin, Menu, Search, User } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  MapPin,
+  Menu,
+  Search,
+  User,
+} from "lucide-react";
 import CartIconHeader from "../ui/CartIconHeader";
 
 // Multilingual content structure (to be populated/expanded later)
@@ -15,12 +22,184 @@ const content = {
     paragraph: "Descubre nuestros Best Sellers",
     buttonLabel: "Ir ahora",
   },
-
+  fracancia: {
+    title: "explora nuestras <br/> fragancias",
+    items: [
+      { label: "Hombres", href: "/fragances/men" },
+      { label: "Mujeres", href: "/fragances/women" },
+    ],
+  },
+  moda: {
+    title: "encuentra tu estilo <br/> en cada detalle",
+    items: [
+      {
+        title: "Ropa",
+        list: [
+          { label: "Hombres", href: "/clothes/men" },
+          { label: "Mujeres", href: "/clothes/women" },
+        ],
+      },
+      {
+        title: "Ropa",
+        list: [
+          { label: "Hombres", href: "/clothes/men" },
+          { label: "Mujeres", href: "/clothes/women" },
+        ],
+      },
+      {
+        title: "Ropa",
+        list: [
+          { label: "Hombres", href: "/clothes/men" },
+          { label: "Mujeres", href: "/clothes/women" },
+        ],
+      },
+    ],
+  },
+  bestSellers: {
+    title: "lo más vendido por <br/> nuestros clientes",
+    items: [
+      { label: "Ropa", href: "/best-sellers" },
+      { label: "Fragancias", href: "/best-sellers" },
+    ],
+    banner: {
+      title: "BEST SELLERS",
+      description: "Descubre lo más <br/> vendido del momento.",
+      button: {
+        label: "Ver más",
+        href: "/best-sellers",
+      },
+    },
+  },
   nav: [
     { label: "Fragancias", href: "/fragances" },
     { label: "Moda", href: "/fashion" },
     { label: "Best Sellers", href: "/best-sellers" },
   ],
+};
+
+const renderSubmenu = (index: number) => {
+  switch (index) {
+    case 0:
+      return (
+        <div className="w-[412px] h-auto aspect-412/614 overflow-hidden relative">
+          <img
+            src="/images/sub-menu-1.webp"
+            alt="Submenú de Fragancias"
+            width="412"
+            height="614"
+            decoding="async"
+            loading="lazy"
+            className="w-full h-full object-cover object-center absolute -z-1"
+          />
+          <div className="flex flex-col justify-center items-start gap-8 p-8 z-10 w-full">
+            <h3
+              dangerouslySetInnerHTML={{ __html: content.fracancia.title }}
+              className="text-white font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
+            />
+            <div className="w-full flex flex-col justify-center items-center">
+              {content.fracancia.items.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.href}
+                  className="w-full flex justify-between items-center px-4 py-5 last:border-t border-white/20 hover:bg-black/20 transition-colors duration-300 ease-out text-white paragraph uppercase"
+                >
+                  {item.label}
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      ); // Tu primer div/componente
+    case 1:
+      return (
+        <div className="w-auto h-[614px] bg-white overflow-hidden relative">
+          <div className="flex flex-col justify-center items-start gap-8 px-12 py-10 ">
+            <h3
+              dangerouslySetInnerHTML={{ __html: content.moda.title }}
+              className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
+            />
+            <div className="w-full flex justify-center items-center">
+              {content.moda.items.map((item, index) => (
+                <div
+                  className="flex flex-col justify-center items-start gap-8 border-r pr-8 mr-8 last:border-r-0 last:pr-0 last:mr-0 border-black/20"
+                  key={index}
+                >
+                  <p className="text-black font-din-condensed font-bold leading-[100%] text-[24px]">
+                    {item.title}
+                  </p>
+                  <div className="w-full flex flex-col justify-center items-center gap-2">
+                    {item.list.map((subItem, subIndex) => (
+                      <Link
+                        key={subIndex}
+                        href={subItem.href}
+                        className="w-full flex justify-center items-center gap-2  hover:border-black border-b border-transparent transition-all duration-300 ease-out text-black paragraph uppercase py-3"
+                      >
+                        {subItem.label}
+                        <ChevronRight className="w-6 h-6 " />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ); // Tu segundo div/componente
+    case 2:
+      return (
+        <div className="w-auto h-[614px] bg-white overflow-hidden relative">
+          <div className="flex flex-col justify-center items-start gap-6 p-10 ">
+            <h3
+              dangerouslySetInnerHTML={{ __html: content.bestSellers.title }}
+              className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
+            />
+            <div className="w-full flex flex-col justify-center items-center">
+              {content.bestSellers.items.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.href}
+                  className="w-full flex justify-between items-center py-5 last:border-t border-white/20 hover:bg-white/20 transition-colors duration-300 ease-out text-black paragraph uppercase"
+                >
+                  {item.label}
+                  <ChevronRight className="w-6 h-6 text-black" />
+                </Link>
+              ))}
+            </div>
+            <div className="w-[317px] h-[301px]  relative overflow-hidden flex justify-start items-center">
+              <img
+                src="/images/sub-menu-3.webp"
+                alt="Submenú de Best Sellers"
+                width="317"
+                height="301"
+                className="w-full h-full object-cover object-[40%_50%] absolute z-0 inset-0"
+              />
+              <div className="flex flex-col justify-center items-start gap-2 p-6 z-10 w-full">
+                <h4
+                  dangerouslySetInnerHTML={{
+                    __html: content.bestSellers.banner.title,
+                  }}
+                  className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
+                />
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: content.bestSellers.banner.description,
+                  }}
+                  className="text-black paragraph text-start"
+                />
+                <Button
+                  href={content.bestSellers.banner.button.href}
+                  label={content.bestSellers.banner.button.label}
+                  paddingX="px-12"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      ); // Tu tercer div/componente
+    default:
+      return null;
+  }
 };
 
 export default function Header() {
@@ -199,12 +378,9 @@ export default function Header() {
                     return (
                       <li
                         key={index}
-                        className={`flex flex-row items-center justify-center group  w-auto text-center px-4 py-2`}
+                        className={`relative flex flex-row items-center justify-center group  w-auto text-center px-4 py-2`}
                       >
-                        <Link
-                          href={`${item.href}`}
-                          className="relative transition-colors duration-300 flex justify-center items-center gap-2"
-                        >
+                        <div className="relative transition-colors duration-300 flex justify-center items-center gap-2">
                           <p
                             className={`paragraph transition-all duration-300 ease-in-out ${headerClasses.includes("text-white") ? "text-white" : "text-black"} uppercase`}
                           >
@@ -220,7 +396,10 @@ export default function Header() {
                                 : "w-0 group-hover:w-8 group-hover:bg-accent"
                             }`}
                           />
-                        </Link>
+                        </div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block z-50 min-w-[250px]">
+                          {renderSubmenu(index)}
+                        </div>
                       </li>
                     );
                   })}
