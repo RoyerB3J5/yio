@@ -156,7 +156,6 @@ export default function CartDrawer() {
               onClick={handleClick}
               disabled={loading}
               label={content.checkout}
-              styleButton="black"
               paddingX="px-6"
               wFull={true}
             />
