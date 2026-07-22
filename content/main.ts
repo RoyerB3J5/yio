@@ -20,12 +20,12 @@ export const content = {
     {
       title: "fragancias",
       img: "fragance",
-      href: "/fragance",
+      href: "/fragances/men",
     },
     {
       title: "moda",
       img: "fashion",
-      href: "/fashion",
+      href: "/clothes/men",
     },
     {
       title: "lifestyle",
@@ -49,11 +49,11 @@ export const content = {
     category: [
       {
         name: "Mujer",
-        href: "/best-sellers/women",
+        href: "/best-sellers",
       },
       {
         name: "Hombre",
-        href: "/best-sellers/men",
+        href: "/best-sellers",
       },
     ],
     collections: [
