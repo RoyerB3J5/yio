@@ -73,7 +73,7 @@ export default function GridProducts({
 
         {products.map((item, index) => (
           <Link
-            href="#"
+            href="1"
             className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 px-2.5 py-4.5 md:p-4"
             key={index}
           >
