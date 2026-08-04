@@ -73,8 +73,8 @@ export default function GridProducts({
 
         {products.map((item, index) => (
           <Link
-            href="1"
-            className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 px-2.5 py-4.5 md:p-4"
+            href="men/1"
+            className="w-full bg-[#F8F7F3] flex flex-col justify-between items-center aspect-357/484 px-2.5 py-4.5 md:p-4"
             key={index}
           >
             <div className="w-full flex justify-between items-center">
@@ -104,7 +104,7 @@ export default function GridProducts({
             <img
               src={item.img}
               alt={item.name}
-              className="w-[65%] h-auto"
+              className="w-[55%] h-auto"
               width={203}
               height={270}
               decoding="async"

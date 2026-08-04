@@ -29,7 +29,8 @@ interface HeroItemProps {
 
 export default function HeroItem({ product, content, images }: HeroItemProps) {
   return (
-    <section className="w-full flex flex-col md:flex-row justify-center items-start ">
+    <section className="w-full flex flex-col md:flex-row justify-center items-start">
+      {/* ----------------- COLUMNA IZQUIERDA: IMÁGENES (SE MUEVEN AL HACER SCROLL) ----------------- */}
       <div className="w-full md:w-[55%] lg:w-[45%] grid grid-cols-1 md:grid-cols-2 gap-1">
         {images.slice(0, 2).map((image, index) => (
           <div
@@ -47,7 +48,7 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
             />
           </div>
         ))}
-        <div className="w-full h-auto aspect-375/562 relative overflow-hidden  md:hidden block">
+        <div className="w-full h-auto aspect-375/562 relative overflow-hidden md:hidden block">
           <img
             src={images[0]}
             alt={product.name + " 1"}
@@ -70,7 +71,10 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
           />
         </div>
       </div>
-      <div className="w-full md:w-[45%] lg:w-[55%] px-4 md:px-10 xl:pl-24 flex flex-col justify-start items-start pt-10 lg:pt-20 gap-8 md:gap-10 xl:gap-20 xl:pr-[calc((100vw-1280px)/2)]">
+
+      {/* ----------------- COLUMNA DERECHA: CONTENIDO (STICKY) ----------------- */}
+      {/* Agregamos 'md:sticky' y 'top-0' (o 'top-20' si hay un menú fijo arriba) */}
+      <div className="md:sticky top-0 w-full md:w-[45%] lg:w-[55%] px-4 md:px-10 xl:pl-24 flex flex-col justify-start items-start pt-10 lg:pt-20 gap-8 md:gap-10 xl:gap-20 xl:pr-[calc((100vw-1280px)/2)]">
         <div className="w-full flex flex-col justify-center items-start gap-8">
           <div className="w-full flex flex-col justify-center items-start gap-4">
             <div className="w-full flex flex-col justify-center items-start gap-2 text-black">
@@ -95,7 +99,7 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
               {product.description}
             </p>
           </div>
-          <div className="w-full flex justify-start itmes-center gap-4">
+          <div className="w-full flex justify-start items-center gap-4">
             {product.variants.map((variant) => (
               <button
                 key={variant.id}
@@ -110,7 +114,7 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
         </div>
         <div className="w-full flex flex-col justify-center items-center md:items-start gap-4">
           <h3 className="title-h3 text-black">{content.estilo}</h3>
-          <div className="w-full grid grid-cols-2 gap-6 jusitfy-center items-start">
+          <div className="w-full grid grid-cols-2 gap-6 justify-center items-start">
             {product.accompanies.map((item, index) => (
               <Link
                 href="#"

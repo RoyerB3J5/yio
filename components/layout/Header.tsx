@@ -11,8 +11,11 @@ import {
   ChevronRight,
   MapPin,
   Menu,
+  Minus,
+  Plus,
   Search,
   User,
+  X,
 } from "lucide-react";
 import CartIconHeader from "../ui/CartIconHeader";
 
@@ -77,129 +80,125 @@ const content = {
   ],
 };
 
-const renderSubmenu = (index: number) => {
-  switch (index) {
-    case 0:
-      return (
-        <div className="w-[412px] h-auto aspect-412/614 overflow-hidden relative">
-          <img
-            src="/images/sub-menu-1.webp"
-            alt="Submenú de Fragancias"
-            width="412"
-            height="614"
-            decoding="async"
-            loading="lazy"
-            className="w-full h-full object-cover object-center absolute -z-1"
+const MegaMenu = () => {
+  return (
+    <div className="flex flex-row items-start justify-center bg-white shadow-2xl overflow-hidden min-w-max">
+      {/* ----------------- COLUMNA 1: Fragancias ----------------- */}
+      <div className="w-[412px] h-[614px] overflow-hidden relative shrink-0 flex items-start">
+        <img
+          src="/images/sub-menu-1.webp"
+          alt="Submenú de Fragancias"
+          width="412"
+          height="614"
+          decoding="async"
+          loading="lazy"
+          className="w-full h-full object-cover object-center absolute z-0 inset-0"
+        />
+        <div className="flex flex-col justify-start items-start gap-8 p-8 z-10 w-full h-full relative">
+          <h3
+            dangerouslySetInnerHTML={{ __html: content.fracancia.title }}
+            className="text-white font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
           />
-          <div className="flex flex-col justify-center items-start gap-8 p-8 z-10 w-full">
-            <h3
-              dangerouslySetInnerHTML={{ __html: content.fracancia.title }}
-              className="text-white font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
-            />
-            <div className="w-full flex flex-col justify-center items-center">
-              {content.fracancia.items.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  className="w-full flex justify-between items-center px-4 py-5 last:border-t border-white/20 hover:bg-black/20 transition-colors duration-300 ease-out text-white paragraph uppercase"
-                >
-                  {item.label}
-                  <ChevronRight className="w-6 h-6 text-white" />
-                </Link>
-              ))}
-            </div>
+          <div className="w-full flex flex-col justify-center items-center">
+            {content.fracancia.items.map((item, index) => (
+              <Link
+                key={index}
+                href={item.href}
+                className="w-full flex justify-between items-center px-4 py-5 last:border-t border-white/20 hover:bg-black/20 transition-colors duration-300 ease-out text-white paragraph uppercase"
+              >
+                {item.label}
+                <ChevronRight className="w-6 h-6 text-white" />
+              </Link>
+            ))}
           </div>
         </div>
-      ); // Tu primer div/componente
-    case 1:
-      return (
-        <div className="w-auto h-[614px] bg-white overflow-hidden relative">
-          <div className="flex flex-col justify-center items-start gap-8 px-12 py-10 ">
-            <h3
-              dangerouslySetInnerHTML={{ __html: content.moda.title }}
-              className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
-            />
-            <div className="w-full flex justify-center items-center">
-              {content.moda.items.map((item, index) => (
-                <div
-                  className="flex flex-col justify-center items-start gap-8 border-r pr-8 mr-8 last:border-r-0 last:pr-0 last:mr-0 border-black/20"
-                  key={index}
-                >
-                  <p className="text-black font-din-condensed font-bold leading-[100%] text-[24px]">
-                    {item.title}
-                  </p>
-                  <div className="w-full flex flex-col justify-center items-center gap-2">
-                    {item.list.map((subItem, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        href={subItem.href}
-                        className="w-full flex justify-center items-center gap-2  hover:border-black border-b border-transparent transition-all duration-300 ease-out text-black paragraph uppercase py-3"
-                      >
-                        {subItem.label}
-                        <ChevronRight className="w-6 h-6 " />
-                      </Link>
-                    ))}
-                  </div>
+      </div>
+
+      {/* ----------------- COLUMNA 2: Moda ----------------- */}
+      <div className="w-auto h-[614px] bg-white overflow-hidden relative shrink-0 border-r border-black/20">
+        <div className="flex flex-col justify-start items-start gap-8 px-12 py-10 h-full">
+          <h3
+            dangerouslySetInnerHTML={{ __html: content.moda.title }}
+            className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
+          />
+          <div className="w-full flex justify-center items-center">
+            {content.moda.items.map((item, index) => (
+              <div
+                className="flex flex-col justify-center items-start gap-8 border-r pr-8 mr-8 last:border-r-0 last:pr-0 last:mr-0 border-black/20"
+                key={index}
+              >
+                <p className="text-black font-din-condensed font-bold leading-[100%] text-[24px]">
+                  {item.title}
+                </p>
+                <div className="w-full flex flex-col justify-center items-center gap-2">
+                  {item.list.map((subItem, subIndex) => (
+                    <Link
+                      key={subIndex}
+                      href={subItem.href}
+                      className="w-full flex justify-center items-center gap-2 hover:border-black border-b border-transparent transition-all duration-300 ease-out text-black paragraph uppercase py-3"
+                    >
+                      {subItem.label}
+                      <ChevronRight className="w-6 h-6" />
+                    </Link>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      ); // Tu segundo div/componente
-    case 2:
-      return (
-        <div className="w-auto h-[614px] bg-white overflow-hidden relative">
-          <div className="flex flex-col justify-center items-start gap-6 p-10 ">
-            <h3
-              dangerouslySetInnerHTML={{ __html: content.bestSellers.title }}
-              className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
-            />
-            <div className="w-full flex flex-col justify-center items-center">
-              {content.bestSellers.items.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  className="w-full flex justify-between items-center py-5 last:border-t border-white/20 hover:bg-white/20 transition-colors duration-300 ease-out text-black paragraph uppercase"
-                >
-                  {item.label}
-                  <ChevronRight className="w-6 h-6 text-black" />
-                </Link>
-              ))}
-            </div>
-            <div className="w-[317px] h-[301px]  relative overflow-hidden flex justify-start items-center">
-              <img
-                src="/images/sub-menu-3.webp"
-                alt="Submenú de Best Sellers"
-                width="317"
-                height="301"
-                className="w-full h-full object-cover object-[40%_50%] absolute z-0 inset-0"
-              />
-              <div className="flex flex-col justify-center items-start gap-2 p-6 z-10 w-full">
-                <h4
-                  dangerouslySetInnerHTML={{
-                    __html: content.bestSellers.banner.title,
-                  }}
-                  className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
-                />
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: content.bestSellers.banner.description,
-                  }}
-                  className="text-black paragraph text-start"
-                />
-                <Button
-                  href={content.bestSellers.banner.button.href}
-                  label={content.bestSellers.banner.button.label}
-                  paddingX="px-12"
-                />
               </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ----------------- COLUMNA 3: Best Sellers ----------------- */}
+      <div className="w-auto h-[614px] bg-white overflow-hidden relative shrink-0">
+        <div className="flex flex-col justify-center items-start gap-6 p-10 h-full">
+          <h3
+            dangerouslySetInnerHTML={{ __html: content.bestSellers.title }}
+            className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
+          />
+          <div className="w-full flex flex-col justify-center items-center">
+            {content.bestSellers.items.map((item, index) => (
+              <Link
+                key={index}
+                href={item.href}
+                className="w-full flex justify-between items-center py-5 last:border-t border-white/20 hover:bg-white/20 transition-colors duration-300 ease-out text-black paragraph uppercase"
+              >
+                {item.label}
+                <ChevronRight className="w-6 h-6 text-black" />
+              </Link>
+            ))}
+          </div>
+          <div className="w-[317px] h-[301px] relative overflow-hidden flex justify-start items-center">
+            <img
+              src="/images/sub-menu-3.webp"
+              alt="Submenú de Best Sellers"
+              width="317"
+              height="301"
+              className="w-full h-full object-cover object-[40%_50%] absolute z-0 inset-0"
+            />
+            <div className="flex flex-col justify-center items-start gap-2 p-6 z-10 w-full">
+              <h4
+                dangerouslySetInnerHTML={{
+                  __html: content.bestSellers.banner.title,
+                }}
+                className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
+              />
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: content.bestSellers.banner.description,
+                }}
+                className="text-black paragraph text-start"
+              />
+              <Button
+                href={content.bestSellers.banner.button.href}
+                label={content.bestSellers.banner.button.label}
+                paddingX="px-12"
+              />
             </div>
           </div>
         </div>
-      ); // Tu tercer div/componente
-    default:
-      return null;
-  }
+      </div>
+    </div>
+  );
 };
 
 export default function Header() {
@@ -210,6 +209,16 @@ export default function Header() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isThresholdReached, setIsThresholdReached] = useState(false);
+  const [openMobileAccordions, setOpenMobileAccordions] = useState<
+    Record<number, boolean>
+  >({});
+
+  const toggleMobileAccordion = (index: number) => {
+    setOpenMobileAccordions((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
   // Normalize: remove language prefix (en/es) and trailing slash
   const normalized =
@@ -378,7 +387,7 @@ export default function Header() {
                     return (
                       <li
                         key={index}
-                        className={`relative flex flex-row items-center justify-center group  w-auto text-center px-4 py-2`}
+                        className={`flex flex-row items-center justify-center group  w-auto text-center px-4 py-2`}
                       >
                         <div className="relative transition-colors duration-300 flex justify-center items-center gap-2">
                           <p
@@ -397,8 +406,8 @@ export default function Header() {
                             }`}
                           />
                         </div>
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block z-50 min-w-[250px]">
-                          {renderSubmenu(index)}
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block z-50">
+                          <MegaMenu />
                         </div>
                       </li>
                     );
@@ -444,20 +453,15 @@ export default function Header() {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed top-0 right-0 bottom-0 lg:hidden flex items-start bg-primary text-white flex-col justify-center h-[85%] z-[60] py-6 gap-12 transition-transform duration-300 ease-out w-full ${
+        className={`fixed top-0 right-0 bottom-0 lg:hidden flex items-start bg-white text-primary flex-col justify-center overflow-y-auto z-[60] py-6 gap-8 transition-transform duration-300 ease-out w-full px-4 h-[80%] ${
           isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
         id="mobile-menu"
       >
-        <Image
-          src="/images/equis.svg"
-          alt="Cerrar menú"
-          width="24"
-          height="24"
+        <X
           className="block absolute top-6 right-6 cursor-pointer z-20"
           id="close-btn"
           aria-label="Cerrar menú de navegación"
-          title="Cerrar menú"
           role="button"
           tabIndex={0}
           onClick={() => setIsMobileMenuOpen(false)}
@@ -472,40 +476,101 @@ export default function Header() {
           aria-label={"Ir a la página principal"}
           title={"Your best - Init"}
         >
-          <p className="text-[24px] font-logo font-medium leading-[150%] uppercase ">
+          <p className="text-[24px] font-logo font-medium leading-[150%] uppercase">
             your best
           </p>
         </Link>
-        <nav className="w-full px-4">
+        <nav className="w-full">
           <ul className="relative flex items-start flex-col justify-center w-full">
             {content.nav.map((item, index) => {
-              const itemPathWithoutHash = item.href.split("#")[0];
-              const isActive = normalized === itemPathWithoutHash;
+              const isOpen = !!openMobileAccordions[index];
               return (
-                <li
-                  key={index}
-                  className={`flex flex-col items-start justify-center group gap-3.5 px-0 w-full py-5 text-start text-white ${isActive ? "bg-accent text-white uppercase px-4" : ""}`}
-                >
-                  <div className="w-full flex items-center justify-between">
-                    <Link
-                      href={`${item.href}`}
-                      className="relative transition-colors duration-300 flex justify-center items-center"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <p className="font-paragraph font-semibold text-[15px] leading-[150%]">
-                        {item.label}
-                      </p>
-                    </Link>
-                  </div>
+                <li key={index} className="flex flex-col w-full text-black">
+                  <button
+                    onClick={() => toggleMobileAccordion(index)}
+                    className="w-full flex items-center justify-between py-4 text-left cursor-pointer"
+                  >
+                    <p className="font-paragraph font-semibold text-[16px] leading-[150%] uppercase">
+                      {item.label}
+                    </p>
+                    <span className="text-black">
+                      {isOpen ? (
+                        <Minus className="w-5 h-5" />
+                      ) : (
+                        <Plus className="w-5 h-5" />
+                      )}
+                    </span>
+                  </button>
+
+                  {/* Accordion Content */}
+                  {isOpen && (
+                    <div className="w-full pb-4 pt-1 flex flex-col gap-4">
+                      {/* Fragancias */}
+                      {index === 0 && (
+                        <div className="flex flex-col gap-3">
+                          {content.fracancia.items.map((subItem, subIdx) => (
+                            <Link
+                              key={subIdx}
+                              href={subItem.href}
+                              className="paragraph text-black text-sm uppercase py-1"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {subItem.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Moda (Two Columns Layout) */}
+                      {index === 1 && (
+                        <div className="grid grid-cols-2 gap-4">
+                          {content.moda.items.map((modaItem, modaIdx) => (
+                            <div key={modaIdx} className="flex flex-col gap-2">
+                              <p className="font-din-condensed font-bold text-lg text-black uppercase">
+                                {modaItem.title}
+                              </p>
+                              <div className="flex flex-col gap-1">
+                                {modaItem.list.map((subItem, subIdx) => (
+                                  <Link
+                                    key={subIdx}
+                                    href={subItem.href}
+                                    className="paragraph text-black text-sm uppercase py-1"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                  >
+                                    {subItem.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Best Sellers */}
+                      {index === 2 && (
+                        <div className="flex flex-col gap-3">
+                          {content.bestSellers.items.map((subItem, subIdx) => (
+                            <Link
+                              key={subIdx}
+                              href={subItem.href}
+                              className="paragraph text-black text-sm uppercase py-1"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {subItem.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Separator line */}
+                  <div className="w-full h-[1px] bg-black" />
                 </li>
               );
             })}
           </ul>
         </nav>
-
-        {/*<div className="flex flex-col justify-center items-center gap-5 w-full px-4">
-          <Button />
-        </div>*/}
       </div>
     </>
   );

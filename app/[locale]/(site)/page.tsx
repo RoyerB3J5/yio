@@ -18,6 +18,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -28,6 +29,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -38,6 +40,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -48,6 +51,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -58,6 +62,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -68,6 +73,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -78,6 +84,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -88,6 +95,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -98,6 +106,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino.webp",
+    href: "#",
   },
   {
     isNew: true,
@@ -108,6 +117,7 @@ const productCollection = [
     price: 80.0,
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
+    href: "#",
   },
 ];
 const productBanner = [

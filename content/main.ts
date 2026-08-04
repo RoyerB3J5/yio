@@ -2,6 +2,14 @@ export const content = {
   hero: {
     title: "Boutique <br class='block md:hidden'/>  online",
     image: "/images/main/hero.webp",
+    carouselImages: [
+      "/images/main/hero.webp",
+      "/images/fragances/men-hero.webp",
+      "/images/fragances/women-hero.webp",
+      "/images/clothes/men-hero.webp",
+      "/images/clothes/women-hero.webp",
+      "/images/best-seller/hero.webp",
+    ],
   },
   fashion: {
     title: "Moda exclusiva",
@@ -21,21 +29,37 @@ export const content = {
       title: "fragancias",
       img: "fragance",
       href: "/fragances/men",
+      button: {
+        label: "Ver más",
+        link: "#",
+      },
     },
     {
       title: "moda",
       img: "fashion",
       href: "/clothes/men",
+      button: {
+        label: "Ver más",
+        link: "#",
+      },
     },
     {
       title: "lifestyle",
       img: "lifestyle",
       href: "#",
+      button: {
+        label: "Ver más",
+        link: "#",
+      },
     },
     {
       title: "best sellers",
       img: "best-seller",
       href: "/best-sellers",
+      button: {
+        label: "Ver más",
+        link: "#",
+      },
     },
   ],
   collection: {

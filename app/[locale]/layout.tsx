@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import localFont from "next/font/local";
 import { Roboto_Slab } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/shop/CartDrawer";
+import { isLocale, locales } from "@/i18n/routing";
 
 const dinnextLTPro = localFont({
   src: [
@@ -64,7 +66,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "/",
+    canonical: "/en",
     languages: {
       en: "/en",
       es: "/es",
@@ -94,14 +96,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${dinnextLTPro.variable} ${dinnextLTProCondensed.variable} ${robotoSlab.variable} w-full h-full antialiased overflow-x-hidden`}
     >
       <head>

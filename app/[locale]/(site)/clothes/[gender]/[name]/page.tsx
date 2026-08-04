@@ -187,7 +187,6 @@ export default async function SingleFragrance({ params }: PageProps) {
         label={content.recomendado}
         products={productRecommended}
       />
-      <CarouselRecommended content={productRecommended} />
       <Banners content={fixedContent.banners} />
       <ProductsBanner content={productBanner} />
     </main>

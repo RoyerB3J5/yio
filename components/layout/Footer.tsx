@@ -2,6 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Plus, Minus } from "lucide-react";
 
 const content = {
   description: {
@@ -46,26 +48,57 @@ export default function Footer() {
   const match = pathname.match(/^\/(en|es)/);
   const lang = match ? match[1] : "en";
 
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    women: false,
+    men: false,
+    bestseller: false,
+  });
+
+  const toggleSection = (section: string) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
   return (
     <footer className="flex flex-col justify-center items-center w-full">
-      <div className="bg-white container-full flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start py-8 md:py-12 text-black gap-8 md:">
-        <div className="flex flex-col justify-center items-start gap-5">
+      <div className="bg-white container-full flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start py-8 md:py-12 text-black gap-8">
+        <div className="flex flex-col justify-center items-start gap-5 w-full md:w-auto">
           <h2
             className="title-small"
             dangerouslySetInnerHTML={{ __html: content.description.title }}
           />
-          <div className="flex flex-col justify-center items-start gap-4">
+          <div className="flex flex-col justify-center items-start gap-4 w-full">
             <p className="title-h3">{content.description.name}</p>
             <div className="w-full border border-black px-6 py-3"></div>
             <div className="w-full border border-black px-6 py-3"></div>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-8 justify-start md:justify-center items-start w-full md:w-auto">
-          <div className="flex flex-col justify-center items-start md:items-center lg:items-start gap-7">
-            <h3 className="font-din-condensed text-[40px] font-bold leading-[100% ] tracking-[-0.5px] text-black">
-              {content.women.title}
-            </h3>
-            <ul className="flex flex-col justify-center items-start md:items-center lg:items-start gap-6">
+
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-0 md:gap-4 xl:gap-8 justify-start md:justify-center items-start w-full md:w-auto">
+          {/* WOMEN */}
+          <div className="flex flex-col w-full md:w-auto justify-center items-start md:items-center lg:items-start gap-4 md:gap-7 py-4 md:py-0">
+            <button
+              onClick={() => toggleSection("women")}
+              className="w-full flex justify-between items-center md:pointer-events-none text-left"
+            >
+              <h3 className="font-din-condensed text-[40px] font-bold leading-[100%] tracking-[-0.5px] text-black">
+                {content.women.title}
+              </h3>
+              <span className="md:hidden text-black">
+                {openSections.women ? (
+                  <Minus className="w-6 h-6" />
+                ) : (
+                  <Plus className="w-6 h-6" />
+                )}
+              </span>
+            </button>
+            <ul
+              className={`${
+                openSections.women ? "flex" : "hidden"
+              } md:flex flex-col justify-center items-start md:items-center lg:items-start gap-6 w-full pt-2 md:pt-0`}
+            >
               {content.women.links.map((item, index) => (
                 <li key={index}>
                   <Link
@@ -77,13 +110,31 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            <div className="w-full h-[1px] bg-black/20 md:hidden mt-2" />
           </div>
 
-          <div className="flex flex-col justify-center items-start md:items-center lg:items-start gap-7">
-            <h3 className="font-din-condensed text-[40px] font-bold leading-[100% ] tracking-[-0.5px] text-black">
-              {content.men.title}
-            </h3>
-            <ul className="flex flex-col justify-center items-start md:items-center lg:items-start gap-6">
+          {/* MEN */}
+          <div className="flex flex-col w-full md:w-auto justify-center items-start md:items-center lg:items-start gap-4 md:gap-7 py-4 md:py-0">
+            <button
+              onClick={() => toggleSection("men")}
+              className="w-full flex justify-between items-center md:pointer-events-none text-left"
+            >
+              <h3 className="font-din-condensed text-[40px] font-bold leading-[100%] tracking-[-0.5px] text-black">
+                {content.men.title}
+              </h3>
+              <span className="md:hidden text-black">
+                {openSections.men ? (
+                  <Minus className="w-6 h-6" />
+                ) : (
+                  <Plus className="w-6 h-6" />
+                )}
+              </span>
+            </button>
+            <ul
+              className={`${
+                openSections.men ? "flex" : "hidden"
+              } md:flex flex-col justify-center items-start md:items-center lg:items-start gap-6 w-full pt-2 md:pt-0`}
+            >
               {content.men.links.map((item, index) => (
                 <li key={index}>
                   <Link
@@ -95,13 +146,31 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            <div className="w-full h-[1px] bg-black/20 md:hidden mt-2" />
           </div>
 
-          <div className="flex flex-col justify-center items-start md:items-center lg:items-start gap-7">
-            <h3 className="font-din-condensed text-[40px] font-bold leading-[100% ] tracking-[-0.5px] text-black">
-              {content.bestseller.title}
-            </h3>
-            <ul className="flex flex-col justify-center items-start md:items-center lg:items-start gap-6">
+          {/* BEST SELLERS */}
+          <div className="flex flex-col w-full md:w-auto justify-center items-start md:items-center lg:items-start gap-4 md:gap-7 py-4 md:py-0">
+            <button
+              onClick={() => toggleSection("bestseller")}
+              className="w-full flex justify-between items-center md:pointer-events-none text-left"
+            >
+              <h3 className="font-din-condensed text-[40px] font-bold leading-[100%] tracking-[-0.5px] text-black">
+                {content.bestseller.title}
+              </h3>
+              <span className="md:hidden text-black">
+                {openSections.bestseller ? (
+                  <Minus className="w-6 h-6" />
+                ) : (
+                  <Plus className="w-6 h-6" />
+                )}
+              </span>
+            </button>
+            <ul
+              className={`${
+                openSections.bestseller ? "flex" : "hidden"
+              } md:flex flex-col justify-center items-start md:items-center lg:items-start gap-6 w-full pt-2 md:pt-0`}
+            >
               {content.bestseller.links.map((item, index) => (
                 <li key={index}>
                   <Link
@@ -113,10 +182,12 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            <div className="w-full h-[1px] bg-black/20 md:hidden mt-2" />
           </div>
 
-          <div className="flex flex-col justify-center items-start md:items-center lg:items-start gap-7">
-            <h3 className="font-din-condensed text-[40px] font-bold leading-[100% ] tracking-[-0.5px] text-black">
+          {/* CONTACT */}
+          <div className="flex flex-col w-full md:w-auto justify-center items-start md:items-center lg:items-start gap-7 py-4 md:py-0">
+            <h3 className="font-din-condensed text-[40px] font-bold leading-[100%] tracking-[-0.5px] text-black">
               {content.contact.title}
             </h3>
             <ul className="flex flex-col justify-center items-start md:items-center lg:items-start gap-6">

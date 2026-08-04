@@ -1,4 +1,4 @@
-import Link from "next/link"; // 1. Importamos el Link de Next.js
+import Link from "next/link";
 
 interface ButtonProps {
   label: string;
@@ -19,13 +19,28 @@ export default function Button({
   paddingX = "px-12",
   wFull = false,
 }: ButtonProps) {
-  const baseClasses = `cursor-pointer flex justify-center items-center ${paddingX} py-3 focus:outline-none transition-all duration-300 ease-in-out text-[14px] font-medium leading-[150%] uppercase  text-center tokens-clase z-1 bg-black text-white ${wFull ? "w-full" : "w-auto"}`;
-  const clasesFinales = `${baseClasses} `;
+  const baseClasses = `group relative overflow-hidden cursor-pointer flex justify-center items-center ${paddingX} py-2 focus:outline-none text-[14px] font-medium leading-[150%] uppercase text-center z-10 bg-black text-white ${
+    wFull ? "w-full" : "w-auto"
+  }`;
+
+  const renderContent = () => (
+    <span className="relative inline-flex items-center justify-center overflow-hidden">
+      {/* TEXTO 1: Sin transición por defecto. Al hacer hover activa la animación hacia arriba */}
+      <span className="inline-block transform transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-out group-hover:-translate-y-full group-hover:opacity-0">
+        {label}
+      </span>
+
+      {/* TEXTO 2: Empieza oculto abajo. Al hacer hover sube a la posición inicial animado */}
+      <span className="absolute inset-0 flex items-center justify-center transform translate-y-full opacity-0 transition-none group-hover:transition-all group-hover:duration-300 group-hover:ease-out group-hover:translate-y-0 group-hover:opacity-100">
+        {label}
+      </span>
+    </span>
+  );
 
   if (href) {
     return (
-      <Link href={href} className={clasesFinales}>
-        {label}
+      <Link href={href} className={baseClasses}>
+        {renderContent()}
       </Link>
     );
   }
@@ -34,10 +49,10 @@ export default function Button({
     <button
       type={type}
       disabled={disabled}
-      className={clasesFinales}
+      className={baseClasses}
       onClick={onClick}
     >
-      {label}
+      {renderContent()}
     </button>
   );
 }

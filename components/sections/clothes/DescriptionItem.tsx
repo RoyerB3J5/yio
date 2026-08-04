@@ -40,7 +40,7 @@ export default function DescriptionItem({
           ))}
         </div>
       </div>
-      <div className="w-full md:w-[45%] lg:w-[52%] h-auto aspect-666/803 relative overflow-hidden">
+      <div className="w-full md:w-[45%] lg:w-[52%] h-auto aspect-666/803 relative overflow-hidden order-1 md:order-2">
         <img
           src={images.at(-1)}
           alt="Producto de YIO"

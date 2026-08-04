@@ -1,0 +1,4 @@
+- Pasar el contenido a multilenguaje
+- Agregar funcion de carrito a productos
+- Revisar funcionamiento correcto del carrito
+- Revisar links/urls

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CarouselRecommended from "./CarouselRecommended";
 
 interface RecommendedItemProps {
   label: string;
@@ -19,12 +20,13 @@ export default function RecommendedItem({
   products,
 }: RecommendedItemProps) {
   return (
-    <section className="w-full flex flex-col md:flex-row justify-center md:justify-between items-start py-8 lg:py-20 px-4  xl:pl-[calc((100%-1240px)/2)] lg:pr-0 gap-6 md:gap-0">
+    <section className="w-full flex flex-col md:flex-row justify-center md:justify-between items-start py-8 lg:py-20 px-0 md:px-4  xl:pl-[calc((100%-1240px)/2)] lg:pr-0 gap-6 md:gap-0">
       <h3
-        className="text-black text-[40px] md:text-[24px] lg:text-[48px] font-bold tracking-[-0.5px] leading-[100%] uppercase font-din-condensed"
+        className="text-black text-[40px] md:text-[24px] lg:text-[48px] font-bold tracking-[-0.5px] leading-[100%] uppercase font-din-condensed px-4 md:px-0"
         dangerouslySetInnerHTML={{ __html: label }}
       ></h3>
-      <div className="md:grid grid-cols-1 md:grid-cols-3 gap-1 justify-center items-start w-full md:w-[90%] lg:w-[70%] hidden ">
+      <CarouselRecommended content={products} />
+      {/*<div className="md:grid grid-cols-1 md:grid-cols-3 gap-1 justify-center items-start w-full md:w-[90%] lg:w-[70%] hidden ">
         {products.slice(0, 3).map((item, index) => (
           <Link
             href="#"
@@ -75,7 +77,7 @@ export default function RecommendedItem({
             </div>
           </Link>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 }

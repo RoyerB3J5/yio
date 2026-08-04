@@ -83,6 +83,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-1.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -93,6 +107,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-2.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -103,6 +131,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-3.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -113,6 +155,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-1.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -123,6 +179,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-2.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -133,6 +203,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-3.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -143,6 +227,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-1.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -153,6 +251,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-2.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -163,6 +275,20 @@ const productsMen = [
     rate: 4.5,
     img: "/images/clothes/men-3.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
 ];
 const productsWomen = [
@@ -175,6 +301,20 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/clothes/women-1.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -185,6 +325,20 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/clothes/women-2.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -195,6 +349,20 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/clothes/women-3.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -205,6 +373,20 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/clothes/women-1.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -215,6 +397,20 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/clothes/women-2.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -225,6 +421,20 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/clothes/women-3.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
   {
     isNew: true,
@@ -235,6 +445,20 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/clothes/women-1.webp",
     href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+      },
+      {
+        id: "m",
+        name: "M",
+      },
+      {
+        id: "l",
+        name: "L",
+      },
+    ],
   },
 ];
 import { content as fixedContent } from "@/content/main";

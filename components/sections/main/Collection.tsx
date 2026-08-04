@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import Link from "next/link";
 
 interface CollectionProps {
   content: {
@@ -14,6 +15,7 @@ interface CollectionProps {
     price: number;
     rate: number;
     img: string;
+    href: string;
   }[];
 }
 export default function Collection({ content, product }: CollectionProps) {
@@ -36,8 +38,10 @@ export default function Collection({ content, product }: CollectionProps) {
           {content.description}
         </p>
       </div>
-      <div className="w-full hidden md:flex justify-center items-start gap-1">
-        <div className="aspect-718/972 w-1/2 h-auto relative ">
+      <div className="w-full hidden md:flex justify-center items-start gap-1 relative">
+        {/* ----------------- COLUMNA IZQUIERDA (STICKY) ----------------- */}
+        {/* Agregamos 'sticky' y 'top-0' (o 'top-20' si tienes un header fijo) */}
+        <div className="sticky top-0 w-1/2 h-auto aspect-718/972 relative overflow-hidden">
           <img
             src={"/images/main/collection.webp"}
             alt={"Collection YIO Fragance"}
@@ -48,10 +52,13 @@ export default function Collection({ content, product }: CollectionProps) {
             loading="lazy"
           />
         </div>
+
+        {/* ----------------- COLUMNA DERECHA (GRID DE PRODUCTOS) ----------------- */}
         <div className="w-full md:w-1/2 md:grid grid-cols-2 gap-1 justify-center items-center hidden">
           {product.map((item, index) => (
-            <div
-              className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4"
+            <Link
+              href={item.href}
+              className="w-full bg-[#F8F7F3] flex flex-col justify-between items-center p-4 aspect-357/484"
               key={index}
             >
               <div className="w-full flex justify-between items-center">
@@ -75,7 +82,7 @@ export default function Collection({ content, product }: CollectionProps) {
               <img
                 src={item.img}
                 alt={item.name}
-                className="w-[80%] h-auto"
+                className="w-[55%] h-auto"
                 width={203}
                 height={270}
                 decoding="async"
@@ -89,7 +96,7 @@ export default function Collection({ content, product }: CollectionProps) {
                 </div>
                 <p className="paragraph-bold">${item.price.toFixed(2)}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
