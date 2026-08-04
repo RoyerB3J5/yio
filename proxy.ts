@@ -9,7 +9,7 @@ export function proxy(request: NextRequest) {
 
   if (!isLocale(locale)) {
     const preferredLocale = request.cookies.get(localeCookie)?.value;
-    const targetLocale = isLocale(preferredLocale)
+    const targetLocale = isLocale(preferredLocale ?? "")
       ? preferredLocale
       : defaultLocale;
     const url = request.nextUrl.clone();

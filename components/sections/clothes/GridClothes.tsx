@@ -16,7 +16,7 @@ interface GridProductsProps {
     rate: number;
     img: string;
     href: string;
-    variants: {
+    variants?: {
       id: string;
       name: string;
     }[];
@@ -56,14 +56,15 @@ export default function GridProducts({ content, products }: GridProductsProps) {
                 loading="lazy"
               />
               <div className="group-hover:flex justify-center items-center gap-2 hidden transition-all duration-300 ease-in-out z-10 relative w-full px-4 flex-wrap pb-4">
-                {item.variants.map((variant, index) => (
-                  <button
-                    className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase cursor-pointer hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
-                    key={index}
-                  >
-                    {variant.name}
-                  </button>
-                ))}
+                {item.variants &&
+                  item.variants.map((variant, index) => (
+                    <button
+                      className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase cursor-pointer hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+                      key={index}
+                    >
+                      {variant.name}
+                    </button>
+                  ))}
               </div>
             </div>
             <div className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
