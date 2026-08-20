@@ -6,10 +6,12 @@ interface CollectionProps {
     title: string;
     description: string;
   };
+  locale: string;
   product: {
     isNew: boolean;
     isBestSeller: boolean;
     name: string;
+    gender?: string;
     category: string;
     info: string;
     price: number;
@@ -18,7 +20,11 @@ interface CollectionProps {
     href: string;
   }[];
 }
-export default function Collection({ content, product }: CollectionProps) {
+export default function Collection({
+  content,
+  product,
+  locale,
+}: CollectionProps) {
   return (
     <section className="w-full py-8 md:py-20 flex justify-center items-center flex-col gap-6">
       <div className="aspect-718/972 w-full h-auto relative md:hidden block">
@@ -57,7 +63,7 @@ export default function Collection({ content, product }: CollectionProps) {
         <div className="w-full md:w-1/2 md:grid grid-cols-2 gap-1 justify-center items-center hidden">
           {product.map((item, index) => (
             <Link
-              href={item.href}
+              href={`/${locale}/${item.gender}/${item.href}`}
               className="w-full bg-[#F8F7F3] flex flex-col justify-between items-center p-4 aspect-357/484"
               key={index}
             >

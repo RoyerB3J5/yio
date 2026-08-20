@@ -6,7 +6,32 @@ import ProductsBanner from "@/components/sections/ProductsBanner";
 const content = {
   hero: {
     title: "BEST SELLERS",
-    image: "/images/best-seller/hero.webp",
+    carouselImages: [
+      {
+        image: "/images/best-seller/hero.webp",
+        color: "text-black",
+      },
+      {
+        image: "/images/main/hero.webp",
+        color: "text-white",
+      },
+      {
+        image: "/images/fragances/men-hero.webp",
+        color: "text-black",
+      },
+      {
+        image: "/images/fragances/women-hero.webp",
+        color: "text-white",
+      },
+      {
+        image: "/images/clothes/men-hero.webp",
+        color: "text-black",
+      },
+      {
+        image: "/images/clothes/women-hero.webp",
+        color: "text-white",
+      },
+    ],
     changeColor: true,
   },
   gridProducts: {

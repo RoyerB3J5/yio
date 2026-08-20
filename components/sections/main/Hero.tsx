@@ -4,9 +4,11 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 interface HeroProps {
   content: {
-    image: string;
     title: string;
-    carouselImages?: string[];
+    carouselImages?: {
+      image: string;
+      color: string;
+    }[];
   };
   changeColor?: boolean;
 }
@@ -15,8 +17,7 @@ export default function Hero({ content, changeColor = false }: HeroProps) {
   const rawImages =
     content.carouselImages && content.carouselImages.length > 0
       ? content.carouselImages
-      : [content.image];
-
+      : [];
   const N = rawImages.length;
 
   // Triplicate array for seamless infinite sliding loop
@@ -199,7 +200,7 @@ export default function Hero({ content, changeColor = false }: HeroProps) {
               className="relative w-full h-full shrink-0 flex-none"
             >
               <img
-                src={imgSrc}
+                src={imgSrc.image}
                 alt={content.title}
                 className="w-full h-full object-cover object-center pointer-events-none"
                 decoding="async"
@@ -214,7 +215,7 @@ export default function Hero({ content, changeColor = false }: HeroProps) {
 
       <div className="relative z-10 text-center h-full flex justify-center items-start pt-[20%] md:pt-[9%] lg:pt-[10%] xl:pt-[6%] px-4 md:px-0 pointer-events-none">
         <h1
-          className={`title-h1 ${changeColor ? "text-black" : "text-white"}`}
+          className={`title-h1 ${content.carouselImages && content.carouselImages[currentLogicalIndex]?.color ? content.carouselImages[currentLogicalIndex].color : "text-white"}`}
           dangerouslySetInnerHTML={{ __html: content.title }}
         ></h1>
       </div>

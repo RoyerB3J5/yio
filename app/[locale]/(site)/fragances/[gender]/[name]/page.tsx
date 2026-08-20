@@ -6,8 +6,12 @@ import Recommended from "@/components/sections/fragances/single/Recommended";
 import CollectionsCarousel from "@/components/sections/main/CollectionsCarousel";
 import ProductsBanner from "@/components/sections/ProductsBanner";
 import { content as fixedContent } from "@/content/main";
+
+// When this product page is connected to Shopify:
+//import { getFragranceProductPage } from "@/lib/shopify";
+
 interface PageProps {
-  params: Promise<{ name: string }>;
+  params: Promise<{ gender: string; name: string }>;
 }
 const content = {
   button: "Comprar ahora",
@@ -137,9 +141,24 @@ const productBanner = [
 ];
 export default async function SingleFragrance({ params }: PageProps) {
   const { name } = await params;
+
+  //const product = await getFragranceProductPage(name);
+  // product contains the raw Shopify fragrance detail data.
+
   return (
     <main className="w-full flex flex-col justify-center items-center pt-(--header-height)">
       <Hero productInfo={productInfo.section1} content={content} />
+      {/*<pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
+        <code>
+          {JSON.stringify(
+            product,
+            (key, value) =>
+              typeof value === "bigint" ? value.toString() : value,
+            2,
+          )}
+        </code>
+      </pre> */}
+
       <Descriptions product={productInfo.section2} content={content} />
       <section className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
         {productInfo.section3.map((image, index) => (

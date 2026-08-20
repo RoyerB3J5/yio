@@ -19,6 +19,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    gender: "men",
   },
   {
     isNew: true,
@@ -30,6 +31,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    gender: "women",
   },
   {
     isNew: true,
@@ -41,6 +43,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    gender: "men",
   },
   {
     isNew: true,
@@ -52,6 +55,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    gender: "women",
   },
   {
     isNew: true,
@@ -63,6 +67,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    gender: "men",
   },
   {
     isNew: true,
@@ -74,6 +79,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    gender: "women",
   },
   {
     isNew: true,
@@ -85,6 +91,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    gender: "men",
   },
   {
     isNew: true,
@@ -96,6 +103,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    gender: "women",
   },
   {
     isNew: true,
@@ -107,6 +115,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    gender: "men",
   },
   {
     isNew: true,
@@ -118,6 +127,7 @@ const productCollection = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    gender: "women",
   },
 ];
 const productBanner = [
@@ -162,17 +172,27 @@ const productBanner = [
     image: "/images/products/essentials-hoddie.webp",
   },
 ];
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  //const { products } = await getFragranceListByGender();
   return (
     <main className="w-full flex flex-col justify-center items-center pt-(--top-bar-height)">
       <Hero content={content.hero} />
-      <Fashion content={content.fashion} />
-      <Categories content={content.categories} />
-      <Collection content={content.collection} product={productCollection} />
-      <CollectionsCarousel content={productCollection} />
-      <BestSeller content={content.bestSeller} />
-      <Banners content={content.banners} />
-      <ProductsBanner content={productBanner} />
+      <Fashion content={content.fashion} locale={locale} />
+      <Categories content={content.categories} locale={locale} />
+      <Collection
+        content={content.collection}
+        product={productCollection}
+        locale={locale}
+      />
+      <CollectionsCarousel content={productCollection} locale={locale} />
+      <BestSeller content={content.bestSeller} locale={locale} />
+      <Banners content={content.banners} locale={locale} />
+      <ProductsBanner content={productBanner} locale={locale} />
     </main>
   );
 }

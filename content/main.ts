@@ -1,14 +1,31 @@
 export const content = {
   hero: {
     title: "Boutique <br class='block md:hidden'/>  online",
-    image: "/images/main/hero.webp",
     carouselImages: [
-      "/images/main/hero.webp",
-      "/images/fragances/men-hero.webp",
-      "/images/fragances/women-hero.webp",
-      "/images/clothes/men-hero.webp",
-      "/images/clothes/women-hero.webp",
-      "/images/best-seller/hero.webp",
+      {
+        image:"/images/main/hero.webp",
+        color:"text-white"
+      },
+      {
+        image:"/images/fragances/men-hero.webp",
+        color:"text-black"
+      },
+      {
+        image:"/images/fragances/women-hero.webp",
+        color:"text-white"
+      },
+      {
+        image:"/images/clothes/men-hero.webp",
+        color:"text-black"
+      },
+      {
+        image:"/images/clothes/women-hero.webp",
+        color:"text-white"
+      },
+      {
+        image:"/images/best-seller/hero.webp",
+        color:"text-black"
+      }, 
     ],
   },
   fashion: {
@@ -31,7 +48,7 @@ export const content = {
       href: "/fragances/men",
       button: {
         label: "Ver más",
-        link: "#",
+
       },
     },
     {
@@ -40,7 +57,7 @@ export const content = {
       href: "/clothes/men",
       button: {
         label: "Ver más",
-        link: "#",
+
       },
     },
     {
@@ -49,7 +66,7 @@ export const content = {
       href: "#",
       button: {
         label: "Ver más",
-        link: "#",
+
       },
     },
     {
@@ -58,7 +75,7 @@ export const content = {
       href: "/best-sellers",
       button: {
         label: "Ver más",
-        link: "#",
+
       },
     },
   ],
@@ -131,7 +148,7 @@ export const content = {
         "Encuentra fragancias que dejan huella y convierten cada momento en algo memorable.",
       button: {
         label: "Ver Fragancias",
-        link: "#",
+        link: "fragances/women",
       },
     },
     {
@@ -140,7 +157,7 @@ export const content = {
         "Descubre los productos más amados y entiende por qué siempre vuelven por ellos.",
       button: {
         label: "Ver Best Sellers",
-        link: "#",
+        link: "best-sellers",
       },
     },
     {
@@ -149,7 +166,7 @@ export const content = {
         "Piezas seleccionadas para complementar tu look y destacar tu personalidad.",
       button: {
         label: "Ver Fashion",
-        link: "#",
+        link: "clothes/men",
       },
     },
   ],

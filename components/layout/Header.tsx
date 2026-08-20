@@ -74,13 +74,26 @@ const content = {
     },
   },
   nav: [
-    { label: "Fragancias", href: "/fragances" },
-    { label: "Moda", href: "/fashion" },
-    { label: "Best Sellers", href: "/best-sellers" },
+    { label: "Fragancias", href: "#" },
+    { label: "Moda", href: "#" },
+    { label: "Best Sellers", href: "#" },
   ],
+  mobileContent: {
+    label: "Lo más vendido del momento.",
+    button: {
+      label: "Ver más",
+      href: "en/best-sellers",
+    },
+  },
+  contact: {
+    links: [
+      { icon: "tiktok", label: "yovani.b1", href: "#" },
+      { icon: "instagram", label: "@yovani.store", href: "#" },
+    ],
+  },
 };
 
-const MegaMenu = () => {
+const MegaMenu = ({ lang }: { lang: string }) => {
   return (
     <div className="flex flex-row items-start justify-center bg-white shadow-2xl overflow-hidden min-w-max">
       {/* ----------------- COLUMNA 1: Fragancias ----------------- */}
@@ -103,7 +116,7 @@ const MegaMenu = () => {
             {content.fracancia.items.map((item, index) => (
               <Link
                 key={index}
-                href={item.href}
+                href={`/${lang}${item.href}`}
                 className="w-full flex justify-between items-center px-4 py-5 last:border-t border-white/20 hover:bg-black/20 transition-colors duration-300 ease-out text-white paragraph uppercase"
               >
                 {item.label}
@@ -116,7 +129,12 @@ const MegaMenu = () => {
 
       {/* ----------------- COLUMNA 2: Moda ----------------- */}
       <div className="w-auto h-[614px] bg-white overflow-hidden relative shrink-0 border-r border-black/20">
-        <div className="flex flex-col justify-start items-start gap-8 px-12 py-10 h-full">
+        <img
+          src="/images/sub-menu-2.webp"
+          alt="Submenú de Moda"
+          className="w-full h-full object-cover object-center absolute z-0 inset-0"
+        />
+        <div className="flex flex-col justify-start items-start gap-8 px-12 py-10 h-full relative z-10">
           <h3
             dangerouslySetInnerHTML={{ __html: content.moda.title }}
             className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
@@ -134,7 +152,7 @@ const MegaMenu = () => {
                   {item.list.map((subItem, subIndex) => (
                     <Link
                       key={subIndex}
-                      href={subItem.href}
+                      href={`/${lang}${subItem.href}`}
                       className="w-full flex justify-center items-center gap-2 hover:border-black border-b border-transparent transition-all duration-300 ease-out text-black paragraph uppercase py-3"
                     >
                       {subItem.label}
@@ -149,8 +167,13 @@ const MegaMenu = () => {
       </div>
 
       {/* ----------------- COLUMNA 3: Best Sellers ----------------- */}
-      <div className="w-auto h-[614px] bg-white overflow-hidden relative shrink-0">
-        <div className="flex flex-col justify-center items-start gap-6 p-10 h-full">
+      <div className="w-[412px] h-[614px] bg-white overflow-hidden relative shrink-0">
+        <img
+          src="/images/sub-menu-3.webp"
+          alt="Submenú de Moda"
+          className="w-full h-full object-cover object-center absolute z-0 inset-0"
+        />
+        <div className="flex flex-col justify-center items-start gap-6 p-10 h-full relative z-10">
           <h3
             dangerouslySetInnerHTML={{ __html: content.bestSellers.title }}
             className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
@@ -159,7 +182,7 @@ const MegaMenu = () => {
             {content.bestSellers.items.map((item, index) => (
               <Link
                 key={index}
-                href={item.href}
+                href={`/${lang}${item.href}`}
                 className="w-full flex justify-between items-center py-5 last:border-t border-white/20 hover:bg-white/20 transition-colors duration-300 ease-out text-black paragraph uppercase"
               >
                 {item.label}
@@ -167,33 +190,24 @@ const MegaMenu = () => {
               </Link>
             ))}
           </div>
-          <div className="w-[317px] h-[301px] relative overflow-hidden flex justify-start items-center">
-            <img
-              src="/images/sub-menu-3.webp"
-              alt="Submenú de Best Sellers"
-              width="317"
-              height="301"
-              className="w-full h-full object-cover object-[40%_50%] absolute z-0 inset-0"
+          <div className="flex flex-col justify-center items-start gap-2 z-10 w-full">
+            <h4
+              dangerouslySetInnerHTML={{
+                __html: content.bestSellers.banner.title,
+              }}
+              className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
             />
-            <div className="flex flex-col justify-center items-start gap-2 p-6 z-10 w-full">
-              <h4
-                dangerouslySetInnerHTML={{
-                  __html: content.bestSellers.banner.title,
-                }}
-                className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
-              />
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: content.bestSellers.banner.description,
-                }}
-                className="text-black paragraph text-start"
-              />
-              <Button
-                href={content.bestSellers.banner.button.href}
-                label={content.bestSellers.banner.button.label}
-                paddingX="px-12"
-              />
-            </div>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: content.bestSellers.banner.description,
+              }}
+              className="text-black paragraph text-start"
+            />
+            <Button
+              href={`/${lang}${content.bestSellers.banner.button.href}`}
+              label={content.bestSellers.banner.button.label}
+              paddingX="px-12"
+            />
           </div>
         </div>
       </div>
@@ -209,6 +223,7 @@ export default function Header() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isThresholdReached, setIsThresholdReached] = useState(false);
+  const [heroTextIsWhite, setHeroTextIsWhite] = useState(false);
   const [openMobileAccordions, setOpenMobileAccordions] = useState<
     Record<number, boolean>
   >({});
@@ -224,18 +239,29 @@ export default function Header() {
   const normalized =
     pathname.replace(/^\/(en|es)/, "").replace(/\/$/, "") || "/";
 
-  const grupoUno = ["/", "/fragance/men", "/fashion/men", "/best-seller"];
-  const grupoDos = ["/fragance/women", "/fashion/women"];
+  const grupoUno = ["/", "/fragance/men", "/clothes/men", "/best-seller"];
+  const grupoDos = ["/fragance/women", "/clothes/women"];
 
-  const headerClasses = grupoUno.includes(normalized)
-    ? isThresholdReached
-      ? "bg-white text-black"
-      : "bg-transparent text-black"
-    : grupoDos.includes(normalized)
-      ? isThresholdReached
-        ? "bg-black text-white"
-        : "bg-transparent text-white"
-      : "bg-white text-black";
+  // Detecta si hay contenido después de /men o /women (ej. /clothes/women/detalle-123)
+  const hasSubPath = /^\/(fragance|clothes)\/(men|women)\/.+/.test(normalized);
+
+  const bgClass = hasSubPath ? "bg-white" : "bg-transparent";
+  const textClass = grupoDos.includes(normalized) ? "text-white" : "text-black";
+
+  // Solo tras pasar el primer viewport, el fondo del header se invierte
+  // al color del texto del hero: texto negro -> fondo blanco, texto blanco -> fondo negro.
+  const scrolledBg = isThresholdReached
+    ? heroTextIsWhite
+      ? "bg-black"
+      : "bg-white"
+    : bgClass;
+  const scrolledText = isThresholdReached
+    ? heroTextIsWhite
+      ? "text-white"
+      : "text-black"
+    : textClass;
+
+  const headerClasses = `${scrolledBg} ${scrolledText}`;
   const match = pathname.match(/^\/(en|es)/);
   const lang = match ? match[1] : "en";
 
@@ -261,8 +287,16 @@ export default function Header() {
       }
 
       setIsThresholdReached(scrollY >= threshold);
+      updateHeroTextColor();
 
       lastScrollY.current = scrollY;
+    };
+
+    const updateHeroTextColor = () => {
+      const title = document.querySelector("main > section h1");
+      if (!title) return;
+      const color = window.getComputedStyle(title).color;
+      setHeroTextIsWhite(/^rgb\(255/.test(color));
     };
 
     const updateHeaderHeight = () => {
@@ -278,6 +312,17 @@ export default function Header() {
       );
     };
 
+    const heroTitle = document.querySelector("main > section h1");
+    const observer = heroTitle
+      ? new MutationObserver(updateHeroTextColor)
+      : null;
+    if (observer && heroTitle) {
+      observer.observe(heroTitle, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
+
     window.addEventListener("scroll", updateHeaderStyle, { passive: true });
     window.addEventListener("resize", updateHeaderHeight);
 
@@ -288,6 +333,7 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", updateHeaderStyle);
       window.removeEventListener("resize", updateHeaderHeight);
+      observer?.disconnect();
     };
   }, []);
 
@@ -339,7 +385,7 @@ export default function Header() {
               {content.topContent.paragraph}
             </p>
             <div className="w-[1px] self-stretch bg-[#D9D9D9]"></div>
-            <Link href="#">
+            <Link href={`/${lang}/best-sellers`}>
               <p className="text-[14px] font-normal leading-[100%]">
                 {content.topContent.buttonLabel}
               </p>
@@ -354,12 +400,19 @@ export default function Header() {
           }`}
         >
           <div className="container-full flex justify-between items-center py-3 md:py-1">
-            <div className="flex justify-center items-center md:hidden">
-              <div className="w-10.5 h-10.5 flex justify-center items-center ">
-                <Search
-                  className={`w-5 h-auto block ${headerClasses.includes("text-white") ? "text-white" : "text-black"}`}
+            <div className="flex justify-center items-center md:hidden gap-2">
+              <button
+                type="button"
+                aria-label="Abrir menú de navegación"
+                title="Abrir menú"
+                className="md:hidden flex items-center justify-center cursor-pointer w-8 h-8 bg-accent rounded-sm"
+                id="hamburger-btn"
+                onClick={() => setIsMobileMenuOpen(true)}
+              >
+                <Menu
+                  className={`w-5 md:w-4 h-auto block ${headerClasses.includes("text-white") ? "text-white" : "text-black"}`}
                 />
-              </div>
+              </button>
               <Link
                 href="#"
                 className="w-10.5 h-10.5  flex justify-center items-center  "
@@ -407,7 +460,7 @@ export default function Header() {
                           />
                         </div>
                         <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block z-50">
-                          <MegaMenu />
+                          <MegaMenu lang={lang} />
                         </div>
                       </li>
                     );
@@ -417,11 +470,6 @@ export default function Header() {
             </div>
 
             <div className="flex justify-center items-center ">
-              <div className="w-10.5 h-10.5 md:flex justify-center items-center hidden">
-                <Search
-                  className={`w-4 h-auto block ${headerClasses.includes("text-white") ? "text-white" : "text-black"}`}
-                />
-              </div>
               <Link
                 href="#"
                 className="w-10.5 h-10.5 md:flex justify-center items-center hidden "
@@ -430,15 +478,15 @@ export default function Header() {
                   className={`w-4 h-auto block ${headerClasses.includes("text-white") ? "text-white" : "text-black"}`}
                 />
               </Link>
-
               <CartIconHeader
                 differentStyles={headerClasses.includes("text-white")}
               />
+
               <button
                 type="button"
                 aria-label="Abrir menú de navegación"
                 title="Abrir menú"
-                className="flex lg:hidden items-center justify-center cursor-pointer w-8 h-8 bg-accent rounded-sm"
+                className="hidden md:flex lg:hidden items-center justify-center cursor-pointer w-8 h-8 bg-accent rounded-sm"
                 id="hamburger-btn"
                 onClick={() => setIsMobileMenuOpen(true)}
               >
@@ -453,7 +501,7 @@ export default function Header() {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed top-0 right-0 bottom-0 lg:hidden flex items-start bg-white text-primary flex-col justify-center overflow-y-auto z-[60] py-6 gap-8 transition-transform duration-300 ease-out w-full px-4 h-[80%] ${
+        className={`fixed top-0 right-0 bottom-0 lg:hidden flex items-start justify-between bg-white text-primary flex-col overflow-y-auto z-[60]  pt-10 pb-6 gap-8 transition-transform duration-300 ease-out w-full px-4 h-[90%] ${
           isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
         id="mobile-menu"
@@ -471,17 +519,21 @@ export default function Header() {
             }
           }}
         />
-        <Link
-          href={"/"}
-          aria-label={"Ir a la página principal"}
-          title={"Your best - Init"}
-        >
-          <p className="text-[24px] font-logo font-medium leading-[150%] uppercase">
-            your best
-          </p>
-        </Link>
         <nav className="w-full">
           <ul className="relative flex items-start flex-col justify-center w-full">
+            <li className="flex flex-col w-full text-black">
+              <a
+                className="w-full flex items-center justify-between py-4 text-left cursor-pointer"
+                href={`/${lang}`}
+              >
+                <p className="font-bold text-[32px] leading-[150%] uppercase tracking-[-0.5px] font-din-condensed">
+                  {lang == "es" ? "Inicio" : "Home"}
+                </p>
+              </a>
+
+              {/* Separator line */}
+              <div className="w-full h-[1px] bg-black" />
+            </li>
             {content.nav.map((item, index) => {
               const isOpen = !!openMobileAccordions[index];
               return (
@@ -490,7 +542,7 @@ export default function Header() {
                     onClick={() => toggleMobileAccordion(index)}
                     className="w-full flex items-center justify-between py-4 text-left cursor-pointer"
                   >
-                    <p className="font-paragraph font-semibold text-[16px] leading-[150%] uppercase">
+                    <p className="font-bold text-[32px] leading-[150%] font-din-condensed tracking-[-0.5px]">
                       {item.label}
                     </p>
                     <span className="text-black">
@@ -571,6 +623,46 @@ export default function Header() {
             })}
           </ul>
         </nav>
+        <div className="w-full flex flex-col justify-center items-start gap-16">
+          <div className="flex flex-col justify-center items-start relative p-4 aspect-343/220 w-full">
+            <img
+              src="/images/sub-menu-3.webp"
+              alt="Mobile Content"
+              className="w-full h-full object-cover absolute inset-0 object-center z-0"
+            />
+            <div className="flex flex-col justify-center items-start gap-2 relative z-10">
+              <h3 className="text-[32px] font-bold leading-[120%] text-black w-[60%] font-din-condensed">
+                {" "}
+                {content.mobileContent.label}
+              </h3>
+              <Button
+                label={content.mobileContent.button.label}
+                href={content.mobileContent.button.href}
+              />
+            </div>
+          </div>
+          <ul className="flex  justify-center items-start  gap-6">
+            {content.contact.links.map((item, index) => (
+              <li key={index}>
+                <Link
+                  href={`${item.href}`}
+                  className="paragraph text-black hover:border-black border-b border-transparent transition-all duration-300 ease-in-out pb-1 flex justify-center items-center gap-2"
+                >
+                  {item.icon !== "" && (
+                    <img
+                      src={`/images/${item.icon}.svg`}
+                      alt={item.label}
+                      className="w-6 h-6"
+                      decoding="async"
+                      loading="lazy"
+                    />
+                  )}
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );

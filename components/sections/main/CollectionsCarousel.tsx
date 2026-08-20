@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Button from "../../ui/Button";
+import Link from "next/link";
 
 interface BannersProps {
   content: {
@@ -14,10 +15,13 @@ interface BannersProps {
     price: number;
     rate: number;
     img: string;
+    gender?: string;
+    href: string;
   }[];
+  locale: string;
 }
 
-export default function ProductsBanner({ content }: BannersProps) {
+export default function ProductsBanner({ content, locale }: BannersProps) {
   // 1. AGRUPAMOS LOS ITEMS EN PAREJAS DE 2
   const pairs = [];
   for (let i = 0; i < content.length; i += 2) {
@@ -213,7 +217,8 @@ export default function ProductsBanner({ content }: BannersProps) {
             >
               {/* SEGUNDO MAP: Itera sobre los 2 productos dentro de esa pareja */}
               {pair.map((item, itemIndex) => (
-                <div
+                <Link
+                  href={`/${locale}/${item.gender}/${item.href}`}
                   className="bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4 w-full"
                   key={itemIndex}
                 >
@@ -255,7 +260,7 @@ export default function ProductsBanner({ content }: BannersProps) {
                       ${item.price.toFixed(2)}
                     </p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           ))}

@@ -5,8 +5,12 @@ import HeroItem from "@/components/sections/clothes/HeroItem";
 import RecommendedItem from "@/components/sections/clothes/RecommendedItem";
 import ProductsBanner from "@/components/sections/ProductsBanner";
 import { content as fixedContent } from "@/content/main";
+
+// When this product page is connected to Shopify:
+//import { getClothingProductPage } from "@/lib/shopify";
+
 interface PageProps {
-  params: Promise<{ name: string }>;
+  params: Promise<{ gender: string; name: string }>;
 }
 const content = {
   button: "Comprar ahora",
@@ -172,6 +176,11 @@ const productBanner = [
 ];
 export default async function SingleFragrance({ params }: PageProps) {
   const { name } = await params;
+
+  //const productInfoTest = await getClothingProductPage(name);
+  // `productInfo` matches the HeroItem and DescriptionItem props.
+  // product contains the raw Shopify clothing detail data.
+
   return (
     <main className="w-full flex flex-col justify-center items-center pt-(--header-height)">
       <HeroItem
@@ -179,6 +188,17 @@ export default async function SingleFragrance({ params }: PageProps) {
         content={content}
         images={productInfo.images}
       />
+      {/*<pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
+        <code>
+          {JSON.stringify(
+            productInfoTest,
+            (key, value) =>
+              typeof value === "bigint" ? value.toString() : value,
+            2,
+          )}
+        </code>
+      </pre> */}
+
       <DescriptionItem
         description={productInfo.information}
         images={productInfo.images}

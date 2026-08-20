@@ -41,7 +41,7 @@ export default function GridProducts({ content, products }: GridProductsProps) {
       <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-dense">
         {products.map((item, index) => (
           <Link
-            href="men/1"
+            href="women/yoga-accolade-hoodie"
             className="w-full bg-white flex flex-col justify-center items-center"
             key={index}
           >

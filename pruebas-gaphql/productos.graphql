@@ -1,0 +1,239 @@
+query GetFraganciaHombre {
+  collectionByHandle(handle: "men-fragances") {
+    title
+    products(first: 20) {
+      nodes {
+        id
+        handle
+        title
+        vendor
+        createdAt
+        tags
+        featuredImage {
+          url
+          altText
+        }
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        volumen: metafield(namespace: "fragancia", key: "volumen") {
+          value
+        }
+      }
+    }
+  }
+}
+
+query GetFraganciaMujer {
+  collectionByHandle(handle: "women-fragances") {
+    title
+    products(first: 20) {
+      nodes {
+        id
+        handle
+        title
+        vendor
+        createdAt
+        tags
+        featuredImage {
+          url
+          altText
+        }
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        volumen: metafield(namespace: "fragancia", key: "volumen") {
+          value
+        }
+      }
+    }
+  }
+}
+
+query GetRopaMujer {
+  collectionByHandle(handle: "womens-clothing") {
+    title
+    products(first: 20) {
+      nodes {
+        id
+        handle
+        title
+        vendor
+        createdAt
+        tags
+        featuredImage {
+          url
+          altText
+        }
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        variants(first: 10) {
+          nodes {
+            title
+            availableForSale
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetRopaHombre {
+  collectionByHandle(handle: "mens-clothing") {
+    title
+    products(first: 20) {
+      nodes {
+        id
+        handle
+        title
+        vendor
+        createdAt
+        tags
+        featuredImage {
+          url
+          altText
+        }
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        variants(first: 10) {
+          nodes {
+            title
+            availableForSale
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetFraganciaDetalle($handle: String!) {
+  productByHandle(handle: $handle) {
+    id
+    handle
+    title
+    vendor
+    descriptionHtml
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first: 10) {
+      nodes {
+        url
+        altText
+      }
+    }
+    volumen: metafield(namespace: "fragancia", key: "volumen") {
+      value
+    }
+    tagline: metafield(namespace: "fragancia", key: "tagline") {
+      value
+    }
+    notaAlta: metafield(namespace: "fragancia", key: "nota_alta") {
+      value
+    }
+    notaCorazon: metafield(namespace: "fragancia", key: "nota_corazon") {
+      value
+    }
+    notaBase: metafield(namespace: "fragancia", key: "nota_base") {
+      value
+    }
+    familiaOlfativa: metafield(
+      namespace: "fragancia"
+      key: "familia_olfativa"
+    ) {
+      value
+    }
+    descripcionNotas: metafield(
+      namespace: "fragancia"
+      key: "descripcion_notas"
+    ) {
+      value
+    }
+  }
+}
+
+query GetRopaDetalle($handle: String!) {
+  productByHandle(handle: $handle) {
+    id
+    handle
+    title
+    vendor
+    descriptionHtml
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first: 10) {
+      nodes {
+        url
+        altText
+      }
+    }
+    variants(first: 10) {
+      nodes {
+        title
+        availableForSale
+        selectedOptions {
+          name
+          value
+        }
+      }
+    }
+    longDescription: metafield(namespace: "ropa", key: "long_description") {
+      value
+    }
+    fit: metafield(namespace: "ropa", key: "fit") {
+      value
+    }
+    manufacturing: metafield(namespace: "ropa", key: "manufacturing") {
+      value
+    }
+    relatedProducts: metafield(namespace: "ropa", key: "related_products") {
+      references(first: 10) {
+        nodes {
+          ... on Product {
+            title
+            vendor
+            featuredImage {
+              url
+              altText
+            }
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

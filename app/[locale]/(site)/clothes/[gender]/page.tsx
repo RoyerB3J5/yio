@@ -4,11 +4,39 @@ import BestSeller from "@/components/sections/main/BestSeller";
 import Hero from "@/components/sections/main/Hero";
 import ProductsBanner from "@/components/sections/ProductsBanner";
 
+// When this grid is connected to Shopify:
+// import { getClothingListByGender } from "@/lib/shopify";
+
 const content = {
   men: {
     hero: {
       title: "MODA <br class='block md:hidden'/> EXCLUSIVA",
-      image: "/images/clothes/men-hero.webp",
+      carouselImages: [
+        {
+          image: "/images/clothes/men-hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/clothes/women-hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/best-seller/hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/main/hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/fragances/men-hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/fragances/women-hero.webp",
+          color: "text-white",
+        },
+      ],
       changeColor: true,
     },
     gridProducts: {
@@ -20,7 +48,32 @@ const content = {
   women: {
     hero: {
       title: "MODA EXCLUSIVA",
-      image: "/images/clothes/women-hero.webp",
+      carouselImages: [
+        {
+          image: "/images/clothes/women-hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/best-seller/hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/main/hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/fragances/men-hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/fragances/women-hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/clothes/men-hero.webp",
+          color: "text-black",
+        },
+      ],
       changeColor: false,
     },
     gridProducts: {
@@ -470,12 +523,27 @@ export default async function Page({ params }: PageProps) {
   const { gender } = await params;
   const currentGender = gender === "women" || gender === "men" ? gender : "men";
 
+  // const { products } = await getClothingListByGender(currentGender);
+  // `products` already matches the `GridClothes` prop structure.
+  // collection?.products.nodes contains the raw Shopify product cards.
+  //const productos = collection?.products.nodes ?? [];
   return (
     <main className="w-full flex flex-col justify-center items-center pt-(--top-bar-height)">
       <Hero
         content={content[currentGender].hero}
         changeColor={content[currentGender].hero.changeColor}
       />
+      {/*<pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
+        <code>
+          {JSON.stringify(
+            productos,
+            (key, value) =>
+              typeof value === "bigint" ? value.toString() : value,
+            2,
+          )}
+        </code>
+      </pre> */}
+
       <GridClothes
         content={content[currentGender].gridProducts}
         products={currentGender === "men" ? productsMen : productsWomen}

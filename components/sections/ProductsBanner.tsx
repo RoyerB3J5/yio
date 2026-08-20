@@ -14,9 +14,10 @@ interface BannersProps {
       link: string;
     };
   }[];
+  locale: string;
 }
 
-export default function ProductsBanner({ content }: BannersProps) {
+export default function ProductsBanner({ content, locale }: BannersProps) {
   const N = content.length;
   if (N === 0) return null;
 
@@ -220,7 +221,7 @@ export default function ProductsBanner({ content }: BannersProps) {
                   </p>
                   <Button
                     label={content.button.label}
-                    href={content.button.link}
+                    href={`/${locale}${content.button.link}`}
                   />
                 </div>
               </div>

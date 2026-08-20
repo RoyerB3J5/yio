@@ -16,9 +16,10 @@ interface BestSellerProps {
       label: string;
     }[];
   };
+  locale: string;
 }
 
-export default function BestSeller({ content }: BestSellerProps) {
+export default function BestSeller({ content,locale }: BestSellerProps) {
   return (
     <section className="w-full flex flex-col justify-center items-center gap-6 pb-8 md:pb-20">
       <div className="container-full flex flex-col justify-center md:justify-start items-center md:items-start gap-4">
@@ -28,7 +29,7 @@ export default function BestSeller({ content }: BestSellerProps) {
         </p>
         <div className="flex justify-center items-center gap-2">
           {content.category.map((item, index) => (
-            <Button key={index} label={item.name} href={item.href} />
+            <Button key={index} label={item.name} href={`/${locale}${item.href}`} />
           ))}
         </div>
       </div>
@@ -55,7 +56,7 @@ export default function BestSeller({ content }: BestSellerProps) {
                 className="text-[#6A6A6A] paragraph w-full md:w-[90%] lg:w-full"
                 dangerouslySetInnerHTML={{ __html: item.description }}
               />
-              <a href={item.href} className="link-style">
+              <a href={`/${locale}${item.href}`} className="link-style">
                 <p>{item.label}</p>
               </a>
             </div>
