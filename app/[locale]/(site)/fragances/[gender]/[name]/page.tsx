@@ -11,7 +11,7 @@ import { content as fixedContent } from "@/content/main";
 //import { getFragranceProductPage } from "@/lib/shopify";
 
 interface PageProps {
-  params: Promise<{ gender: string; name: string }>;
+  params: Promise<{ gender: string; name: string; locale: string }>;
 }
 const content = {
   button: "Comprar ahora",
@@ -140,7 +140,7 @@ const productBanner = [
   },
 ];
 export default async function SingleFragrance({ params }: PageProps) {
-  const { name } = await params;
+  const { name, locale } = await params;
 
   //const product = await getFragranceProductPage(name);
   // product contains the raw Shopify fragrance detail data.
@@ -180,9 +180,9 @@ export default async function SingleFragrance({ params }: PageProps) {
       </section>
       <Information product={productInfo.section4} content={content} />
       <Recommended label={content.recomendado} products={productRecommended} />
-      <CollectionsCarousel content={productRecommended} />
-      <Banners content={fixedContent.banners} />
-      <ProductsBanner content={productBanner} />
+      <CollectionsCarousel content={productRecommended} locale={locale} />
+      <Banners content={fixedContent.banners} locale={locale} />
+      <ProductsBanner content={productBanner} locale={locale} />
     </main>
   );
 }

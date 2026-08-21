@@ -10,7 +10,7 @@ import { content as fixedContent } from "@/content/main";
 //import { getClothingProductPage } from "@/lib/shopify";
 
 interface PageProps {
-  params: Promise<{ gender: string; name: string }>;
+  params: Promise<{ gender: string; name: string;locale: string }>;
 }
 const content = {
   button: "Comprar ahora",
@@ -175,7 +175,7 @@ const productBanner = [
   },
 ];
 export default async function SingleFragrance({ params }: PageProps) {
-  const { name } = await params;
+  const { name, locale } = await params;
 
   //const productInfoTest = await getClothingProductPage(name);
   // `productInfo` matches the HeroItem and DescriptionItem props.
@@ -207,8 +207,8 @@ export default async function SingleFragrance({ params }: PageProps) {
         label={content.recomendado}
         products={productRecommended}
       />
-      <Banners content={fixedContent.banners} />
-      <ProductsBanner content={productBanner} />
+      <Banners content={fixedContent.banners} locale={locale} />
+      <ProductsBanner content={productBanner} locale={locale} />
     </main>
   );
 }

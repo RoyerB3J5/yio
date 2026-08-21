@@ -188,13 +188,18 @@ const products = [
 
 import { content as fixedContent } from "@/content/main";
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   return (
     <main className="w-full flex flex-col justify-center items-center pt-(--top-bar-height)">
       <Hero content={content.hero} changeColor={content.hero.changeColor} />
       <GridClothes content={content.gridProducts} products={products} />
-      <Banners content={fixedContent.banners} />
-      <ProductsBanner content={productBanner} />
+      <Banners content={fixedContent.banners} locale={locale} />
+      <ProductsBanner content={productBanner} locale={locale} />
     </main>
   );
 }

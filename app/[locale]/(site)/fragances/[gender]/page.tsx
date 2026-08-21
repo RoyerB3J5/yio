@@ -510,10 +510,10 @@ const productsWomen = [
 import { content as fixedContent } from "@/content/main";
 
 interface PageProps {
-  params: Promise<{ gender: string }>;
+  params: Promise<{ gender: string; locale: string }>;
 }
 export default async function Page({ params }: PageProps) {
-  const { gender } = await params;
+  const { gender, locale } = await params;
   const currentGender = gender === "women" || gender === "men" ? gender : "men";
 
   // const { products } = await getFragranceListByGender(currentGender);
@@ -542,9 +542,9 @@ export default async function Page({ params }: PageProps) {
         products={currentGender === "men" ? productsMen : productsWomen}
         gender={currentGender}
       />
-      <BestSeller content={fixedContent.bestSeller} />
-      <Banners content={fixedContent.banners} />
-      <ProductsBanner content={productBanner} />
+      <BestSeller content={fixedContent.bestSeller} locale={locale} />
+      <Banners content={fixedContent.banners} locale={locale} />
+      <ProductsBanner content={productBanner} locale={locale} />
     </main>
   );
 }

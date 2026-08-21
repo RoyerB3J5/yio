@@ -386,7 +386,7 @@ export default function Header() {
             </p>
             <div className="w-[1px] self-stretch bg-[#D9D9D9]"></div>
             <Link href={`/${lang}/best-sellers`}>
-              <p className="text-[14px] font-normal leading-[100%]">
+              <p className="text-[14px] font-normal leading-[100%] underline">
                 {content.topContent.buttonLabel}
               </p>
             </Link>
