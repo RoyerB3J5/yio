@@ -1,5 +1,48 @@
+"use client";
 import { ChevronDown, SlidersHorizontal, Star } from "lucide-react";
 import Link from "next/link";
+import {
+  ClothingListItem,
+  FragranceListItem,
+} from "@/lib/shopify/transformers";
+import { useState } from "react";
+
+type ProductItem = ClothingListItem | FragranceListItem;
+
+type SortOption = {
+  id: string;
+  label: string;
+  sortFn: (products: ProductItem[]) => ProductItem[];
+};
+
+const sortOptions: SortOption[] = [
+  { id: "1", label: "All", sortFn: (p) => p },
+  {
+    id: "2",
+    label: "Price: High to Low",
+    sortFn: (p) => [...p].sort((a, b) => Number(b.price) - Number(a.price)),
+  },
+  {
+    id: "3",
+    label: "Price: Low to High",
+    sortFn: (p) => [...p].sort((a, b) => Number(a.price) - Number(b.price)),
+  },
+  {
+    id: "4",
+    label: "Newest",
+    sortFn: (p) =>
+      [...p].sort(
+        (a, b) =>
+          new Date(b.createdAt ?? 0).getTime() -
+          new Date(a.createdAt ?? 0).getTime(),
+      ),
+  },
+  {
+    id: "5",
+    label: "Best Sellers",
+    sortFn: (p) => p.filter((product) => product.isBestSeller === true),
+  },
+];
 
 interface GridProductsProps {
   content: {
@@ -7,42 +50,64 @@ interface GridProductsProps {
     filter1: string;
     filter2: string;
   };
-  products: {
-    isNew: boolean;
-    isBestSeller: boolean;
-    name: string;
-    category: string;
-    price: number;
-    rate: number;
-    img: string;
-    href: string;
-    variants?: {
-      id: string;
-      name: string;
-    }[];
-  }[];
+  products: ProductItem[];
 }
 export default function GridProducts({ content, products }: GridProductsProps) {
+  const [idSortFilter, setIdSortFilter] = useState("1");
+  const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
+
+  const selectedSortOption =
+    sortOptions.find((item) => item.id === idSortFilter) ?? sortOptions[0];
+
+  // Aplicar solo el ordenamiento directamente sobre tus productos
+  const sortedProducts = selectedSortOption.sortFn(products);
   return (
-    <section className="w-full flex flex-col justify-center items-center gap-12  py-12">
-      <div className="container-full flex justify-between items-center py-3 text-black">
-        <button className="flex justify-center items-center gap-2">
-          <SlidersHorizontal className="w-6 h-6" />
-          {content.filter1}
-        </button>
+    <section className="w-full flex flex-col justify-center items-center gap-8 md:gap-12 py-8 md:py-12">
+      <div className="container-full flex justify-between items-center md:py-3 text-black">
         <h3 className="paragraph uppercase hidden md:block">
-          {products.length} {content.title}
+          {sortedProducts.length} {content.title}
         </h3>
-        <button className="flex justify-center items-center gap-2">
-          {content.filter2}
-          <ChevronDown className="w-6 h-6" />
-        </button>
+        <div className="relative flex justify-center items-center gap-3">
+          <p className="paragraph">{content.filter2}</p>
+          <button
+            className="flex justify-center items-center gap-4"
+            onClick={() => setSortDropdownOpen((prev) => !prev)}
+          >
+            {selectedSortOption.label}
+            <ChevronDown className="w-6 h-6" />
+          </button>
+          {sortDropdownOpen && (
+            <div className="absolute top-full right-0 mt-2 flex flex-col bg-white border border-black/10 rounded-lg shadow-lg z-10 p-4 ">
+              {sortOptions.map((item) => (
+                <button
+                  key={item.id}
+                  className={`flex items-center gap-2 p-2 text-primary text-[15px] font-medium leading-[150%]  text-left rounded-sm whitespace-nowrap ${
+                    item.id === idSortFilter
+                      ? ""
+                      : "hover:bg-black/5 cursor-pointer"
+                  }`}
+                  onClick={() => {
+                    setIdSortFilter(item.id);
+                    setSortDropdownOpen(false);
+                  }}
+                >
+                  <span className="w-4 h-4 rounded-full border border-black/10 flex items-center justify-center shrink-0 text-black">
+                    {item.id === idSortFilter && (
+                      <span className="w-2 h-2 rounded-full bg-black" />
+                    )}
+                  </span>
+                  <p className="paragraph">{item.label}</p>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-      <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-dense">
-        {products.map((item, index) => (
+      <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-dense jusitfy-center items-stretch">
+        {sortedProducts.map((item, index) => (
           <Link
             href="women/yoga-accolade-hoodie"
-            className="w-full bg-white flex flex-col justify-center items-center"
+            className="w-full bg-white flex flex-col justify-start items-center"
             key={index}
           >
             <div className="w-full h-auto aspect-357/420 relative overflow-hidden flex items-end group transition-all duration-300 ease-in-out">
@@ -55,8 +120,8 @@ export default function GridProducts({ content, products }: GridProductsProps) {
                 decoding="async"
                 loading="lazy"
               />
-              <div className="group-hover:flex justify-center items-center gap-2 hidden transition-all duration-300 ease-in-out z-10 relative w-full px-4 flex-wrap pb-4">
-                {item.variants &&
+              <div className="flex justify-center items-center gap-2 transition-all duration-300 ease-in-out z-10 relative w-full px-4 flex-wrap pb-4 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
+                {"variants" in item &&
                   item.variants.map((variant, index) => (
                     <button
                       className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase cursor-pointer hover:bg-black hover:text-white transition-all duration-300 ease-in-out"

@@ -63,7 +63,7 @@ export default function Collection({
         <div className="w-full md:w-1/2 md:grid grid-cols-2 gap-1 justify-center items-center hidden">
           {product.map((item, index) => (
             <Link
-              href={`/${locale}/${item.gender}/${item.href}`}
+              href={`/${locale}/fragances/${item.gender}/${item.href}`}
               className="w-full bg-[#F8F7F3] flex flex-col justify-between items-center p-4 aspect-357/484"
               key={index}
             >

@@ -173,23 +173,26 @@ const MegaMenu = ({ lang }: { lang: string }) => {
           alt="Submenú de Moda"
           className="w-full h-full object-cover object-center absolute z-0 inset-0"
         />
-        <div className="flex flex-col justify-center items-start gap-6 p-10 h-full relative z-10">
-          <h3
-            dangerouslySetInnerHTML={{ __html: content.bestSellers.title }}
-            className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
-          />
-          <div className="w-full flex flex-col justify-center items-center">
-            {content.bestSellers.items.map((item, index) => (
-              <Link
-                key={index}
-                href={`/${lang}${item.href}`}
-                className="w-full flex justify-between items-center py-5 last:border-t border-white/20 hover:bg-white/20 transition-colors duration-300 ease-out text-black paragraph uppercase"
-              >
-                {item.label}
-                <ChevronRight className="w-6 h-6 text-black" />
-              </Link>
-            ))}
+        <div className="flex flex-col justify-between items-start gap-6 p-10 h-full relative z-10">
+          <div className="flex flex-col justify-center itmes-start gap-8 w-full">
+            <h3
+              dangerouslySetInnerHTML={{ __html: content.bestSellers.title }}
+              className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
+            />
+            <div className="w-full flex flex-col justify-center items-center">
+              {content.bestSellers.items.map((item, index) => (
+                <Link
+                  key={index}
+                  href={`/${lang}${item.href}`}
+                  className="w-full flex justify-between items-center py-5 last:border-t border-black/20 hover:bg-black/20 transition-colors duration-300 ease-out text-black paragraph uppercase"
+                >
+                  {item.label}
+                  <ChevronRight className="w-6 h-6 text-black" />
+                </Link>
+              ))}
+            </div>
           </div>
+
           <div className="flex flex-col justify-center items-start gap-2 z-10 w-full">
             <h4
               dangerouslySetInnerHTML={{

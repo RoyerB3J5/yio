@@ -126,7 +126,9 @@ const productBanner = [
   },
 ];
 
-const productsMen = [
+import type { ClothingListItem } from "@/lib/shopify/transformers";
+
+const productsMen: ClothingListItem[] = [
   {
     isNew: true,
     isBestSeller: true,
@@ -140,16 +142,20 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-01-15T10:00:00Z",
   },
   {
     isNew: true,
@@ -164,16 +170,20 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-02-20T14:30:00Z",
   },
   {
     isNew: true,
@@ -188,16 +198,20 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-03-10T09:15:00Z",
   },
   {
     isNew: true,
@@ -212,16 +226,20 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-04-05T16:45:00Z",
   },
   {
     isNew: true,
@@ -236,16 +254,20 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-05-12T11:20:00Z",
   },
   {
     isNew: true,
@@ -260,16 +282,20 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-06-25T13:10:00Z",
   },
   {
     isNew: true,
@@ -284,16 +310,20 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-07-08T10:30:00Z",
   },
   {
     isNew: true,
@@ -308,16 +338,20 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-08-14T15:00:00Z",
   },
   {
     isNew: true,
@@ -332,19 +366,23 @@ const productsMen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-09-22T12:45:00Z",
   },
 ];
-const productsWomen = [
+const productsWomen: ClothingListItem[] = [
   {
     isNew: true,
     isBestSeller: true,
@@ -358,16 +396,20 @@ const productsWomen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-01-18T10:00:00Z",
   },
   {
     isNew: true,
@@ -382,16 +424,20 @@ const productsWomen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-02-25T14:30:00Z",
   },
   {
     isNew: true,
@@ -406,16 +452,20 @@ const productsWomen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-03-15T09:15:00Z",
   },
   {
     isNew: true,
@@ -430,16 +480,20 @@ const productsWomen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-04-10T16:45:00Z",
   },
   {
     isNew: true,
@@ -454,16 +508,20 @@ const productsWomen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-05-18T11:20:00Z",
   },
   {
     isNew: true,
@@ -478,16 +536,20 @@ const productsWomen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-06-28T13:10:00Z",
   },
   {
     isNew: true,
@@ -502,16 +564,48 @@ const productsWomen = [
       {
         id: "s",
         name: "S",
+        availableForSale: true,
       },
       {
         id: "m",
         name: "M",
+        availableForSale: true,
       },
       {
         id: "l",
         name: "L",
+        availableForSale: true,
       },
     ],
+    createdAt: "2026-07-12T10:30:00Z",
+  },
+  {
+    isNew: true,
+    isBestSeller: true,
+    name: "ALO",
+    category: "Yoga Accolade hoodie ",
+    price: 60.0,
+    rate: 4.5,
+    img: "/images/clothes/women-2.webp",
+    href: "#",
+    variants: [
+      {
+        id: "s",
+        name: "S",
+        availableForSale: true,
+      },
+      {
+        id: "m",
+        name: "M",
+        availableForSale: true,
+      },
+      {
+        id: "l",
+        name: "L",
+        availableForSale: true,
+      },
+    ],
+    createdAt: "2026-08-18T15:00:00Z",
   },
 ];
 import { content as fixedContent } from "@/content/main";

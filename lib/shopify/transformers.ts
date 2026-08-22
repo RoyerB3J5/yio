@@ -19,6 +19,7 @@ export interface FragranceListItem {
   rate: number;
   img: string;
   href: string;
+  createdAt: string;
 }
 
 export interface ClothingListItem {
@@ -35,6 +36,7 @@ export interface ClothingListItem {
     name: string;
     availableForSale: boolean;
   }>;
+  createdAt: string;
 }
 
 export interface FragranceProductPage {
@@ -85,7 +87,11 @@ function toPrice(amount: string) {
 
 function isNew(createdAt: string, now = Date.now()) {
   const createdAtMs = Date.parse(createdAt);
-  return Number.isFinite(createdAtMs) && createdAtMs >= now - THREE_DAYS_IN_MS && createdAtMs <= now;
+  return (
+    Number.isFinite(createdAtMs) &&
+    createdAtMs >= now - THREE_DAYS_IN_MS &&
+    createdAtMs <= now
+  );
 }
 
 function isBestSeller(tags: string[]) {
@@ -137,7 +143,8 @@ function htmlToText(html: string) {
 
 function richTextToText(value: unknown): string {
   if (typeof value === "string") return value;
-  if (Array.isArray(value)) return value.map(richTextToText).filter(Boolean).join("\n");
+  if (Array.isArray(value))
+    return value.map(richTextToText).filter(Boolean).join("\n");
 
   if (value && typeof value === "object") {
     const node = value as { value?: unknown; children?: unknown };
@@ -165,7 +172,13 @@ function metafieldList(value: string | null | undefined) {
   try {
     const parsed = JSON.parse(value);
     return Array.isArray(parsed)
-      ? parsed.flatMap((item) => metafieldText(typeof item === "string" ? item : JSON.stringify(item))).filter(Boolean)
+      ? parsed
+          .flatMap((item) =>
+            metafieldText(
+              typeof item === "string" ? item : JSON.stringify(item),
+            ),
+          )
+          .filter(Boolean)
       : [richTextToText(parsed)].filter(Boolean);
   } catch {
     return [value.trim()].filter(Boolean);
@@ -192,6 +205,7 @@ export function toFragranceListItem(product: ProductCard): FragranceListItem {
     rate: productRating(product.id),
     img: imageUrl(product.featuredImage),
     href: product.handle,
+    createdAt: product.createdAt,
   };
 }
 
@@ -206,16 +220,23 @@ export function toClothingListItem(product: ProductCard): ClothingListItem {
     img: imageUrl(product.featuredImage),
     href: product.handle,
     variants: toVariants(product.variants.nodes),
+    createdAt: product.createdAt,
   };
 }
 
 function notesTitle(product: FragranceProduct) {
-  return [product.notaAlta?.value, product.notaCorazon?.value, product.notaBase?.value]
+  return [
+    product.notaAlta?.value,
+    product.notaCorazon?.value,
+    product.notaBase?.value,
+  ]
     .filter((note): note is string => Boolean(note))
     .join(". ");
 }
 
-export function toFragranceProductPage(product: FragranceProduct): FragranceProductPage {
+export function toFragranceProductPage(
+  product: FragranceProduct,
+): FragranceProductPage {
   const images = product.images.nodes;
   const card = {
     isNew: isNew(product.createdAt),
@@ -223,6 +244,7 @@ export function toFragranceProductPage(product: FragranceProduct): FragranceProd
     category: product.title,
     info: product.volumen?.value ?? "",
     price: toPrice(product.priceRange.minVariantPrice.amount),
+    createdAt: product.createdAt,
     rate: productRating(product.id),
     img: imageAt(images, 0),
   };
@@ -258,7 +280,9 @@ function toAccompanyingProduct(product: RelatedProduct) {
   };
 }
 
-export function toClothingProductPage(product: ClothingProduct): ClothingProductPage {
+export function toClothingProductPage(
+  product: ClothingProduct,
+): ClothingProductPage {
   return {
     hero: {
       name: product.vendor,
@@ -267,15 +291,23 @@ export function toClothingProductPage(product: ClothingProduct): ClothingProduct
       variants: toVariants(product.variants.nodes),
       rate: productRating(product.id),
       price: toPrice(product.priceRange.minVariantPrice.amount),
-      accompanies: product.relatedProducts?.references.nodes.map(toAccompanyingProduct) ?? [],
+      accompanies:
+        product.relatedProducts?.references.nodes.map(toAccompanyingProduct) ??
+        [],
     },
     images: product.images.nodes.map((image) => image.url),
     information: {
       description: htmlToText(product.descriptionHtml),
       tags: [
-        { title: "Descripción", description: metafieldList(product.longDescription?.value) },
+        {
+          title: "Descripción",
+          description: metafieldList(product.longDescription?.value),
+        },
         { title: "Ajuste", description: metafieldList(product.fit?.value) },
-        { title: "Fabricación", description: metafieldList(product.manufacturing?.value) },
+        {
+          title: "Fabricación",
+          description: metafieldList(product.manufacturing?.value),
+        },
       ].filter((tag) => tag.description.length > 0),
     },
   };

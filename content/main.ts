@@ -63,7 +63,7 @@ export const content = {
     {
       title: "lifestyle",
       img: "lifestyle",
-      href: "#",
+      href: "/clothes/women",
       button: {
         label: "Ver más",
 
@@ -139,7 +139,7 @@ export const content = {
         "Todo lo que necesitas para completar tu estilo, en un solo lugar.",
       button: {
         label: "VER lifestyle",
-        link: "#",
+        link: "clothes/women",
       },
     },
     {

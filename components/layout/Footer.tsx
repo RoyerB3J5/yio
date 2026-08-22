@@ -15,7 +15,6 @@ const content = {
     links: [
       { label: "FRAGANCIAS", href: "/fragances/women" },
       { label: "ROPA", href: "/clothes/women" },
-      { label: "LIFESTYLE", href: "#" },
     ],
   },
   men: {
@@ -23,7 +22,6 @@ const content = {
     links: [
       { label: "FRAGANCIAS", href: "/fragances/men" },
       { label: "ROPA", href: "/clothes/men" },
-      { label: "LIFESTYLE", href: "#" },
     ],
   },
   bestseller: {
@@ -36,7 +34,7 @@ const content = {
   contact: {
     title: "Contáctanos",
     links: [
-      { icon: "", label: "+ 609 899 3421", href: "#" },
+      { icon: "", label: "+ 609 899 3421", href: "tel:+6098993421" },
       { icon: "tiktok", label: "yovani.b1", href: "#" },
       { icon: "instagram", label: "@yovani.store", href: "#" },
     ],
@@ -102,7 +100,7 @@ export default function Footer() {
               {content.women.links.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={`${item.href}`}
+                    href={`/${lang}${item.href}`}
                     className="paragraph text-black hover:border-black border-b border-transparent transition-all duration-300 ease-in-out pb-1"
                   >
                     {item.label}
@@ -138,7 +136,7 @@ export default function Footer() {
               {content.men.links.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={`${item.href}`}
+                    href={`/${lang}${item.href}`}
                     className="paragraph text-black hover:border-black border-b border-transparent transition-all duration-300 ease-in-out pb-1"
                   >
                     {item.label}
@@ -174,7 +172,7 @@ export default function Footer() {
               {content.bestseller.links.map((item, index) => (
                 <li key={index}>
                   <Link
-                    href={`${item.href}`}
+                    href={`/${lang}${item.href}`}
                     className="paragraph text-black hover:border-black border-b border-transparent transition-all duration-300 ease-in-out pb-1"
                   >
                     {item.label}

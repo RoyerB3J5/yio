@@ -2,6 +2,9 @@ import Banners from "@/components/sections/Banners";
 import GridClothes from "@/components/sections/clothes/GridClothes";
 import Hero from "@/components/sections/main/Hero";
 import ProductsBanner from "@/components/sections/ProductsBanner";
+import type { ClothingListItem, FragranceListItem } from "@/lib/shopify/transformers";
+
+type ProductItem = ClothingListItem | FragranceListItem;
 
 const content = {
   hero: {
@@ -83,7 +86,7 @@ const productBanner = [
   },
 ];
 
-const products = [
+const products: ProductItem[] = [
   {
     isNew: true,
     isBestSeller: true,
@@ -93,6 +96,24 @@ const products = [
     rate: 4.5,
     img: "/images/best-seller/bestseller-1.webp",
     href: "#",
+    createdAt: "2026-01-14T08:20:00.000Z",
+    variants: [
+      {
+        id: "1",
+        name: "36",
+        availableForSale: true,
+      },
+      {
+        id: "2",
+        name: "38",
+        availableForSale: true,
+      },
+      {
+        id: "3",
+        name: "40",
+        availableForSale: true,
+      },
+    ],
   },
   {
     isNew: true,
@@ -101,8 +122,10 @@ const products = [
     category: "AirPods Pro 2 generation",
     price: 70.0,
     rate: 4.5,
+    info: "AirPods Pro 2 generation",
     img: "/images/best-seller/bestseller-2.webp",
     href: "#",
+    createdAt: "2026-02-05T14:10:00.000Z",
   },
   {
     isNew: true,
@@ -111,8 +134,10 @@ const products = [
     category: "Santal 33 ",
     price: 80.0,
     rate: 4.5,
+    info: "Santal 33 ",
     img: "/images/best-seller/bestseller-3.webp",
     href: "#",
+    createdAt: "2026-02-28T19:45:00.000Z",
   },
   {
     isNew: true,
@@ -123,6 +148,24 @@ const products = [
     rate: 4.5,
     img: "/images/best-seller/bestseller-1.webp",
     href: "#",
+    createdAt: "2026-03-12T11:30:00.000Z",
+    variants: [
+      {
+        id: "1",
+        name: "36",
+        availableForSale: true,
+      },
+      {
+        id: "2",
+        name: "38",
+        availableForSale: true,
+      },
+      {
+        id: "3",
+        name: "40",
+        availableForSale: true,
+      },
+    ],
   },
   {
     isNew: true,
@@ -131,8 +174,10 @@ const products = [
     category: "AirPods Pro 2 generation",
     price: 70.0,
     rate: 4.5,
+    info: "AirPods Pro 2 generation",
     img: "/images/best-seller/bestseller-2.webp",
     href: "#",
+    createdAt: "2026-04-01T16:05:00.000Z",
   },
   {
     isNew: true,
@@ -141,8 +186,10 @@ const products = [
     category: "Santal 33 ",
     price: 80.0,
     rate: 4.5,
+    info: "Santal 33 ",
     img: "/images/best-seller/bestseller-3.webp",
     href: "#",
+    createdAt: "2026-04-18T09:15:00.000Z",
   },
   {
     isNew: true,
@@ -153,6 +200,24 @@ const products = [
     rate: 4.5,
     img: "/images/best-seller/bestseller-1.webp",
     href: "#",
+    createdAt: "2026-05-22T13:50:00.000Z",
+    variants: [
+      {
+        id: "1",
+        name: "36",
+        availableForSale: true,
+      },
+      {
+        id: "2",
+        name: "38",
+        availableForSale: true,
+      },
+      {
+        id: "3",
+        name: "40",
+        availableForSale: true,
+      },
+    ],
   },
   {
     isNew: true,
@@ -161,18 +226,22 @@ const products = [
     category: "AirPods Pro 2 generation",
     price: 70.0,
     rate: 4.5,
+    info: "AirPods Pro 2 generation",
     img: "/images/best-seller/bestseller-2.webp",
     href: "#",
+    createdAt: "2026-06-10T10:25:00.000Z",
   },
   {
     isNew: true,
     isBestSeller: true,
     name: "LE LABO",
+    info: "Santal 33 ",
     category: "Santal 33 ",
     price: 80.0,
     rate: 4.5,
     img: "/images/best-seller/bestseller-3.webp",
     href: "#",
+    createdAt: "2026-07-04T18:40:00.000Z",
   },
   {
     isNew: true,
@@ -183,6 +252,24 @@ const products = [
     rate: 4.5,
     img: "/images/best-seller/bestseller-1.webp",
     href: "#",
+    createdAt: "2026-08-15T21:00:00.000Z",
+    variants: [
+      {
+        id: "1",
+        name: "36",
+        availableForSale: true,
+      },
+      {
+        id: "2",
+        name: "38",
+        availableForSale: true,
+      },
+      {
+        id: "3",
+        name: "40",
+        availableForSale: true,
+      },
+    ],
   },
 ];
 

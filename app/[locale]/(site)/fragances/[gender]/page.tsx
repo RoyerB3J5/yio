@@ -140,6 +140,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    createdAt: "2023-08-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -151,6 +152,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    createdAt: "2023-08-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -162,6 +164,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-purple.webp",
     href: "#",
+    createdAt: "2023-08-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -173,6 +176,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/le-labo.webp",
     href: "#",
+    createdAt: "2023-02-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -184,6 +188,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    createdAt: "2023-09-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -195,6 +200,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    createdAt: "2023-09-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -206,6 +212,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-purple.webp",
     href: "#",
+    createdAt: "2023-07-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -217,6 +224,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/le-labo.webp",
     href: "#",
+    createdAt: "2023-04-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -228,6 +236,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    createdAt: "2023-06-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -239,6 +248,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    createdAt: "2023-06-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -250,6 +260,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-purple.webp",
     href: "#",
+    createdAt: "2023-05-23T00:00:00Z",
   },
   {
     isNew: true,
@@ -261,6 +272,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/le-labo.webp",
     href: "#",
+    createdAt: "2023-05-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -272,6 +284,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    createdAt: "2023-05-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -283,6 +296,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    createdAt: "2023-05-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -294,6 +308,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-purple.webp",
     href: "#",
+    createdAt: "2023-02-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -305,6 +320,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/le-labo.webp",
     href: "#",
+    createdAt: "2023-05-01T00:00:00Z",
   },
   {
     isNew: true,
@@ -316,6 +332,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino.webp",
     href: "#",
+    createdAt: "2023-05-12T00:00:00Z",
   },
   {
     isNew: true,
@@ -327,6 +344,7 @@ const productsMen = [
     rate: 4.5,
     img: "/images/products/valentino-gold.webp",
     href: "#",
+    createdAt: "2023-05-12T00:00:00Z",
   },
 ];
 const productsWomen = [
@@ -340,6 +358,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/valentino-donna.webp",
     href: "#",
+    createdAt: "2026-01-15T10:30:00.000Z",
   },
   {
     isNew: true,
@@ -351,6 +370,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/baccarat.webp",
     href: "#",
+    createdAt: "2026-02-20T14:15:00.000Z",
   },
   {
     isNew: true,
@@ -362,6 +382,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/baccarat-extrait.webp",
     href: "#",
+    createdAt: "2026-03-05T09:45:00.000Z",
   },
   {
     isNew: true,
@@ -373,6 +394,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/carolina-herrera.webp",
     href: "#",
+    createdAt: "2026-03-18T18:20:00.000Z",
   },
   {
     isNew: true,
@@ -384,6 +406,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/valentino-donna.webp",
     href: "#",
+    createdAt: "2026-04-02T11:10:00.000Z",
   },
   {
     isNew: true,
@@ -395,6 +418,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/baccarat.webp",
     href: "#",
+    createdAt: "2026-04-12T16:05:00.000Z",
   },
   {
     isNew: true,
@@ -406,6 +430,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/baccarat-extrait.webp",
     href: "#",
+    createdAt: "2026-05-01T13:40:00.000Z",
   },
   {
     isNew: true,
@@ -417,6 +442,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/carolina-herrera.webp",
     href: "#",
+    createdAt: "2026-05-22T08:50:00.000Z",
   },
   {
     isNew: true,
@@ -428,6 +454,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/valentino-donna.webp",
     href: "#",
+    createdAt: "2026-06-10T15:25:00.000Z",
   },
   {
     isNew: true,
@@ -439,6 +466,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/baccarat.webp",
     href: "#",
+    createdAt: "2026-06-28T19:00:00.000Z",
   },
   {
     isNew: true,
@@ -450,6 +478,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/baccarat-extrait.webp",
     href: "#",
+    createdAt: "2026-07-04T12:35:00.000Z",
   },
   {
     isNew: true,
@@ -461,6 +490,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/carolina-herrera.webp",
     href: "#",
+    createdAt: "2026-07-19T17:15:00.000Z",
   },
   {
     isNew: true,
@@ -472,6 +502,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/valentino-donna.webp",
     href: "#",
+    createdAt: "2026-08-03T09:10:00.000Z",
   },
   {
     isNew: true,
@@ -483,6 +514,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/baccarat.webp",
     href: "#",
+    createdAt: "2026-08-14T21:45:00.000Z",
   },
   {
     isNew: true,
@@ -494,6 +526,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/baccarat-extrait.webp",
     href: "#",
+    createdAt: "2026-08-18T10:00:00.000Z",
   },
   {
     isNew: true,
@@ -505,6 +538,7 @@ const productsWomen = [
     rate: 4.5,
     img: "/images/products/carolina-herrera.webp",
     href: "#",
+    createdAt: "2026-08-21T14:30:00.000Z",
   },
 ];
 import { content as fixedContent } from "@/content/main";
