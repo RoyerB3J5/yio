@@ -2,7 +2,10 @@ import Banners from "@/components/sections/Banners";
 import GridClothes from "@/components/sections/clothes/GridClothes";
 import Hero from "@/components/sections/main/Hero";
 import ProductsBanner from "@/components/sections/ProductsBanner";
-import type { ClothingListItem, FragranceListItem } from "@/lib/shopify/transformers";
+import type {
+  ClothingListItem,
+  FragranceListItem,
+} from "@/lib/shopify/transformers";
 // import { getBestSellerProducts } from "@/lib/shopify";
 
 type ProductItem = ClothingListItem | FragranceListItem;
@@ -274,7 +277,10 @@ const products: ProductItem[] = [
   },
 ];
 
-import { content as fixedContent } from "@/content/main";
+type MainContent = (typeof import("@/content/en"))["default"]["main"];
+import { getContent } from "@/i18n/content";
+import { hasLocale } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 export default async function Page({
   params,
@@ -282,7 +288,12 @@ export default async function Page({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
+  if (!hasLocale(locale)) {
+    notFound();
+  }
+  const { main: fixedContent } = await getContent<{ main: MainContent }>(
+    locale,
+  );
   // const { products: bestSellerProducts } = await getBestSellerProducts({ first: 20 });
 
   return (

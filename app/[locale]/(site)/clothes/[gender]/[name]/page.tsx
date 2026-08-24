@@ -4,7 +4,10 @@ import DescriptionItem from "@/components/sections/clothes/DescriptionItem";
 import HeroItem from "@/components/sections/clothes/HeroItem";
 import RecommendedItem from "@/components/sections/clothes/RecommendedItem";
 import ProductsBanner from "@/components/sections/ProductsBanner";
-import { content as fixedContent } from "@/content/main";
+type MainContent = (typeof import("@/content/en"))["default"]["main"];
+import { getContent } from "@/i18n/content";
+import { hasLocale } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 // import { getClothingProductPage, getRecommendedClothing } from "@/lib/shopify";
 
 interface PageProps {
@@ -177,7 +180,12 @@ const productBanner = [
 ];
 export default async function SingleFragrance({ params }: PageProps) {
   const { name, locale } = await params;
-
+  if (!hasLocale(locale)) {
+    notFound();
+  }
+  const { main: fixedContent } = await getContent<{ main: MainContent }>(
+    locale,
+  );
   //const productInfoTest = await getClothingProductPage(name);
   // const { products: recommendedProducts } = await getRecommendedClothing({ first: 6 });
   // `productInfo` matches the HeroItem and DescriptionItem props.
