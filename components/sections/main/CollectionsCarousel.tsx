@@ -187,7 +187,7 @@ export default function ProductsBanner({ content, locale }: BannersProps) {
   const translateX = -currentIndex * dimensions.itemWidth + dragOffset;
 
   return (
-    <div className="w-full relative overflow-hidden flex justify-center items-center flex-col md:hidden pb-8">
+    <div className="w-full relative overflow-hidden flex justify-center items-center flex-col md:hidden pb-8 fade-up">
       <div
         ref={containerRef2}
         className="w-full overflow-hidden cursor-grab active:cursor-grabbing select-none relative"

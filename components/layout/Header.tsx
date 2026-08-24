@@ -1,103 +1,34 @@
 "use client";
-
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "@/components/ui/Button";
+import { useHeroContext } from "@/components/context/HeroContext";
 
 import {
   ChevronDown,
   ChevronRight,
-  MapPin,
   Menu,
   Minus,
   Plus,
-  Search,
   User,
   X,
 } from "lucide-react";
 import CartIconHeader from "../ui/CartIconHeader";
+import type { HeaderContent } from "@/content/types";
+import ChangeLanguage from "../ui/ChangeLanguage";
 
-// Multilingual content structure (to be populated/expanded later)
-const content = {
-  topContent: {
-    paragraph: "Descubre nuestros Best Sellers",
-    buttonLabel: "Ir ahora",
-  },
-  fracancia: {
-    title: "explora nuestras <br/> fragancias",
-    items: [
-      { label: "Hombres", href: "/fragances/men" },
-      { label: "Mujeres", href: "/fragances/women" },
-    ],
-  },
-  moda: {
-    title: "encuentra tu estilo <br/> en cada detalle",
-    items: [
-      {
-        title: "Ropa",
-        list: [
-          { label: "Hombres", href: "/clothes/men" },
-          { label: "Mujeres", href: "/clothes/women" },
-        ],
-      },
-      {
-        title: "Ropa",
-        list: [
-          { label: "Hombres", href: "/clothes/men" },
-          { label: "Mujeres", href: "/clothes/women" },
-        ],
-      },
-      {
-        title: "Ropa",
-        list: [
-          { label: "Hombres", href: "/clothes/men" },
-          { label: "Mujeres", href: "/clothes/women" },
-        ],
-      },
-    ],
-  },
-  bestSellers: {
-    title: "lo más vendido por <br/> nuestros clientes",
-    items: [
-      { label: "Ropa", href: "/best-sellers" },
-      { label: "Fragancias", href: "/best-sellers" },
-    ],
-    banner: {
-      title: "BEST SELLERS",
-      description: "Descubre lo más <br/> vendido del momento.",
-      button: {
-        label: "Ver más",
-        href: "/best-sellers",
-      },
-    },
-  },
-  nav: [
-    { label: "Fragancias", href: "#" },
-    { label: "Moda", href: "#" },
-    { label: "Best Sellers", href: "#" },
-  ],
-  mobileContent: {
-    label: "Lo más vendido del momento.",
-    button: {
-      label: "Ver más",
-      href: "en/best-sellers",
-    },
-  },
-  contact: {
-    links: [
-      { icon: "tiktok", label: "yovani.b1", href: "#" },
-      { icon: "instagram", label: "@yovani.store", href: "#" },
-    ],
-  },
-};
-
-const MegaMenu = ({ lang }: { lang: string }) => {
+const MegaMenu = ({
+  lang,
+  content,
+}: {
+  lang: string;
+  content: HeaderContent;
+}) => {
   return (
-    <div className="flex flex-row items-start justify-center bg-white shadow-2xl overflow-hidden min-w-max">
+    <div className="flex flex-row items-start justify-center bg-white shadow-2xl overflow-hidden w-[1200px] 3xl:min-w-max">
       {/* ----------------- COLUMNA 1: Fragancias ----------------- */}
-      <div className="w-[412px] h-[614px] overflow-hidden relative shrink-0 flex items-start">
+      <div className="w-[380px] 3xl:w-[412px] h-[550px] 3xl:h-[614px] overflow-hidden relative shrink-0 flex items-start">
         <img
           src="/images/sub-menu-1.webp"
           alt="Submenú de Fragancias"
@@ -128,7 +59,7 @@ const MegaMenu = ({ lang }: { lang: string }) => {
       </div>
 
       {/* ----------------- COLUMNA 2: Moda ----------------- */}
-      <div className="w-auto h-[614px] bg-white overflow-hidden relative shrink-0 border-r border-black/20">
+      <div className="flex-1 min-w-0 3xl:flex-none 3xl:w-auto 3xl:shrink-0 h-[550px] 3xl:h-[614px] bg-white overflow-hidden relative">
         <img
           src="/images/sub-menu-2.webp"
           alt="Submenú de Moda"
@@ -167,7 +98,7 @@ const MegaMenu = ({ lang }: { lang: string }) => {
       </div>
 
       {/* ----------------- COLUMNA 3: Best Sellers ----------------- */}
-      <div className="w-[412px] h-[614px] bg-white overflow-hidden relative shrink-0">
+      <div className="w-[380px] 3xl:w-[412px] h-[550px] 3xl:h-[614px] bg-white overflow-hidden relative shrink-0">
         <img
           src="/images/sub-menu-3.webp"
           alt="Submenú de Moda"
@@ -218,18 +149,22 @@ const MegaMenu = ({ lang }: { lang: string }) => {
   );
 };
 
-export default function Header() {
+export default function Header({ content }: { content: HeaderContent }) {
   const pathname = usePathname() || "/";
   const headerRef = useRef<HTMLElement>(null);
   const topBarRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
+  const { currentHeroImage } = useHeroContext();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isThresholdReached, setIsThresholdReached] = useState(false);
-  const [heroTextIsWhite, setHeroTextIsWhite] = useState(false);
   const [openMobileAccordions, setOpenMobileAccordions] = useState<
     Record<number, boolean>
   >({});
+
+  // Check if current hero image is one of the women hero images
+  const isWomenHeroImage = currentHeroImage === "/images/fragances/women-hero.webp" || 
+                           currentHeroImage === "/images/clothes/women-hero.webp";
 
   const toggleMobileAccordion = (index: number) => {
     setOpenMobileAccordions((prev) => ({
@@ -242,24 +177,23 @@ export default function Header() {
   const normalized =
     pathname.replace(/^\/(en|es)/, "").replace(/\/$/, "") || "/";
 
-  const grupoUno = ["/", "/fragance/men", "/clothes/men", "/best-seller"];
   const grupoDos = ["/fragance/women", "/clothes/women"];
 
   // Detecta si hay contenido después de /men o /women (ej. /clothes/women/detalle-123)
   const hasSubPath = /^\/(fragance|clothes)\/(men|women)\/.+/.test(normalized);
 
   const bgClass = hasSubPath ? "bg-white" : "bg-transparent";
-  const textClass = grupoDos.includes(normalized) ? "text-white" : "text-black";
+  const textClass = grupoDos.includes(normalized) || isWomenHeroImage ? "text-white" : "text-black";
 
   // Solo tras pasar el primer viewport, el fondo del header se invierte
   // al color del texto del hero: texto negro -> fondo blanco, texto blanco -> fondo negro.
   const scrolledBg = isThresholdReached
-    ? heroTextIsWhite
+    ? isWomenHeroImage
       ? "bg-black"
       : "bg-white"
     : bgClass;
   const scrolledText = isThresholdReached
-    ? heroTextIsWhite
+    ? isWomenHeroImage
       ? "text-white"
       : "text-black"
     : textClass;
@@ -290,16 +224,8 @@ export default function Header() {
       }
 
       setIsThresholdReached(scrollY >= threshold);
-      updateHeroTextColor();
 
       lastScrollY.current = scrollY;
-    };
-
-    const updateHeroTextColor = () => {
-      const title = document.querySelector("main > section h1");
-      if (!title) return;
-      const color = window.getComputedStyle(title).color;
-      setHeroTextIsWhite(/^rgb\(255/.test(color));
     };
 
     const updateHeaderHeight = () => {
@@ -315,17 +241,6 @@ export default function Header() {
       );
     };
 
-    const heroTitle = document.querySelector("main > section h1");
-    const observer = heroTitle
-      ? new MutationObserver(updateHeroTextColor)
-      : null;
-    if (observer && heroTitle) {
-      observer.observe(heroTitle, {
-        attributes: true,
-        attributeFilter: ["class"],
-      });
-    }
-
     window.addEventListener("scroll", updateHeaderStyle, { passive: true });
     window.addEventListener("resize", updateHeaderHeight);
 
@@ -336,7 +251,6 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", updateHeaderStyle);
       window.removeEventListener("resize", updateHeaderHeight);
-      observer?.disconnect();
     };
   }, []);
 
@@ -417,7 +331,7 @@ export default function Header() {
                 />
               </button>
               <Link
-                href="#"
+                href={process.env.NEXT_PUBLIC_SHOPIFY_ACCOUNT_URL || "#"}
                 className="w-10.5 h-10.5  flex justify-center items-center  "
               >
                 <User
@@ -429,6 +343,7 @@ export default function Header() {
               href={"/"}
               aria-label={"Ir a la página principal"}
               title={"Your best - Init"}
+              className='translate-x-[34%]'
             >
               <p className="text-[20px] md:text-[24px] font-logo font-medium leading-[150%] uppercase">
                 your best
@@ -463,7 +378,7 @@ export default function Header() {
                           />
                         </div>
                         <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block z-50">
-                          <MegaMenu lang={lang} />
+                          <MegaMenu lang={lang} content={content} />
                         </div>
                       </li>
                     );
@@ -474,7 +389,7 @@ export default function Header() {
 
             <div className="flex justify-center items-center ">
               <Link
-                href="#"
+                href={process.env.NEXT_PUBLIC_SHOPIFY_ACCOUNT_URL || "#"}
                 className="w-10.5 h-10.5 md:flex justify-center items-center hidden "
               >
                 <User
@@ -484,7 +399,7 @@ export default function Header() {
               <CartIconHeader
                 differentStyles={headerClasses.includes("text-white")}
               />
-
+              <ChangeLanguage locale={lang} />
               <button
                 type="button"
                 aria-label="Abrir menú de navegación"

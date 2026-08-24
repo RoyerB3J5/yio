@@ -1,82 +1,97 @@
-import { CartItem, Product } from "@/types";
+"use client";
+
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import {
+  getCartAction,
+  addToCartAction,
+  updateCartLineAction,
+  removeCartLineAction,
+} from "@/app/actions/cart";
 
+type CartLineMerchandise = {
+  id: string;
+  title: string;
+  availableForSale: boolean;
+  selectedOptions: Array<{ name: string; value: string }>;
+  image: { url: string; altText: string | null } | null;
+  price: { amount: string; currencyCode: string };
+  product: { title: string; handle: string; tags: string[]; productType: string };
+};
 
-interface CartState {
-  cart: CartItem[];
-  isOpen: boolean;
-  openCart: () => void;
-  closeCart: () => void;
-  addItem: (product: Product, quantity?: number) => void;
-  removeItem: (id: string) => void;
-  updateQuantity: (id: string, type: "increment" | "decrement") => void;
-  clearCart: () => void;
-  // Selectores computados directos
-  getTotalItems: () => number;
-  getTotalPrice: () => number;
-}
+type CartLine = {
+  id: string;
+  quantity: number;
+  cost: { totalAmount: { amount: string; currencyCode: string } };
+  merchandise: CartLineMerchandise;
+};
 
-export const useCartStore = create<CartState>()(
-  persist(
-    (set, get) => ({
-      cart: [],
-      isOpen: false,
+type Cart = {
+  id: string;
+  checkoutUrl: string;
+  totalQuantity: number;
+  cost: {
+    totalAmount: { amount: string; currencyCode: string };
+    subtotalAmount: { amount: string; currencyCode: string };
+  };
+  lines: { edges: Array<{ node: CartLine }> };
+};
 
-      openCart: () => set({ isOpen: true }),
-      closeCart: () => set({ isOpen: false }),
+type CartStore = {
+  cart: Cart | null;
+  isLoading: boolean;
+  isDrawerOpen: boolean;
 
-      addItem: (product, quantity = 1) => {
-        const cart = get().cart;
-        const itemExiste = cart.find((item) => item.id === product.id);
+  openDrawer: () => void;
+  closeDrawer: () => void;
 
-        if (itemExiste) {
-          set({
-            cart: cart.map((item) =>
-              item.id === product.id
-                ? { ...item, quantity: item.quantity + quantity }
-                : item,
-            ),
-          });
-        } else {
-          set({ cart: [...cart, { ...product, quantity: quantity }] });
-        }
-      },
+  initCart: () => Promise<void>;
+  addItem: (variantId: string, quantity?: number) => Promise<void>;
+  updateItem: (lineId: string, quantity: number) => Promise<void>;
+  removeItem: (lineId: string) => Promise<void>;
+};
 
-      removeItem: (id) => {
-        set({ cart: get().cart.filter((item) => item.id !== id) });
-      },
+export const useCartStore = create<CartStore>((set) => ({
+  cart: null,
+  isLoading: false,
+  isDrawerOpen: false,
 
-      updateQuantity: (id, type) => {
-        const cart = get().cart;
-        set({
-          cart: cart
-            .map((item) => {
-              if (item.id === id) {
-                const nuevaCantidad =
-                  type === "increment" ? item.quantity + 1 : item.quantity - 1;
-                return { ...item, quantity: nuevaCantidad };
-              }
-              return item;
-            })
-            .filter((item) => item.quantity > 0), // Si baja de 1, se elimina automáticamente
-        });
-      },
+  openDrawer: () => set({ isDrawerOpen: true }),
+  closeDrawer: () => set({ isDrawerOpen: false }),
 
-      clearCart: () => set({ cart: [] }),
+  initCart: async () => {
+    const cart = await getCartAction();
+    set({ cart });
+  },
 
-      // Helpers computados
-      getTotalItems: () =>
-        get().cart.reduce((acc, item) => acc + item.quantity, 0),
-      getTotalPrice: () =>
-        get().cart.reduce(
-          (acc, item) => acc + Number(item.price) * item.quantity,
-          0,
-        ),
-    }),
-    {
-      name: "shopping-cart-storage", // Nombre de la llave en localStorage
-      skipHydration: true, // Crucial para Next.js (lo explico abajo)
-    },
-  ),
-);
+  addItem: async (variantId, quantity = 1) => {
+    set({ isLoading: true });
+    try {
+      const cart = await addToCartAction(variantId, quantity);
+      set({ cart, isDrawerOpen: true });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  updateItem: async (lineId, quantity) => {
+    set({ isLoading: true });
+    try {
+      const cart = await updateCartLineAction(lineId, quantity);
+      set({ cart });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  removeItem: async (lineId) => {
+    set({ isLoading: true });
+    try {
+      const cart = await removeCartLineAction(lineId);
+      set({ cart });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+}));
+
+export type { Cart, CartLine };

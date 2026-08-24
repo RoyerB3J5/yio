@@ -19,17 +19,21 @@ interface BestSellerProps {
   locale: string;
 }
 
-export default function BestSeller({ content,locale }: BestSellerProps) {
+export default function BestSeller({ content, locale }: BestSellerProps) {
   return (
     <section className="w-full flex flex-col justify-center items-center gap-6 pb-8 md:pb-20">
       <div className="container-full flex flex-col justify-center md:justify-start items-center md:items-start gap-4">
-        <h2 className="subtitle text-black">{content.title}</h2>
-        <p className="text-[#6A6A6A] paragraph uppercase">
+        <h2 className="subtitle text-black fade-right">{content.title}</h2>
+        <p className="text-[#6A6A6A] paragraph uppercase fade-right">
           {content.description}
         </p>
-        <div className="flex justify-center items-center gap-2">
+        <div className="flex justify-center items-center gap-2 fade-right">
           {content.category.map((item, index) => (
-            <Button key={index} label={item.name} href={`/${locale}${item.href}`} />
+            <Button
+              key={index}
+              label={item.name}
+              href={`/${locale}${item.href}`}
+            />
           ))}
         </div>
       </div>

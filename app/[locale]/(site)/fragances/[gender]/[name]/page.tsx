@@ -2,13 +2,14 @@ import Banners from "@/components/sections/Banners";
 import Descriptions from "@/components/sections/fragances/single/Descriptions";
 import Hero from "@/components/sections/fragances/single/Hero";
 import Information from "@/components/sections/fragances/single/Information";
-import Recommended from "@/components/sections/fragances/single/Recommended";
-import CollectionsCarousel from "@/components/sections/main/CollectionsCarousel";
 import ProductsBanner from "@/components/sections/ProductsBanner";
-import { content as fixedContent } from "@/content/main";
-
+import RecommendedItem from "@/components/sections/fragances/single/RecommendedItem";
+type MainContent = (typeof import("@/content/en"))["default"]["main"];
+import { getContent } from "@/i18n/content";
+import { hasLocale } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 // When this product page is connected to Shopify:
-//import { getFragranceProductPage } from "@/lib/shopify";
+//import { getFragranceProductPage, getRecommendedFragrance } from "@/lib/shopify";
 
 interface PageProps {
   params: Promise<{ gender: string; name: string; locale: string }>;
@@ -29,6 +30,7 @@ const productInfo = {
       price: 90.0,
       rate: 4.5,
       img: "/images/fragances/single/image-2.webp",
+      idVariant: "gid://shopify/ProductVariant/44395035656257",
     },
   },
   section2: {
@@ -141,14 +143,20 @@ const productBanner = [
 ];
 export default async function SingleFragrance({ params }: PageProps) {
   const { name, locale } = await params;
-
+  if (!hasLocale(locale)) {
+    notFound();
+  }
+  const { main: fixedContent } = await getContent<{ main: MainContent }>(
+    locale,
+  );
   //const product = await getFragranceProductPage(name);
+  // const { products: recommendedProducts } = await getRecommendedFragrance({ first: 6 });
   // product contains the raw Shopify fragrance detail data.
 
   return (
     <main className="w-full flex flex-col justify-center items-center pt-(--header-height)">
       <Hero productInfo={productInfo.section1} content={content} />
-      {/*<pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
+      {/* <pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
         <code>
           {JSON.stringify(
             product,
@@ -157,7 +165,7 @@ export default async function SingleFragrance({ params }: PageProps) {
             2,
           )}
         </code>
-      </pre> */}
+      </pre>*/}
 
       <Descriptions product={productInfo.section2} content={content} />
       <section className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -179,8 +187,10 @@ export default async function SingleFragrance({ params }: PageProps) {
         ))}
       </section>
       <Information product={productInfo.section4} content={content} />
-      <Recommended label={content.recomendado} products={productRecommended} />
-      <CollectionsCarousel content={productRecommended} locale={locale} />
+      <RecommendedItem
+        label={content.recomendado}
+        products={productRecommended}
+      />
       <Banners content={fixedContent.banners} locale={locale} />
       <ProductsBanner content={productBanner} locale={locale} />
     </main>

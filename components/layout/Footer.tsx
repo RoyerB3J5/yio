@@ -1,47 +1,11 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
+import type { FooterContent } from "@/content/types";
 
-const content = {
-  description: {
-    title: "INSCRÍBETE PARA <br/> RECIBIR NOVEDADES ",
-    name: "¿CUÁL ES TU NOMBRE?",
-  },
-  women: {
-    title: "Mujeres",
-    links: [
-      { label: "FRAGANCIAS", href: "/fragances/women" },
-      { label: "ROPA", href: "/clothes/women" },
-    ],
-  },
-  men: {
-    title: "Hombres",
-    links: [
-      { label: "FRAGANCIAS", href: "/fragances/men" },
-      { label: "ROPA", href: "/clothes/men" },
-    ],
-  },
-  bestseller: {
-    title: "Best Sellers",
-    links: [
-      { label: "FRAGANCIAS", href: "/best-seller" },
-      { label: "ROPA", href: "/best-seller" },
-    ],
-  },
-  contact: {
-    title: "Contáctanos",
-    links: [
-      { icon: "", label: "+ 609 899 3421", href: "tel:+6098993421" },
-      { icon: "tiktok", label: "yovani.b1", href: "#" },
-      { icon: "instagram", label: "@yovani.store", href: "#" },
-    ],
-  },
-};
-
-export default function Footer() {
+export default function Footer({ content }: { content: FooterContent }) {
   const pathname = usePathname() || "/";
   const match = pathname.match(/^\/(en|es)/);
   const lang = match ? match[1] : "en";

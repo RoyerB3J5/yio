@@ -1,14 +1,24 @@
 import "server-only";
 
 import {
+  BEST_SELLER_PRODUCTS_QUERY,
+  CART_CREATE,
+  CART_LINES_ADD,
+  CART_LINES_REMOVE,
+  CART_LINES_UPDATE,
+  CART_QUERY,
   CLOTHING_PRODUCT_QUERY,
   COLLECTION_PRODUCTS_QUERY,
   FRAGRANCE_PRODUCT_QUERY,
+  RECOMMENDED_CLOTHING_QUERY,
+  RECOMMENDED_FRAGRANCE_QUERY,
 } from "@/lib/shopify/queries";
 import type {
+  Cart,
   ClothingProduct,
   FragranceProduct,
   Gender,
+  ProductCard,
   ProductCollection,
 } from "@/lib/shopify/types";
 import {
@@ -195,7 +205,130 @@ export async function getClothingProductPage(handle: string): Promise<ClothingPr
   return product ? toClothingProductPage(product) : null;
 }
 
+export async function getBestSellerProducts(
+  options: { first?: number; after?: string | null } = {},
+) {
+  const first = options?.first ?? 20;
+  const { products } = await storefrontFetch<{ products: { nodes: ProductCard[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } }>(
+    BEST_SELLER_PRODUCTS_QUERY,
+    { first: normalizeFirst(first), after: options?.after ?? null },
+    ["shopify", "shopify:best-seller"],
+  );
+
+  return {
+    products: products.nodes.map((product) =>
+      product.tags.some((tag: string) => tag.toLowerCase().includes("fragancia") || tag.toLowerCase().includes("fragance"))
+        ? toFragranceListItem(product)
+        : toClothingListItem(product)
+    ),
+    pageInfo: products.pageInfo,
+  };
+}
+
+export async function createCart(lines: Array<{ merchandiseId: string; quantity: number }> = []): Promise<Cart> {
+  const data = await storefrontFetch<{ cartCreate: { cart: Cart; userErrors: Array<{ field: string; message: string }> } }>(
+    CART_CREATE,
+    { input: { lines } },
+    ["shopify", "shopify:cart"],
+  );
+
+  console.log("createCart raw response:", JSON.stringify(data, null, 2));
+
+  if (data.cartCreate.userErrors.length) {
+    throw new Error(data.cartCreate.userErrors.map(e => `${e.field}: ${e.message}`).join(", "));
+  }
+
+  return data.cartCreate.cart;
+}
+
+export async function addCartLines(cartId: string, lines: Array<{ merchandiseId: string; quantity: number }>): Promise<Cart> {
+  const data = await storefrontFetch<{ cartLinesAdd: { cart: Cart; userErrors: Array<{ field: string; message: string }> } }>(
+    CART_LINES_ADD,
+    { cartId, lines },
+    ["shopify", "shopify:cart"],
+  );
+
+  console.log("addCartLines raw response:", JSON.stringify(data, null, 2));
+
+  if (data.cartLinesAdd.userErrors.length) {
+    throw new Error(data.cartLinesAdd.userErrors.map(e => `${e.field}: ${e.message}`).join(", "));
+  }
+
+  return data.cartLinesAdd.cart;
+}
+
+export async function updateCartLines(cartId: string, lines: Array<{ id: string; quantity: number }>): Promise<Cart> {
+  const data = await storefrontFetch<{ cartLinesUpdate: { cart: Cart; userErrors: Array<{ field: string; message: string }> } }>(
+    CART_LINES_UPDATE,
+    { cartId, lines },
+    ["shopify", "shopify:cart"],
+  );
+
+  if (data.cartLinesUpdate.userErrors.length) {
+    throw new Error(data.cartLinesUpdate.userErrors[0].message);
+  }
+
+  return data.cartLinesUpdate.cart;
+}
+
+export async function removeCartLines(cartId: string, lineIds: string[]): Promise<Cart> {
+  const data = await storefrontFetch<{ cartLinesRemove: { cart: Cart; userErrors: Array<{ field: string; message: string }> } }>(
+    CART_LINES_REMOVE,
+    { cartId, lineIds },
+    ["shopify", "shopify:cart"],
+  );
+
+  if (data.cartLinesRemove.userErrors.length) {
+    throw new Error(data.cartLinesRemove.userErrors[0].message);
+  }
+
+  return data.cartLinesRemove.cart;
+}
+
+export async function getCart(cartId: string): Promise<Cart | null> {
+  const data = await storefrontFetch<{ cart: Cart | null }>(
+    CART_QUERY,
+    { cartId },
+    ["shopify", "shopify:cart"],
+  );
+
+  return data.cart;
+}
+
+export async function getRecommendedClothing(
+  options: { first?: number; after?: string | null } = {},
+) {
+  const first = options?.first ?? 6;
+  const { products } = await storefrontFetch<{ products: { nodes: ProductCard[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } }>(
+    RECOMMENDED_CLOTHING_QUERY,
+    { first: normalizeFirst(first), after: options?.after ?? null },
+    ["shopify", "shopify:recommended-clothing"],
+  );
+
+  return {
+    products: products.nodes.map(toClothingListItem),
+    pageInfo: products.pageInfo,
+  };
+}
+
+export async function getRecommendedFragrance(
+  options: { first?: number; after?: string | null } = {},
+) {
+  const first = options?.first ?? 6;
+  const { products } = await storefrontFetch<{ products: { nodes: ProductCard[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } }>(
+    RECOMMENDED_FRAGRANCE_QUERY,
+    { first: normalizeFirst(first), after: options?.after ?? null },
+    ["shopify", "shopify:recommended-fragrance"],
+  );
+
+  return {
+    products: products.nodes.map(toFragranceListItem),
+    pageInfo: products.pageInfo,
+  };
+}
+
 export type {
+  Cart,
   ClothingProduct,
   FragranceProduct,
   Gender,

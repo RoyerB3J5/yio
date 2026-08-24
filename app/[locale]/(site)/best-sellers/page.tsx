@@ -3,6 +3,7 @@ import GridClothes from "@/components/sections/clothes/GridClothes";
 import Hero from "@/components/sections/main/Hero";
 import ProductsBanner from "@/components/sections/ProductsBanner";
 import type { ClothingListItem, FragranceListItem } from "@/lib/shopify/transformers";
+// import { getBestSellerProducts } from "@/lib/shopify";
 
 type ProductItem = ClothingListItem | FragranceListItem;
 
@@ -281,6 +282,9 @@ export default async function Page({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  // const { products: bestSellerProducts } = await getBestSellerProducts({ first: 20 });
+
   return (
     <main className="w-full flex flex-col justify-center items-center pt-(--top-bar-height)">
       <Hero content={content.hero} changeColor={content.hero.changeColor} />

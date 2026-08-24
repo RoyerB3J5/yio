@@ -56,6 +56,7 @@ export interface FragranceProduct {
   descriptionHtml: string;
   priceRange: { minVariantPrice: Money };
   images: { nodes: ProductImage[] };
+  variants: { nodes: ProductVariant[] };
   volumen: Metafield | null;
   tagline: Metafield | null;
   notaAlta: Metafield | null;
@@ -72,6 +73,36 @@ export interface RelatedProduct {
   vendor: string;
   featuredImage: ProductImage | null;
   priceRange: { minVariantPrice: Money };
+}
+
+export interface CartLineMerchandise {
+  id: string;
+  title: string;
+  availableForSale: boolean;
+  selectedOptions: Array<{ name: string; value: string }>;
+  image: ProductImage | null;
+  price: Money;
+  product: { title: string; handle: string; tags: string[]; productType: string };
+}
+
+export interface CartLine {
+  id: string;
+  quantity: number;
+  cost: { totalAmount: Money };
+  merchandise: CartLineMerchandise;
+}
+
+export interface CartCost {
+  totalAmount: Money;
+  subtotalAmount: Money;
+}
+
+export interface Cart {
+  id: string;
+  checkoutUrl: string;
+  totalQuantity: number;
+  cost: CartCost;
+  lines: { edges: Array<{ node: CartLine }> };
 }
 
 export interface ClothingProduct {

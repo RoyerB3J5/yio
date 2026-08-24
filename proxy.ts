@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { defaultLocale, isLocale } from "@/i18n/routing";
+import { defaultLocale, hasLocale } from "@/i18n/routing";
 
 const localeCookie = "NEXT_LOCALE";
 
@@ -7,9 +7,9 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const [, locale] = pathname.split("/");
 
-  if (!isLocale(locale)) {
+  if (!hasLocale(locale)) {
     const preferredLocale = request.cookies.get(localeCookie)?.value;
-    const targetLocale = isLocale(preferredLocale ?? "")
+    const targetLocale = hasLocale(preferredLocale ?? "")
       ? preferredLocale
       : defaultLocale;
     const url = request.nextUrl.clone();

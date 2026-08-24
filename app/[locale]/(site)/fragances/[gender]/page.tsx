@@ -541,7 +541,10 @@ const productsWomen = [
     createdAt: "2026-08-21T14:30:00.000Z",
   },
 ];
-import { content as fixedContent } from "@/content/main";
+type MainContent = (typeof import("@/content/en"))["default"]["main"];
+import { getContent } from "@/i18n/content";
+import { hasLocale } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 interface PageProps {
   params: Promise<{ gender: string; locale: string }>;
@@ -549,7 +552,12 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
   const { gender, locale } = await params;
   const currentGender = gender === "women" || gender === "men" ? gender : "men";
-
+  if (!hasLocale(locale)) {
+    notFound();
+  }
+  const { main: fixedContent } = await getContent<{ main: MainContent }>(
+    locale,
+  );
   // const { products } = await getFragranceListByGender(currentGender);
   // `products` already matches the `GridProducts` prop structure.
   // collection?.products.nodes contains the raw Shopify product cards.

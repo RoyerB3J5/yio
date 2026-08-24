@@ -42,7 +42,7 @@ export interface ClothingListItem {
 export interface FragranceProductPage {
   section1: {
     image: string;
-    infoProduct: Omit<FragranceListItem, "isBestSeller" | "href">;
+    infoProduct: Omit<FragranceListItem, "isBestSeller" | "href"> & { idVariant: string };
   };
   section2: { title: string; description: string; img: string };
   section3: string[];
@@ -238,6 +238,7 @@ export function toFragranceProductPage(
   product: FragranceProduct,
 ): FragranceProductPage {
   const images = product.images.nodes;
+  const firstVariant = product.variants.nodes[0];
   const card = {
     isNew: isNew(product.createdAt),
     name: product.vendor,
@@ -247,6 +248,7 @@ export function toFragranceProductPage(
     createdAt: product.createdAt,
     rate: productRating(product.id),
     img: imageAt(images, 0),
+    idVariant: firstVariant?.id ?? "",
   };
 
   return {

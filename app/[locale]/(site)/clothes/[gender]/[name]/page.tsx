@@ -5,12 +5,10 @@ import HeroItem from "@/components/sections/clothes/HeroItem";
 import RecommendedItem from "@/components/sections/clothes/RecommendedItem";
 import ProductsBanner from "@/components/sections/ProductsBanner";
 import { content as fixedContent } from "@/content/main";
-
-// When this product page is connected to Shopify:
-//import { getClothingProductPage } from "@/lib/shopify";
+// import { getClothingProductPage, getRecommendedClothing } from "@/lib/shopify";
 
 interface PageProps {
-  params: Promise<{ gender: string; name: string;locale: string }>;
+  params: Promise<{ gender: string; name: string; locale: string }>;
 }
 const content = {
   button: "Comprar ahora",
@@ -26,16 +24,19 @@ const productInfo = {
       "La sudadera Accolade combina un estilo relajado y premium con felpa francesa ultrasuave, ideal para el día a día y para crear el conjunto perfecto con el pantalón a juego.",
     variants: [
       {
-        id: "s",
+        id: "gid://shopify/ProductVariant/44395043094593",
         name: "S",
+        availableForSale: true,
       },
       {
-        id: "m",
+        id: "gid://shopify/ProductVariant/44395043127361",
         name: "M",
+        availableForSale: true,
       },
       {
-        id: "l",
+        id: "gid://shopify/ProductVariant/44395043160129",
         name: "L",
+        availableForSale: true,
       },
     ],
     rate: 4.5,
@@ -178,6 +179,7 @@ export default async function SingleFragrance({ params }: PageProps) {
   const { name, locale } = await params;
 
   //const productInfoTest = await getClothingProductPage(name);
+  // const { products: recommendedProducts } = await getRecommendedClothing({ first: 6 });
   // `productInfo` matches the HeroItem and DescriptionItem props.
   // product contains the raw Shopify clothing detail data.
 

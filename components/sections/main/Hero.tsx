@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useHeroContext } from "@/components/context/HeroContext";
 
 interface HeroProps {
   content: {
@@ -14,6 +15,7 @@ interface HeroProps {
 }
 
 export default function Hero({ content, changeColor = false }: HeroProps) {
+  const { setCurrentHeroImage } = useHeroContext();
   const rawImages =
     content.carouselImages && content.carouselImages.length > 0
       ? content.carouselImages
@@ -170,6 +172,12 @@ export default function Hero({ content, changeColor = false }: HeroProps) {
 
   const translateX = -currentIndex * dimensions.itemWidth + dragOffset;
   const currentLogicalIndex = N > 1 ? (((currentIndex - N) % N) + N) % N : 0;
+
+  useEffect(() => {
+    if (rawImages.length > 0) {
+      setCurrentHeroImage(rawImages[currentLogicalIndex].image);
+    }
+  }, [currentLogicalIndex, rawImages, setCurrentHeroImage]);
 
   return (
     <section className="w-full h-[calc(100vh-(var(--top-bar-height)))] flex justify-center items-center relative bg-black overflow-hidden">

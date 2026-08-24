@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
     // Prevent stale fetch results while testing Shopify changes with HMR.
     serverComponentsHmrCache: false,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+      },
+    ],
+    formats: ["image/avif", "image/webp"],
+  },
 };
 
 export default nextConfig;

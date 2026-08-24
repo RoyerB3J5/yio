@@ -6,7 +6,12 @@ import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/shop/CartDrawer";
-import { isLocale, locales } from "@/i18n/routing";
+import { CartInit } from "@/components/CartInit";
+import { hasLocale, locales } from "@/i18n/routing";
+import contentData from "@/content/en";
+import type { HeaderContent, FooterContent } from "@/content/types";
+import ScrollAnimations from "@/components/ui/ScrollAnimations";
+import { HeroProvider } from "@/components/context/HeroContext";
 
 const dinnextLTPro = localFont({
   src: [
@@ -109,7 +114,7 @@ export default async function LocaleLayout({
 }>) {
   const { locale } = await params;
 
-  if (!isLocale(locale)) {
+  if (!hasLocale(locale)) {
     notFound();
   }
 
@@ -124,9 +129,15 @@ export default async function LocaleLayout({
       </head>
 
       <body className="w-full font-family antialiased overflow-x-clip bg-white flex flex-col justify-center items-center ">
-        <Header />
-        {children}
-        <Footer />
+        <ScrollAnimations />
+
+        <CartInit />
+        <HeroProvider>
+          <Header content={contentData.header as HeaderContent} />
+          {children}
+          <Footer content={contentData.footer as FooterContent} />
+        </HeroProvider>
+
         <CartDrawer />
       </body>
     </html>

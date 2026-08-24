@@ -1,5 +1,9 @@
+"use client";
+
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import { useState } from "react";
+import { useCartStore } from "@/store/cart";
 
 interface HeroItemProps {
   product: {
@@ -9,6 +13,7 @@ interface HeroItemProps {
     variants: {
       id: string;
       name: string;
+      availableForSale: boolean;
     }[];
     rate: number;
     price: number;
@@ -28,6 +33,18 @@ interface HeroItemProps {
 }
 
 export default function HeroItem({ product, content, images }: HeroItemProps) {
+  const addItem = useCartStore((state) => state.addItem);
+  const isLoading = useCartStore((state) => state.isLoading);
+  const [selectedVariantId, setSelectedVariantId] = useState<string>(
+    product.variants.find((v) => v.availableForSale)?.id ?? product.variants[0]?.id ?? ""
+  );
+
+  const handleAddToCart = async () => {
+    if (selectedVariantId) {
+      await addItem(selectedVariantId, 1);
+    }
+  };
+
   return (
     <section className="w-full flex flex-col md:flex-row justify-center items-start">
       {/* ----------------- COLUMNA IZQUIERDA: IMÁGENES (SE MUEVEN AL HACER SCROLL) ----------------- */}
@@ -103,14 +120,20 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
             {product.variants.map((variant) => (
               <button
                 key={variant.id}
-                className="w-12 h-8 border border-[#D2D2D2] text-[14px] font-normal leading-[150%] text-black hover:bg-black hover:text-white transition-colors duration-300 ease-in-out cursor-pointer"
+                onClick={() => variant.availableForSale && setSelectedVariantId(variant.id)}
+                disabled={!variant.availableForSale}
+                className={`w-12 h-8 border text-[14px] font-normal leading-[150%] text-black transition-colors duration-300 ease-in-out cursor-pointer ${
+                  selectedVariantId === variant.id
+                    ? "border-black bg-black text-white"
+                    : "border-[#D2D2D2] hover:bg-black hover:text-white"
+                } ${!variant.availableForSale ? "opacity-50 cursor-not-allowed" : ""}`}
               >
                 {variant.name}
               </button>
             ))}
           </div>
           <p className="title-h3 text-black">${product.price.toFixed(2)}</p>
-          <Button label={content.button} wFull />
+          <Button label={content.button} wFull onClick={handleAddToCart} disabled={isLoading || !selectedVariantId} />
         </div>
         <div className="w-full flex flex-col justify-center items-center md:items-start gap-4">
           <h3 className="title-h3 text-black">{content.estilo}</h3>

@@ -72,6 +72,17 @@ export const FRAGRANCE_PRODUCT_QUERY = /* GraphQL */ `
           altText
         }
       }
+      variants(first: 10) {
+        nodes {
+          id
+          title
+          availableForSale
+          selectedOptions {
+            name
+            value
+          }
+        }
+      }
       volumen: metafield(namespace: "fragancia", key: "volumen") {
         value
       }
@@ -87,10 +98,16 @@ export const FRAGRANCE_PRODUCT_QUERY = /* GraphQL */ `
       notaBase: metafield(namespace: "fragancia", key: "nota_base") {
         value
       }
-      familiaOlfativa: metafield(namespace: "fragancia", key: "familia_olfativa") {
+      familiaOlfativa: metafield(
+        namespace: "fragancia"
+        key: "familia_olfativa"
+      ) {
         value
       }
-      descripcionNotas: metafield(namespace: "fragancia", key: "descripcion_notas") {
+      descripcionNotas: metafield(
+        namespace: "fragancia"
+        key: "descripcion_notas"
+      ) {
         value
       }
     }
@@ -161,4 +178,132 @@ export const CLOTHING_PRODUCT_QUERY = /* GraphQL */ `
       }
     }
   }
+`;
+
+export const BEST_SELLER_PRODUCTS_QUERY = /* GraphQL */ `
+  query BestSellerProducts($first: Int!, $after: String) {
+    products(first: $first, after: $after, query: "tag:best-seller") {
+      nodes {
+        ...ProductCard
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`;
+
+export const RECOMMENDED_CLOTHING_QUERY = /* GraphQL */ `
+  query RecommendedClothing($first: Int!, $after: String) {
+    products(first: $first, after: $after, query: "product_type:Clothing") {
+      nodes {
+        ...ProductCard
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`;
+
+export const RECOMMENDED_FRAGRANCE_QUERY = /* GraphQL */ `
+  query RecommendedFragrance($first: Int!, $after: String) {
+    products(first: $first, after: $after, query: "product_type:Fragrance") {
+      nodes {
+        ...ProductCard
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`;
+
+export const CART_FRAGMENT = /* GraphQL */ `
+  fragment CartFields on Cart {
+    id
+    checkoutUrl
+    totalQuantity
+    cost {
+      totalAmount { amount currencyCode }
+      subtotalAmount { amount currencyCode }
+    }
+    lines(first: 100) {
+      edges {
+        node {
+          id
+          quantity
+          cost {
+            totalAmount { amount currencyCode }
+          }
+          merchandise {
+            ... on ProductVariant {
+              id
+              title
+              availableForSale
+              selectedOptions { name value }
+              image { url altText }
+              price { amount currencyCode }
+              product { 
+                title 
+                handle
+                tags
+                productType
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const CART_CREATE = /* GraphQL */ `
+  mutation cartCreate($input: CartInput!) {
+    cartCreate(input: $input) {
+      cart { ...CartFields }
+      userErrors { field message }
+    }
+  }
+  ${CART_FRAGMENT}
+`;
+
+export const CART_LINES_ADD = /* GraphQL */ `
+  mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+    cartLinesAdd(cartId: $cartId, lines: $lines) {
+      cart { ...CartFields }
+      userErrors { field message }
+    }
+  }
+  ${CART_FRAGMENT}
+`;
+
+export const CART_LINES_UPDATE = /* GraphQL */ `
+  mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+    cartLinesUpdate(cartId: $cartId, lines: $lines) {
+      cart { ...CartFields }
+      userErrors { field message }
+    }
+  }
+  ${CART_FRAGMENT}
+`;
+
+export const CART_LINES_REMOVE = /* GraphQL */ `
+  mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+      cart { ...CartFields }
+      userErrors { field message }
+    }
+  }
+  ${CART_FRAGMENT}
+`;
+
+export const CART_QUERY = /* GraphQL */ `
+  query getCart($cartId: ID!) {
+    cart(id: $cartId) { ...CartFields }
+  }
+  ${CART_FRAGMENT}
 `;

@@ -27,7 +27,7 @@ export default function Collection({
 }: CollectionProps) {
   return (
     <section className="w-full py-8 md:py-20 flex justify-center items-center flex-col gap-6">
-      <div className="aspect-718/972 w-full h-auto relative md:hidden block">
+      <div className="aspect-718/972 w-full h-auto relative md:hidden block fade-right">
         <img
           src={"/images/main/collection.webp"}
           alt={"Collection YIO Fragance"}
@@ -39,15 +39,15 @@ export default function Collection({
         />
       </div>
       <div className="flex flex-col justify-center items-center gap-2 text-center px-4 md:px-0">
-        <h2 className="subtitle text-black">{content.title}</h2>
-        <p className="paragraph uppercase text-[#6A6A6A]">
+        <h2 className="subtitle text-black fade-left">{content.title}</h2>
+        <p className="paragraph uppercase text-[#6A6A6A] fade-right">
           {content.description}
         </p>
       </div>
       <div className="w-full hidden md:flex justify-center items-start gap-1 relative">
         {/* ----------------- COLUMNA IZQUIERDA (STICKY) ----------------- */}
         {/* Agregamos 'sticky' y 'top-0' (o 'top-20' si tienes un header fijo) */}
-        <div className="sticky top-0 w-1/2 h-auto aspect-718/972 relative overflow-hidden">
+        <div className="sticky top-0 w-1/2 h-auto aspect-718/972 relative overflow-hidden fade-right">
           <img
             src={"/images/main/collection.webp"}
             alt={"Collection YIO Fragance"}
@@ -64,7 +64,8 @@ export default function Collection({
           {product.map((item, index) => (
             <Link
               href={`/${locale}/fragances/${item.gender}/${item.href}`}
-              className="w-full bg-[#F8F7F3] flex flex-col justify-between items-center p-4 aspect-357/484"
+              className="w-full bg-[#F8F7F3] flex flex-col justify-between items-center p-4 aspect-357/484 fade-up"
+              style={{ transitionDelay: `${index * 100}ms` }}
               key={index}
             >
               <div className="w-full flex justify-between items-center">

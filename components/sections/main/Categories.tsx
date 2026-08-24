@@ -22,7 +22,7 @@ export default function Categories({ content, locale }: CategoriesProps) {
         const isAnchor = category.href.startsWith("#");
         const href = isAnchor ? category.href : `/${baseLocale}${category.href}`;
         const className =
-          "w-full h-auto aspect-345/440 flex justify-center items-end p-6 relative group overflow-hidden";
+          "w-full h-auto aspect-345/440 flex justify-center items-end p-6 relative group overflow-hidden fade-up";
 
         const inner = (
           <>
@@ -59,11 +59,11 @@ export default function Categories({ content, locale }: CategoriesProps) {
         );
 
         return isAnchor ? (
-          <a key={index} href={href} className={className}>
+          <a key={index} href={href} className={className} style={{animationDelay: `${index * 200}ms`}}>
             {inner}
           </a>
         ) : (
-          <Link key={index} href={href} className={className}>
+          <Link key={index} href={href} className={className} style={{transitionDelay: `${index * 200}ms`}}>
             {inner}
           </Link>
         );
