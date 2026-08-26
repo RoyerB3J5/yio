@@ -1,7 +1,6 @@
 import "server-only";
 
 import {
-  BEST_SELLER_PRODUCTS_QUERY,
   CART_CREATE,
   CART_LINES_ADD,
   CART_LINES_REMOVE,
@@ -10,6 +9,7 @@ import {
   CLOTHING_PRODUCT_QUERY,
   COLLECTION_PRODUCTS_QUERY,
   FRAGRANCE_PRODUCT_QUERY,
+  FRAGRANCE_PRODUCTS_BY_GENDER_QUERY,
   RECOMMENDED_CLOTHING_QUERY,
   RECOMMENDED_FRAGRANCE_QUERY,
 } from "@/lib/shopify/queries";
@@ -29,13 +29,16 @@ import {
 } from "@/lib/shopify/transformers";
 import type {
   ClothingProductPage,
+  FragranceListItem,
   FragranceProductPage,
 } from "@/lib/shopify/transformers";
 
 const COLLECTION_HANDLES = {
-  fragrances: { men: "men-fragances", women: "women-fragances" },
+  fragrances: { men: "men-fragances", women: "womens-fragances" },
   clothing: { men: "mens-clothing", women: "womens-clothing" },
 } as const;
+
+const BEST_SELLER_COLLECTION_HANDLE = "bestseller";
 
 const REVALIDATE_SECONDS = 300;
 const isDevelopment = process.env.NODE_ENV === "development";
@@ -117,6 +120,24 @@ async function getCollectionProducts(
   );
 }
 
+async function getFragranceProductsByGenderTag(
+  gender: Gender,
+  { first = 20, after }: { first?: number; after?: string | null } = {},
+) {
+  const query = `product_type:Fragance AND tag:${gender}`;
+
+  return storefrontFetch<{
+    products: {
+      nodes: ProductCard[];
+      pageInfo: { hasNextPage: boolean; endCursor: string | null };
+    };
+  }>(
+    FRAGRANCE_PRODUCTS_BY_GENDER_QUERY,
+    { query, first: normalizeFirst(first), after: after ?? null },
+    ["shopify", `shopify:fragrance:${gender}`],
+  );
+}
+
 export function getFragrancesByGender(
   gender: Gender,
   options?: { first?: number; after?: string | null },
@@ -157,28 +178,35 @@ export async function getFragranceListByGender(
     const { collection } = await getFragrancesByGender(gender, { ...options, first });
 
     return {
-      products: collection?.products.nodes.map(toFragranceListItem) ?? [],
+      products: collection?.products.nodes.map((p) => toFragranceListItem(p, gender)) ?? [],
       pageInfo: collection?.products.pageInfo ?? { hasNextPage: false, endCursor: null },
     };
   }
 
+  const perGender = Math.ceil(first / 2);
   const [men, women] = await Promise.all([
-    getFragrancesByGender("men", { ...options, first }),
-    getFragrancesByGender("women", { ...options, first }),
+    getFragranceProductsByGenderTag("men", { ...options, first: perGender }),
+    getFragranceProductsByGenderTag("women", { ...options, first: perGender }),
   ]);
 
-  const menProducts = men.collection?.products.nodes ?? [];
-  const womenProducts = women.collection?.products.nodes ?? [];
+  const menProducts = men.products.nodes.map((p) => toFragranceListItem(p, "men"));
+  const womenProducts = women.products.nodes.map((p) => toFragranceListItem(p, "women"));
+
+  // Interleave products from both genders so we get half men, half women (total 10)
+  const interleaved: FragranceListItem[] = [];
+  const maxLen = Math.max(menProducts.length, womenProducts.length);
+  for (let i = 0; i < maxLen; i++) {
+    if (i < menProducts.length) interleaved.push(menProducts[i]);
+    if (i < womenProducts.length) interleaved.push(womenProducts[i]);
+  }
 
   return {
-    products: [...menProducts, ...womenProducts].slice(0, first).map(toFragranceListItem),
+    products: interleaved.slice(0, first),
     pageInfo: {
       hasNextPage:
-        men.collection?.products.pageInfo.hasNextPage ||
-        women.collection?.products.pageInfo.hasNextPage,
+        men.products.pageInfo.hasNextPage || women.products.pageInfo.hasNextPage,
       endCursor:
-        men.collection?.products.pageInfo.endCursor ??
-        women.collection?.products.pageInfo.endCursor,
+        men.products.pageInfo.endCursor ?? women.products.pageInfo.endCursor,
     },
   };
 }
@@ -190,7 +218,10 @@ export async function getClothingListByGender(
   const { collection } = await getClothingByGender(gender, options);
 
   return {
-    products: collection?.products.nodes.map(toClothingListItem) ?? [],
+    products:
+      collection?.products.nodes.map((product) =>
+        toClothingListItem(product, gender),
+      ) ?? [],
     pageInfo: collection?.products.pageInfo ?? { hasNextPage: false, endCursor: null },
   };
 }
@@ -208,20 +239,19 @@ export async function getClothingProductPage(handle: string): Promise<ClothingPr
 export async function getBestSellerProducts(
   options: { first?: number; after?: string | null } = {},
 ) {
-  const first = options?.first ?? 20;
-  const { products } = await storefrontFetch<{ products: { nodes: ProductCard[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } }>(
-    BEST_SELLER_PRODUCTS_QUERY,
-    { first: normalizeFirst(first), after: options?.after ?? null },
-    ["shopify", "shopify:best-seller"],
+  const { collection } = await getCollectionProducts(
+    BEST_SELLER_COLLECTION_HANDLE,
+    { ...options, first: options.first ?? 100 },
   );
+  const products = collection?.products;
 
   return {
-    products: products.nodes.map((product) =>
-      product.tags.some((tag: string) => tag.toLowerCase().includes("fragancia") || tag.toLowerCase().includes("fragance"))
+    products: (products?.nodes ?? []).map((product) =>
+      ["fragance", "fragrance"].includes(product.productType.toLowerCase())
         ? toFragranceListItem(product)
         : toClothingListItem(product)
     ),
-    pageInfo: products.pageInfo,
+    pageInfo: products?.pageInfo ?? { hasNextPage: false, endCursor: null },
   };
 }
 
@@ -297,34 +327,16 @@ export async function getCart(cartId: string): Promise<Cart | null> {
 
 export async function getRecommendedClothing(
   options: { first?: number; after?: string | null } = {},
+  gender?: Gender,
 ) {
-  const first = options?.first ?? 6;
-  const { products } = await storefrontFetch<{ products: { nodes: ProductCard[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } }>(
-    RECOMMENDED_CLOTHING_QUERY,
-    { first: normalizeFirst(first), after: options?.after ?? null },
-    ["shopify", "shopify:recommended-clothing"],
-  );
-
-  return {
-    products: products.nodes.map(toClothingListItem),
-    pageInfo: products.pageInfo,
-  };
+  return getClothingListByGender(gender ?? "men", options);
 }
 
 export async function getRecommendedFragrance(
   options: { first?: number; after?: string | null } = {},
+  gender?: Gender,
 ) {
-  const first = options?.first ?? 6;
-  const { products } = await storefrontFetch<{ products: { nodes: ProductCard[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } }>(
-    RECOMMENDED_FRAGRANCE_QUERY,
-    { first: normalizeFirst(first), after: options?.after ?? null },
-    ["shopify", "shopify:recommended-fragrance"],
-  );
-
-  return {
-    products: products.nodes.map(toFragranceListItem),
-    pageInfo: products.pageInfo,
-  };
+  return getFragranceListByGender(gender, options);
 }
 
 export type {

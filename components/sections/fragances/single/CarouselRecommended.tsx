@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Button from "../../../ui/Button";
 import Link from "next/link";
+import { FragranceListItem } from "@/lib/shopify";
 
 interface FragranceItem {
   isNew: boolean;
@@ -18,10 +19,11 @@ interface FragranceItem {
 }
 
 interface CarouselRecommendedProps {
-  content: FragranceItem[];
+  content: FragranceListItem[];
+  locale?: string;
 }
 
-export default function CarouselRecommended({ content }: CarouselRecommendedProps) {
+export default function CarouselRecommended({ content, locale }: CarouselRecommendedProps) {
   const numItems = content.length;
   const desktopTriplicated = numItems > 0 ? [...content, ...content, ...content] : [];
 
@@ -376,91 +378,19 @@ export default function CarouselRecommended({ content }: CarouselRecommendedProp
             }}
             onTransitionEnd={handleDesktopTransitionEnd}
           >
-            {desktopTriplicated.map((item, index) => (
-              <Link
-                href={item.href}
-                className="shrink-0 bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4"
-                style={{ width: `${desktopItemWidth}px` }}
-                key={index}
-              >
-                <div className="w-full flex justify-between items-center">
-                  <div className="flex justify-center items-start gap-2">
-                    {item.isNew && (
-                      <div className="py-2 px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
-                        New
-                      </div>
-                    )}
-                    {item.isBestSeller && (
-                      <div className="py-2 px-4 bg-[#181818] paragraph-xs text-white uppercase hidden lg:block">
-                        Best Seller
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex justify-center items-center gap-2">
-                    <img
-                      src="/images/start.svg"
-                      alt="Star"
-                      className="w-[14px] h-[14px] text-[#151515]"
-                      width={14}
-                      height={14}
-                    />
-                    <p className="paragraph text-[#181818]">{item.rate}</p>
-                  </div>
-                </div>
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  className="w-[65%] h-auto"
-                  width={203}
-                  height={270}
-                  decoding="async"
-                  loading="lazy"
-                />
-                <div className="w-full flex justify-between items-end">
-                  <div className="w-full flex flex-col justify-center items-start gap-1 text-black">
-                    <h3 className="title-h3">{item.name}</h3>
-                    <p className="paragraph uppercase">{item.category}</p>
-                    <p className="paragraph uppercase">{item.info}</p>
-                  </div>
-                  <p className="paragraph-bold">${item.price.toFixed(2)}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
+            {desktopTriplicated.map((item, index) => {
+              const productType = item.productType ?? "fragances";
+              const productGender = item.gender ?? "men";
+              const itemHref = item.href.startsWith("/")
+                ? item.href
+                : `/${[locale, productType, productGender, item.href].filter(Boolean).join("/")}`;
 
-      <div className="w-full relative overflow-hidden flex justify-center items-center flex-col md:hidden pb-8">
-        <div
-          ref={containerRef2}
-          className="w-full overflow-hidden cursor-grab active:cursor-grabbing select-none relative"
-          style={{ touchAction: "pan-y" }}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUpOrLeave}
-          onMouseLeave={handleMouseUpOrLeave}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onDragStart={(e) => e.preventDefault()}
-        >
-          <div
-            className="flex items-stretch"
-            style={{
-              transform: `translate3d(${translateX}px, 0, 0)`,
-              transition: isTransitioning ? "transform 300ms ease-out" : "none",
-            }}
-            onTransitionEnd={handleTransitionEnd}
-          >
-            {expandedContent.map((item, index) => (
-              <div
-                key={index}
-                className="w-full shrink-0 flex justify-center"
-                style={{ width: `${dimensions.itemWidth}px` }}
-              >
+              return (
                 <Link
-                  href={item.href}
-                  className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4 max-w-sm"
+                  href={itemHref}
+                  className="shrink-0 bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4"
+                  style={{ width: `${desktopItemWidth}px` }}
+                  key={index}
                 >
                   <div className="w-full flex justify-between items-center">
                     <div className="flex justify-center items-start gap-2">
@@ -504,8 +434,96 @@ export default function CarouselRecommended({ content }: CarouselRecommendedProp
                     <p className="paragraph-bold">${item.price.toFixed(2)}</p>
                   </div>
                 </Link>
-              </div>
-            ))}
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full relative overflow-hidden flex justify-center items-center flex-col md:hidden pb-8">
+        <div
+          ref={containerRef2}
+          className="w-full overflow-hidden cursor-grab active:cursor-grabbing select-none relative"
+          style={{ touchAction: "pan-y" }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onDragStart={(e) => e.preventDefault()}
+        >
+          <div
+            className="flex items-stretch"
+            style={{
+              transform: `translate3d(${translateX}px, 0, 0)`,
+              transition: isTransitioning ? "transform 300ms ease-out" : "none",
+            }}
+            onTransitionEnd={handleTransitionEnd}
+          >
+            {expandedContent.map((item, index) => {
+              const productType = item.productType ?? "fragances";
+              const productGender = item.gender ?? "men";
+              const itemHref = item.href.startsWith("/")
+                ? item.href
+                : `/${[locale, productType, productGender, item.href].filter(Boolean).join("/")}`;
+
+              return (
+                <div
+                  key={index}
+                  className="w-full shrink-0 flex justify-center"
+                  style={{ width: `${dimensions.itemWidth}px` }}
+                >
+                  <Link
+                    href={itemHref}
+                    className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4 max-w-sm"
+                  >
+                    <div className="w-full flex justify-between items-center">
+                      <div className="flex justify-center items-start gap-2">
+                        {item.isNew && (
+                          <div className="py-2 px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
+                            New
+                          </div>
+                        )}
+                        {item.isBestSeller && (
+                          <div className="py-2 px-4 bg-[#181818] paragraph-xs text-white uppercase hidden lg:block">
+                            Best Seller
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex justify-center items-center gap-2">
+                        <img
+                          src="/images/start.svg"
+                          alt="Star"
+                          className="w-[14px] h-[14px] text-[#151515]"
+                          width={14}
+                          height={14}
+                        />
+                        <p className="paragraph text-[#181818]">{item.rate}</p>
+                      </div>
+                    </div>
+                    <img
+                      src={item.img}
+                      alt={item.name}
+                      className="w-[65%] h-auto"
+                      width={203}
+                      height={270}
+                      decoding="async"
+                      loading="lazy"
+                    />
+                    <div className="w-full flex justify-between items-end">
+                      <div className="w-full flex flex-col justify-center items-start gap-1 text-black">
+                        <h3 className="title-h3">{item.name}</h3>
+                        <p className="paragraph uppercase">{item.category}</p>
+                        <p className="paragraph uppercase">{item.info}</p>
+                      </div>
+                      <p className="paragraph-bold">${item.price.toFixed(2)}</p>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
 

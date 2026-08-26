@@ -202,13 +202,13 @@ export default function ProductsBanner({ content, locale }: BannersProps) {
               key={index}
             >
               <div className="flex flex-col md:flex-row justify-center md:justify-start items-center container-full gap-6 md:gap-16 xl:gap-34">
-                <div className="aspect-343/409 md:aspect-149/178 w-full md:w-[50%] h-auto relative overflow-hidden">
+                <div className="aspect-343/409 md:aspect-149/178 w-full md:w-[50%] h-auto relative overflow-hidden group">
                   <img
                     src={content.image}
                     alt={content.title}
                     width={668}
                     height={798}
-                    className="w-full h-full object-cover inset-0 absolute object-center"
+                    className="w-full h-full object-cover inset-0 absolute object-center transition-transform duration-1500 ease-linear group-hover:scale-115"
                   />
                 </div>
                 <div className="flex flex-col justify-center items-start gap-4 lg:gap-3 xl:gap-8 text-center w-full md:w-[50%]">

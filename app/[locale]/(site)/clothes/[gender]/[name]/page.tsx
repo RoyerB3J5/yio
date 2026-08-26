@@ -1,224 +1,130 @@
 import Banners from "@/components/sections/Banners";
-import CarouselRecommended from "@/components/sections/clothes/CarouselRecommended";
 import DescriptionItem from "@/components/sections/clothes/DescriptionItem";
 import HeroItem from "@/components/sections/clothes/HeroItem";
 import RecommendedItem from "@/components/sections/clothes/RecommendedItem";
 import ProductsBanner from "@/components/sections/ProductsBanner";
-type MainContent = (typeof import("@/content/en"))["default"]["main"];
 import { getContent } from "@/i18n/content";
 import { hasLocale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-// import { getClothingProductPage, getRecommendedClothing } from "@/lib/shopify";
+import { getClothingProductPage, getRecommendedClothing } from "@/lib/shopify";
+import type { Metadata } from "next";
+import {
+  generateProductPageMetadata,
+  generateProductJsonLd,
+  generateBreadcrumbJsonLd,
+  generateWebsiteJsonLd,
+  generateOrganizationJsonLd,
+} from "@/lib/seo";
+import type { ClothingProductPage } from "@/lib/shopify/transformers";
+
+type MainContent = (typeof import("@/content/en"))["default"]["main"];
+type IndividualClothesContent =
+  (typeof import("@/content/en"))["default"]["individualClothes"];
+type ProductBannerContent =
+  (typeof import("@/content/en"))["default"]["productBanner"];
 
 interface PageProps {
   params: Promise<{ gender: string; name: string; locale: string }>;
+  searchParams: Promise<{ variant?: string | string[] }>;
 }
-const content = {
-  button: "Comprar ahora",
-  estilo: "Acopla tu Estilo",
-  recomendado:
-    "Encuentra tu <br /> siguiente <br class='hidden md:block'/> favorito.",
-};
-const productInfo = {
-  hero: {
-    name: "alo",
-    category: "Yoga Accolade hoodie ",
-    description:
-      "La sudadera Accolade combina un estilo relajado y premium con felpa francesa ultrasuave, ideal para el día a día y para crear el conjunto perfecto con el pantalón a juego.",
-    variants: [
-      {
-        id: "gid://shopify/ProductVariant/44395043094593",
-        name: "S",
-        availableForSale: true,
-      },
-      {
-        id: "gid://shopify/ProductVariant/44395043127361",
-        name: "M",
-        availableForSale: true,
-      },
-      {
-        id: "gid://shopify/ProductVariant/44395043160129",
-        name: "L",
-        availableForSale: true,
-      },
-    ],
-    rate: 4.5,
-    price: 60.0,
-    accompanies: [
-      {
-        name: "alo",
-        category: "Yoga Accolade Crew Neck Pullover ",
-        price: 60.0,
-        img: "/images/clothes/women-2.webp",
-      },
-      {
-        name: "alo",
-        category: "Yoga accolade straight leg sweatpants ",
-        price: 60.0,
-        img: "/images/clothes/alo-pants.webp",
-      },
-    ],
-  },
-  images: [
-    "/images/clothes/women-3.webp",
-    "/images/clothes/alo-hoddie/alo-hoddie-1.webp",
-    "/images/clothes/alo-hoddie/alo-hoddie-2.webp",
-    "/images/clothes/alo-hoddie/alo-hoddie-3.webp",
-  ],
-  information: {
-    description:
-      "Descubre la combinación perfecta de suavidad, confort y un estilo relajado que nunca pasa de moda.",
-    tags: [
-      {
-        title: "DEScripción",
-        description: [
-          "A todo el mundo le encanta la colección Accolade. Nuestra sudadera con capucha más vendida presenta un diseño informal con hombros caídos para un estilo impecable en el estudio de yoga y para salir a la calle, un bolsillo de canguro de gran tamaño, y un cómodo acanalado en los puños y el dobladillo. Se ha confeccionado con felpa francesa de peso medio con caída, suave por fuera y con forro polar por dentro. Sácale el máximo partido con el pantalón de chándal Accolade a juego. Encuentra el ajuste perfecto y descubre todas las formas de lucirlo.",
-        ],
-      },
-      {
-        title: "ajuste",
-        description: [
-          "Modelo unisex",
-          "Diseño para un estilo extragrande y cuadrado. Opta por una talla menos si prefieres un ajuste más estrecho.",
-        ],
-      },
-      {
-        title: "fabricación",
-        description: [
-          "Felpa francesa suave por fuera y con forro polar por dentro",
-          "65% algodón y 35% poliéster",
-          "Lavar a máquina por separado, en frío y con ciclo suave. Utilizar un ciclo de secado a máquina suave a temperatura baja.",
-        ],
-      },
-    ],
-  },
-};
 
-const productRecommended = [
-  {
-    isNew: true,
-    isBestSeller: true,
-    name: "ALO",
-    category: "Yoga Accolade 1/4 Pullover ",
-    price: 60.0,
-    rate: 4.5,
-    img: "/images/clothes/women-1.webp",
-    href: "#",
-  },
-  {
-    isNew: true,
-    isBestSeller: true,
-    name: "ALO",
-    category: "Yoga Accolade hoodie ",
-    price: 60.0,
-    rate: 4.5,
-    img: "/images/clothes/women-2.webp",
-    href: "#",
-  },
-  {
-    isNew: true,
-    isBestSeller: true,
-    name: "ALO",
-    category: "Yoga accolade straight leg sweatpants ",
-    price: 60.0,
-    rate: 4.5,
-    img: "/images/clothes/alo-pants.webp",
-    href: "#",
-  },
-  {
-    isNew: true,
-    isBestSeller: true,
-    name: "ALO",
-    category: "Yoga Accolade 1/4 Pullover ",
-    price: 60.0,
-    rate: 4.5,
-    img: "/images/clothes/women-1.webp",
-    href: "#",
-  },
-];
-const productBanner = [
-  {
-    title: "Jean Paul Gaultier <br/>Le Male ",
-    description:
-      "Le Male, tan viril como sexy, rinde homenaje a la figura simbólica que siempre ha inspirado a Jean Paul Gaultier: el marinero.Este perfume masculino tiene una visión inconformista de la masculinidad. La lavanda, que evoca el familiar y reconfortante aroma de la espuma de afeitar, se ve realzada por la sensualidad de la vainilla.",
-    button: {
-      label: "comprar",
-      link: "#",
-    },
-    image: "/images/products/jean-paul.webp",
-  },
-  {
-    title: "Dior <br/> sauvage ",
-    description:
-      "Sauvage se ha convertido en un nombre inconfundible en el ámbito del perfume para hombre. Disponible en eau de toilette, eau de parfum, parfum —recargables— o elixir, Sauvage despliega fragancias características que combinan frescura, potencia y nobleza.",
-    button: {
-      label: "comprar",
-      link: "#",
-    },
-    image: "/images/products/dior-savage.webp",
-  },
-  {
-    title: "alo <br/> Yoga Accolade hoodie ",
-    description:
-      "A todo el mundo le encanta la colección Accolade. Nuestra sudadera con capucha más vendida presenta un diseño informal con hombros caídos para un estilo impecable en el estudio de yoga y para salir a la calle, un bolsillo de canguro de gran tamaño, y un cómodo acanalado en los puños y el dobladillo. Se ha confeccionado con felpa francesa de peso medio con caída, suave por fuera y con forro polar por dentro. Sácale el máximo partido con el pantalón de chándal Accolade a juego. Encuentra el ajuste perfecto y descubre todas las formas de lucirlo.",
-    button: {
-      label: "comprar",
-      link: "#",
-    },
-    image: "/images/products/alo-hoddie.webp",
-  },
-  {
-    title: "Essentials <br/> hoodie  ",
-    description:
-      "Los hoodies de Essentials (de la marca Fear of God) son prendas urbanas premium. Destacan por su estilo minimalista, corte holgado (oversize) y tejido grueso (algodón afelpado). Ofrecen máxima comodidad y se volvieron un básico de lujo muy popular",
-    button: {
-      label: "comprar",
-      link: "#",
-    },
-    image: "/images/products/essentials-hoddie.webp",
-  },
-];
-export default async function SingleFragrance({ params }: PageProps) {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { name, locale } = await params;
+  const product = await getClothingProductPage(name);
+  if (!product) {
+    return generateProductPageMetadata(locale, {} as ClothingProductPage, `/${locale}/clothes`, []);
+  }
+  const path = `/${locale}/clothes/${product.hero.name.toLowerCase().replace(/\s+/g, "-")}/${name}`;
+  return generateProductPageMetadata(locale, product, path, product.images);
+}
+
+export default async function SingleFragrance({
+  params,
+  searchParams,
+}: PageProps) {
+  const { name, locale } = await params;
+  const { variant } = await searchParams;
   if (!hasLocale(locale)) {
     notFound();
   }
-  const { main: fixedContent } = await getContent<{ main: MainContent }>(
-    locale,
-  );
-  //const productInfoTest = await getClothingProductPage(name);
-  // const { products: recommendedProducts } = await getRecommendedClothing({ first: 6 });
+  const {
+    main: fixedContent,
+    individualClothes: content,
+    productBanner,
+  } = await getContent<{
+    main: MainContent;
+    individualClothes: IndividualClothesContent;
+    productBanner: ProductBannerContent;
+  }>(locale);
+  const product = await getClothingProductPage(name);
+  const initialVariantId = typeof variant === "string" ? variant : undefined;
+  const { products: recommendedProducts } = await getRecommendedClothing({
+    first: 4,
+  });
+  if (!product || !recommendedProducts) {
+    notFound();
+  }
   // `productInfo` matches the HeroItem and DescriptionItem props.
   // product contains the raw Shopify clothing detail data.
 
-  return (
-    <main className="w-full flex flex-col justify-center items-center pt-(--header-height)">
-      <HeroItem
-        product={productInfo.hero}
-        content={content}
-        images={productInfo.images}
-      />
-      {/*<pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
-        <code>
-          {JSON.stringify(
-            productInfoTest,
-            (key, value) =>
-              typeof value === "bigint" ? value.toString() : value,
-            2,
-          )}
-        </code>
-      </pre> */}
+  const path = `/${locale}/clothes/${product.hero.name.toLowerCase().replace(/\s+/g, "-")}/${name}`;
+  const productJsonLd = generateProductJsonLd(product, path, locale, product.images, product.hero.price);
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: "Home", url: `/${locale}` },
+    { name: "Fashion", url: `/${locale}/clothes/${product.hero.name.toLowerCase().replace(/\s+/g, "-")}` },
+    { name: `${product.hero.name} ${product.hero.category}`, url: path },
+  ]);
+  const websiteJsonLd = generateWebsiteJsonLd();
+  const organizationJsonLd = generateOrganizationJsonLd();
 
-      <DescriptionItem
-        description={productInfo.information}
-        images={productInfo.images}
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
-      <RecommendedItem
-        label={content.recomendado}
-        products={productRecommended}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Banners content={fixedContent.banners} locale={locale} />
-      <ProductsBanner content={productBanner} locale={locale} />
-    </main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <main className="w-full flex flex-col justify-center items-center pt-(--header-height)">
+        <HeroItem
+          product={product.hero}
+          content={content}
+          images={product.images}
+          initialVariantId={initialVariantId}
+        />
+        {/*<pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
+          <code>
+            {JSON.stringify(
+              productInfoTest,
+              (key, value) =>
+                typeof value === "bigint" ? value.toString() : value,
+              2,
+            )}
+          </code>
+        </pre> */}
+        <DescriptionItem
+          description={product.information}
+          images={product.images}
+        />
+        <RecommendedItem
+          label={content.recomendado}
+          products={recommendedProducts}
+        />
+        <Banners content={fixedContent.banners} locale={locale} />
+        <ProductsBanner content={productBanner} locale={locale} />
+      </main>
+    </>
   );
 }

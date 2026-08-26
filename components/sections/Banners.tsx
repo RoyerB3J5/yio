@@ -77,7 +77,7 @@ export default function Banners({ content, locale }: BannersProps) {
     autoplayTimer.current = setInterval(() => {
       setIsTransitioning(true);
       setCurrentIndex((prev) => prev + 1);
-    }, 8000); // Shift every 8 seconds
+    }, 5000); // Shift every 5 seconds
   }, [stopAutoplay]);
 
   useEffect(() => {

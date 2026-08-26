@@ -50,9 +50,16 @@ interface GridProductsProps {
     filter1: string;
     filter2: string;
   };
+  gender?: string;
+  locale?: string;
   products: ProductItem[];
 }
-export default function GridProducts({ content, products }: GridProductsProps) {
+export default function GridProducts({
+  content,
+  products,
+  gender,
+  locale,
+}: GridProductsProps) {
   const [idSortFilter, setIdSortFilter] = useState("1");
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
 
@@ -63,11 +70,11 @@ export default function GridProducts({ content, products }: GridProductsProps) {
   const sortedProducts = selectedSortOption.sortFn(products);
   return (
     <section className="w-full flex flex-col justify-center items-center gap-8 md:gap-12 py-8 md:py-12">
-      <div className="container-full flex justify-between items-center md:py-3 text-black">
-        <h3 className="paragraph uppercase hidden md:block">
+      <div className="container-full flex justify-between items-center md:py-3 text-black z-5">
+        <h3 className="paragraph uppercase block fade-right">
           {sortedProducts.length} {content.title}
         </h3>
-        <div className="relative flex justify-center items-center gap-3">
+        <div className="relative flex justify-center items-center gap-3 fade-left">
           <p className="paragraph">{content.filter2}</p>
           <button
             className="flex justify-center items-center gap-4"
@@ -104,35 +111,61 @@ export default function GridProducts({ content, products }: GridProductsProps) {
         </div>
       </div>
       <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-dense jusitfy-center items-stretch">
-        {sortedProducts.map((item, index) => (
-          <Link
-            href="women/yoga-accolade-hoodie"
-            className="w-full bg-white flex flex-col justify-start items-center"
+        {sortedProducts.map((item, index) => {
+          const productType =
+            item.productType ?? ("variants" in item ? "clothes" : "fragances");
+          const productGender = item.gender ?? gender;
+          const productHref = `/${[locale, productType, productGender, item.href]
+            .filter(Boolean)
+            .join("/")}`;
+
+          return (
+          <div
+            className="w-full bg-white flex flex-col justify-start items-center fade-up"
+            style={{ transitionDelay: `${index * 0.1}s` }}
             key={index}
           >
             <div className="w-full h-auto aspect-357/420 relative overflow-hidden flex items-end group transition-all duration-300 ease-in-out">
+              <Link href={productHref} className="absolute inset-0 z-0">
               <img
                 src={item.img}
                 alt={item.name}
-                className="w-full h-full object-cover absolute inset-0 object-center z-0"
+                className={
+                  productType === "fragances"
+                    ? "absolute inset-y-0 left-1/2 h-full w-[60%] -translate-x-1/2 object-contain object-center"
+                    : "w-full h-full object-cover absolute inset-0 object-center"
+                }
                 width={357}
                 height={470}
                 decoding="async"
                 loading="lazy"
               />
+              </Link>
               <div className="flex justify-center items-center gap-2 transition-all duration-300 ease-in-out z-10 relative w-full px-4 flex-wrap pb-4 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
-                {"variants" in item &&
-                  item.variants.map((variant, index) => (
-                    <button
-                      className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase cursor-pointer hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
-                      key={index}
-                    >
-                      {variant.name}
-                    </button>
-                  ))}
+                {productType === "clothes" &&
+                  "variants" in item &&
+                  item.variants.map((variant) =>
+                    variant.availableForSale ? (
+                      <Link
+                        className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase cursor-pointer hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+                        href={`${productHref}?variant=${encodeURIComponent(variant.id)}`}
+                        key={variant.id}
+                      >
+                        {variant.name}
+                      </Link>
+                    ) : (
+                      <button
+                        className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase opacity-50 cursor-not-allowed"
+                        disabled
+                        key={variant.id}
+                      >
+                        {variant.name}
+                      </button>
+                    ),
+                  )}
               </div>
             </div>
-            <div className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
+            <Link href={productHref} className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
               <div className="flex justify-center items-start gap-2">
                 {item.isNew && (
                   <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
@@ -162,9 +195,10 @@ export default function GridProducts({ content, products }: GridProductsProps) {
                 <p className="paragraph uppercase">{item.category}</p>
                 <p className="paragraph-bold">${item.price.toFixed(2)}</p>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          </div>
+          );
+        })}
       </div>
     </section>
   );

@@ -1,27 +1,11 @@
-export const COLLECTION_PRODUCTS_QUERY = /* GraphQL */ `
-  query CollectionProducts($handle: String!, $first: Int!, $after: String) {
-    collection(handle: $handle) {
-      id
-      handle
-      title
-      products(first: $first, after: $after) {
-        nodes {
-          ...ProductCard
-        }
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-      }
-    }
-  }
-
+export const PRODUCT_CARD_FRAGMENT = /* GraphQL */ `
   fragment ProductCard on Product {
     id
     handle
     title
     vendor
     createdAt
+    productType
     tags
     featuredImage {
       url
@@ -48,6 +32,45 @@ export const COLLECTION_PRODUCTS_QUERY = /* GraphQL */ `
       }
     }
   }
+`;
+
+export const COLLECTION_PRODUCTS_QUERY = /* GraphQL */ `
+  query CollectionProducts($handle: String!, $first: Int!, $after: String) {
+    collection(handle: $handle) {
+      id
+      handle
+      title
+      products(first: $first, after: $after) {
+        nodes {
+          ...ProductCard
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+  ${PRODUCT_CARD_FRAGMENT}
+`;
+
+export const FRAGRANCE_PRODUCTS_BY_GENDER_QUERY = /* GraphQL */ `
+  query FragranceProductsByGender(
+    $query: String!
+    $first: Int!
+    $after: String
+  ) {
+    products(first: $first, after: $after, query: $query) {
+      nodes {
+        ...ProductCard
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+  ${PRODUCT_CARD_FRAGMENT}
 `;
 
 export const FRAGRANCE_PRODUCT_QUERY = /* GraphQL */ `
@@ -192,6 +215,7 @@ export const BEST_SELLER_PRODUCTS_QUERY = /* GraphQL */ `
       }
     }
   }
+  ${PRODUCT_CARD_FRAGMENT}
 `;
 
 export const RECOMMENDED_CLOTHING_QUERY = /* GraphQL */ `
@@ -206,6 +230,7 @@ export const RECOMMENDED_CLOTHING_QUERY = /* GraphQL */ `
       }
     }
   }
+  ${PRODUCT_CARD_FRAGMENT}
 `;
 
 export const RECOMMENDED_FRAGRANCE_QUERY = /* GraphQL */ `
@@ -220,6 +245,7 @@ export const RECOMMENDED_FRAGRANCE_QUERY = /* GraphQL */ `
       }
     }
   }
+  ${PRODUCT_CARD_FRAGMENT}
 `;
 
 export const CART_FRAGMENT = /* GraphQL */ `

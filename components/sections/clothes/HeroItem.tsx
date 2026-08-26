@@ -22,6 +22,7 @@ interface HeroItemProps {
       category: string;
       price: number;
       img: string;
+      href: string;
     }[];
   };
   content: {
@@ -30,13 +31,24 @@ interface HeroItemProps {
     recomendado: string;
   };
   images: string[];
+  initialVariantId?: string;
 }
 
-export default function HeroItem({ product, content, images }: HeroItemProps) {
+export default function HeroItem({
+  product,
+  content,
+  images,
+  initialVariantId,
+}: HeroItemProps) {
   const addItem = useCartStore((state) => state.addItem);
   const isLoading = useCartStore((state) => state.isLoading);
   const [selectedVariantId, setSelectedVariantId] = useState<string>(
-    product.variants.find((v) => v.availableForSale)?.id ?? product.variants[0]?.id ?? ""
+    product.variants.find(
+      (variant) => variant.id === initialVariantId && variant.availableForSale,
+    )?.id ??
+      product.variants.find((v) => v.availableForSale)?.id ??
+      product.variants[0]?.id ??
+      "",
   );
 
   const handleAddToCart = async () => {
@@ -48,10 +60,10 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
   return (
     <section className="w-full flex flex-col md:flex-row justify-center items-start">
       {/* ----------------- COLUMNA IZQUIERDA: IMÁGENES (SE MUEVEN AL HACER SCROLL) ----------------- */}
-      <div className="w-full md:w-[55%] lg:w-[45%] grid grid-cols-1 md:grid-cols-2 gap-1">
+      <div className="w-full md:w-[55%] lg:w-[45%] grid grid-cols-1 md:grid-cols-2 gap-1 fade-right">
         {images.slice(0, 2).map((image, index) => (
           <div
-            className="w-full h-auto aspect-352/528 relative overflow-hidden hidden md:block"
+            className="w-full h-auto aspect-352/528 relative overflow-hidden hidden md:block group"
             key={index}
           >
             <img
@@ -61,11 +73,11 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
               height={528}
               decoding="async"
               loading="lazy"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-1500 ease-linear group-hover:scale-115"
             />
           </div>
         ))}
-        <div className="w-full h-auto aspect-375/562 relative overflow-hidden md:hidden block">
+        <div className="w-full h-auto aspect-375/562 relative overflow-hidden md:hidden block group">
           <img
             src={images[0]}
             alt={product.name + " 1"}
@@ -73,10 +85,10 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
             height={562}
             decoding="async"
             loading="lazy"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-1500 ease-linear group-hover:scale-115"
           />
         </div>
-        <div className="w-full h-auto aspect-708/759 relative overflow-hidden hidden col-span-2 md:block">
+        <div className="w-full h-auto aspect-708/759 relative overflow-hidden hidden col-span-2 md:block group">
           <img
             src={images[2]}
             alt={product.name + " 3"}
@@ -84,7 +96,7 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
             height={759}
             decoding="async"
             loading="lazy"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-1500 ease-linear group-hover:scale-115"
           />
         </div>
       </div>
@@ -95,14 +107,14 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
         <div className="w-full flex flex-col justify-center items-start gap-8">
           <div className="w-full flex flex-col justify-center items-start gap-4">
             <div className="w-full flex flex-col justify-center items-start gap-2 text-black">
-              <h2 className="text-[48px] font-din-condensed leading-[100%] font-bold uppercase">
+              <h2 className="text-[48px] font-din-condensed leading-[100%] font-bold uppercase fade-left">
                 {product.name}
               </h2>
-              <h1 className="text-[48px] leading-[100%] font-normal uppercase">
+              <h1 className="text-[48px] leading-[100%] font-normal uppercase fade-left">
                 {product.category}
               </h1>
             </div>
-            <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-center items-center gap-2 fade-left">
               <img
                 src="/images/start.svg"
                 alt="Star"
@@ -112,15 +124,17 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
               />
               <p className="paragraph text-[#181818]">{product.rate}</p>
             </div>
-            <p className="text-[14px] font-normal leading-[150%] text-[#6A6A6A] w-full xl:w-[70%]">
+            <p className="text-[14px] font-normal leading-[150%] text-[#6A6A6A] w-full xl:w-[70%] fade-left">
               {product.description}
             </p>
           </div>
-          <div className="w-full flex justify-start items-center gap-4">
+          <div className="w-full flex justify-start items-center gap-4 fade-left">
             {product.variants.map((variant) => (
               <button
                 key={variant.id}
-                onClick={() => variant.availableForSale && setSelectedVariantId(variant.id)}
+                onClick={() =>
+                  variant.availableForSale && setSelectedVariantId(variant.id)
+                }
                 disabled={!variant.availableForSale}
                 className={`w-12 h-8 border text-[14px] font-normal leading-[150%] text-black transition-colors duration-300 ease-in-out cursor-pointer ${
                   selectedVariantId === variant.id
@@ -132,15 +146,23 @@ export default function HeroItem({ product, content, images }: HeroItemProps) {
               </button>
             ))}
           </div>
-          <p className="title-h3 text-black">${product.price.toFixed(2)}</p>
-          <Button label={content.button} wFull onClick={handleAddToCart} disabled={isLoading || !selectedVariantId} />
+          <p className="title-h3 text-black fade-left">
+            ${product.price.toFixed(2)}
+          </p>
+          <Button
+            label={content.button}
+            wFull
+            paddingX="fade-left"
+            onClick={handleAddToCart}
+            disabled={isLoading || !selectedVariantId}
+          />
         </div>
-        <div className="w-full flex flex-col justify-center items-center md:items-start gap-4">
+        <div className="w-full flex flex-col justify-center items-center md:items-start gap-4 fade-up">
           <h3 className="title-h3 text-black">{content.estilo}</h3>
           <div className="w-full grid grid-cols-2 gap-6 justify-center items-start">
             {product.accompanies.map((item, index) => (
               <Link
-                href="#"
+                href={item.href}
                 className="w-full bg-white flex flex-col justify-center items-center"
                 key={index}
               >

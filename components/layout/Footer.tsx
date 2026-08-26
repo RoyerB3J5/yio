@@ -31,7 +31,7 @@ export default function Footer({ content }: { content: FooterContent }) {
             className="title-small"
             dangerouslySetInnerHTML={{ __html: content.description.title }}
           />
-          <div className="flex flex-col justify-center items-start gap-4 w-full">
+          <div className="flex flex-col justify-center items-start gap-4 w-full hidden">
             <p className="title-h3">{content.description.name}</p>
             <div className="w-full border border-black px-6 py-3"></div>
             <div className="w-full border border-black px-6 py-3"></div>

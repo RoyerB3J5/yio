@@ -21,8 +21,8 @@ interface BestSellerProps {
 
 export default function BestSeller({ content, locale }: BestSellerProps) {
   return (
-    <section className="w-full flex flex-col justify-center items-center gap-6 pb-8 md:pb-20">
-      <div className="container-full flex flex-col justify-center md:justify-start items-center md:items-start gap-4">
+    <section className="w-full flex flex-col justify-center items-center gap-6 pb-8 md:pb-20 lg:pt-20">
+      <div className="w-full px-4 md:px-8 lg:px-16 flex flex-col justify-center md:justify-start items-center md:items-start gap-4">
         <h2 className="subtitle text-black fade-right">{content.title}</h2>
         <p className="text-[#6A6A6A] paragraph uppercase fade-right">
           {content.description}
@@ -40,10 +40,11 @@ export default function BestSeller({ content, locale }: BestSellerProps) {
       <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-x-1 gap-y-4 items-start lg:items-center justify-center ">
         {content.collections.map((item, index) => (
           <div
-            className="flex flex-col justify-center items-center gap-4"
+            className="flex flex-col justify-center items-center gap-4 h-full fade-up"
+            style={{ transitionDelay: `${index * 0.1}s` }}
             key={index}
           >
-            <div className="w-full aspect-357/400 relative h-auto overflow-hidden">
+            <div className="w-full aspect-357/400 relative h-auto overflow-hidden group">
               <img
                 src={`/images/main/${item.image}.webp`}
                 alt={item.name}
@@ -51,13 +52,16 @@ export default function BestSeller({ content, locale }: BestSellerProps) {
                 height="408"
                 decoding="async"
                 loading="lazy"
-                className="w-full h-full object-cover object-center absolute inset-0"
+                className="w-full h-full object-cover object-center absolute inset-0 transition-transform duration-1500 ease-linear group-hover:scale-115"
               />
             </div>
-            <div className="flex flex-col justify-center items-center gap-2 text-center">
-              <h3 className="title-h3  text-black">{item.name}</h3>
+            <div className="flex flex-col jusitfy-start md:justify-center items-center gap-2 text-center px-1 grow">
+              <h3
+                className="title-h3  text-black"
+                dangerouslySetInnerHTML={{ __html: item.name }}
+              ></h3>
               <p
-                className="text-[#6A6A6A] paragraph w-full md:w-[90%] lg:w-full"
+                className="text-[#6A6A6A] paragraph w-full md:w-[90%] lg:w-full grow"
                 dangerouslySetInnerHTML={{ __html: item.description }}
               />
               <a href={`/${locale}${item.href}`} className="link-style">

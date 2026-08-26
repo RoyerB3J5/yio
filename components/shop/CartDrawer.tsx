@@ -217,8 +217,7 @@ export default function CartDrawer() {
               wFull={true}
             />
           )}
-
-          <details className="w-full mt-4">
+          {/*<details className="w-full mt-4">
             <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-900">
               View Raw JSON Response
             </summary>
@@ -236,7 +235,7 @@ export default function CartDrawer() {
             >
               {JSON.stringify(cart, null, 2)}
             </pre>
-          </details>
+          </details> */}
         </div>
       </div>
     </section>

@@ -1,0 +1,15 @@
+# Robots.txt for Your Best
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://enyermystudio.com/sitemap.xml
+
+# Disallow admin and private paths
+Disallow: /api/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /account
+Disallow: /search
+Disallow: /*.json$
+Disallow: /*.xml$

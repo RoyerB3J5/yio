@@ -7,11 +7,15 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/shop/CartDrawer";
 import { CartInit } from "@/components/CartInit";
-import { hasLocale, locales } from "@/i18n/routing";
-import contentData from "@/content/en";
-import type { HeaderContent, FooterContent } from "@/content/types";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
 import { HeroProvider } from "@/components/context/HeroContext";
+import { hasLocale, locales } from "@/i18n/routing";
+import type { HeaderContent, FooterContent } from "@/content/types";
+
+async function getContent(locale: string) {
+  const contentModule = await import(`@/content/${locale}`);
+  return contentModule.default;
+}
 
 const dinnextLTPro = localFont({
   src: [
@@ -53,21 +57,41 @@ const robotoSlab = Roboto_Slab({
 export const metadata: Metadata = {
   metadataBase: new URL("https://enyermystudio.com"),
 
-  title: "Your Best",
-  description: "Your Best is a ",
+  title: {
+    default: "Your Best | Online Boutique - Fragrances & Fashion",
+    template: "%s | Your Best",
+  },
+  description:
+    "Discover Your Best - your exclusive online boutique for luxury fragrances and fashion. Shop curated collections for men and women: designer perfumes, exclusive clothing, and best sellers. Free shipping on orders over $100.",
 
   keywords: [
-    "Tree Services",
-    "Lead Generation",
-    "Growth System",
-    "Marketing Automation",
+    "online boutique",
+    "luxury fragrances",
+    "designer perfumes",
+    "exclusive fashion",
+    "clothing for men",
+    "clothing for women",
+    "best sellers",
+    "perfumes for men",
+    "perfumes for women",
+    "designer clothing",
+    "Your Best",
   ],
 
   authors: [{ name: "Your Best" }],
+  creator: "Your Best",
+  publisher: "Your Best",
 
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 
   alternates: {
@@ -75,30 +99,44 @@ export const metadata: Metadata = {
     languages: {
       en: "/en",
       es: "/es",
+      "x-default": "/en",
     },
   },
 
   openGraph: {
     type: "website",
+    siteName: "Your Best",
+    title: "Your Best | Online Boutique - Fragrances & Fashion",
+    description:
+      "Discover Your Best - your exclusive online boutique for luxury fragrances and fashion. Shop curated collections for men and women.",
+    url: "https://enyermystudio.com",
     images: [
       {
-        url: "/images/fondo.png",
+        url: "/images/main/hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Your Best - Luxury Fragrances & Fashion Boutique",
       },
     ],
     locale: "en_US",
+    alternateLocale: ["es_ES"],
   },
 
   twitter: {
     card: "summary_large_image",
-    site: "@YourBest",
-    images: ["/images/fondo.png"],
+    site: "@yourbest",
+    creator: "@yourbest",
+    title: "Your Best | Online Boutique - Fragrances & Fashion",
+    description:
+      "Discover Your Best - your exclusive online boutique for luxury fragrances and fashion.",
+    images: ["/images/main/hero.webp"],
   },
-  other: {
-    "geo.region": "US-FL",
-    "geo.placename": "Orlando",
-    "geo.position": "28.5383;-81.3792",
-    ICBM: "28.5383, -81.3792",
+
+  verification: {
+    google: "your-google-verification-code",
   },
+
+  category: "shopping",
 };
 
 export function generateStaticParams() {
@@ -117,6 +155,8 @@ export default async function LocaleLayout({
   if (!hasLocale(locale)) {
     notFound();
   }
+
+  const contentData = await getContent(locale);
 
   return (
     <html

@@ -21,13 +21,16 @@ import ChangeLanguage from "../ui/ChangeLanguage";
 const MegaMenu = ({
   lang,
   content,
+  index,
 }: {
   lang: string;
   content: HeaderContent;
+  index: number;
 }) => {
-  return (
-    <div className="flex flex-row items-start justify-center bg-white shadow-2xl overflow-hidden w-[1200px] 3xl:min-w-max">
-      {/* ----------------- COLUMNA 1: Fragancias ----------------- */}
+  // Render only the column corresponding to the hovered nav item
+  if (index === 0) {
+    // ----------------- COLUMNA 1: Fragancias -----------------
+    return (
       <div className="w-[380px] 3xl:w-[412px] h-[550px] 3xl:h-[614px] overflow-hidden relative shrink-0 flex items-start">
         <img
           src="/images/sub-menu-1.webp"
@@ -44,9 +47,9 @@ const MegaMenu = ({
             className="text-white font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
           />
           <div className="w-full flex flex-col justify-center items-center">
-            {content.fracancia.items.map((item, index) => (
+            {content.fracancia.items.map((item, itemIndex) => (
               <Link
-                key={index}
+                key={itemIndex}
                 href={`/${lang}${item.href}`}
                 className="w-full flex justify-between items-center px-4 py-5 last:border-t border-white/20 hover:bg-black/20 transition-colors duration-300 ease-out text-white paragraph uppercase"
               >
@@ -57,9 +60,13 @@ const MegaMenu = ({
           </div>
         </div>
       </div>
+    );
+  }
 
-      {/* ----------------- COLUMNA 2: Moda ----------------- */}
-      <div className="flex-1 min-w-0 3xl:flex-none 3xl:w-auto 3xl:shrink-0 h-[550px] 3xl:h-[614px] bg-white overflow-hidden relative">
+  if (index === 1) {
+    // ----------------- COLUMNA 2: Moda -----------------
+    return (
+      <div className="w-[420px] h-[550px] 3xl:h-[614px] bg-white overflow-hidden relative">
         <img
           src="/images/sub-menu-2.webp"
           alt="Submenú de Moda"
@@ -70,11 +77,11 @@ const MegaMenu = ({
             dangerouslySetInnerHTML={{ __html: content.moda.title }}
             className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
           />
-          <div className="w-full flex justify-center items-center">
-            {content.moda.items.map((item, index) => (
+          <div className="w-full flex justify-start items-center">
+            {content.moda.items.slice(0, 1).map((item, itemIndex) => (
               <div
-                className="flex flex-col justify-center items-start gap-8 border-r pr-8 mr-8 last:border-r-0 last:pr-0 last:mr-0 border-black/20"
-                key={index}
+                className="flex flex-col justify-center items-start gap-8 border-r pr-8 mr-8 last:border-r-0 last:pr-0 last:mr-0 border-black/20 w-full"
+                key={itemIndex}
               >
                 <p className="text-black font-din-condensed font-bold leading-[100%] text-[24px]">
                   {item.title}
@@ -84,7 +91,7 @@ const MegaMenu = ({
                     <Link
                       key={subIndex}
                       href={`/${lang}${subItem.href}`}
-                      className="w-full flex justify-center items-center gap-2 hover:border-black border-b border-transparent transition-all duration-300 ease-out text-black paragraph uppercase py-3"
+                      className="w-full flex justify-between items-center gap-2 hover:border-black border-b border-transparent transition-all duration-300 ease-out text-black paragraph uppercase py-3"
                     >
                       {subItem.label}
                       <ChevronRight className="w-6 h-6" />
@@ -96,26 +103,30 @@ const MegaMenu = ({
           </div>
         </div>
       </div>
+    );
+  }
 
-      {/* ----------------- COLUMNA 3: Best Sellers ----------------- */}
+  if (index === 2) {
+    // ----------------- COLUMNA 3: Best Sellers -----------------
+    return (
       <div className="w-[380px] 3xl:w-[412px] h-[550px] 3xl:h-[614px] bg-white overflow-hidden relative shrink-0">
         <img
           src="/images/sub-menu-3.webp"
-          alt="Submenú de Moda"
+          alt="Submenú de Best Sellers"
           className="w-full h-full object-cover object-center absolute z-0 inset-0"
         />
         <div className="flex flex-col justify-between items-start gap-6 p-10 h-full relative z-10">
-          <div className="flex flex-col justify-center itmes-start gap-8 w-full">
+          <div className="flex flex-col justify-center items-start gap-8 w-full">
             <h3
               dangerouslySetInnerHTML={{ __html: content.bestSellers.title }}
               className="text-black font-din-condensed font-bold leading-[100%] text-[32px] uppercase text-start"
             />
             <div className="w-full flex flex-col justify-center items-center">
-              {content.bestSellers.items.map((item, index) => (
+              {content.bestSellers.items.map((item, itemIndex) => (
                 <Link
-                  key={index}
+                  key={itemIndex}
                   href={`/${lang}${item.href}`}
-                  className="w-full flex justify-between items-center py-5 last:border-t border-black/20 hover:bg-black/20 transition-colors duration-300 ease-out text-black paragraph uppercase"
+                  className="w-full flex justify-between items-center px-4 py-5 last:border-t border-black/20 hover:bg-black/20 transition-colors duration-300 ease-out text-black paragraph uppercase"
                 >
                   {item.label}
                   <ChevronRight className="w-6 h-6 text-black" />
@@ -145,8 +156,10 @@ const MegaMenu = ({
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return null;
 };
 
 export default function Header({ content }: { content: HeaderContent }) {
@@ -163,8 +176,9 @@ export default function Header({ content }: { content: HeaderContent }) {
   >({});
 
   // Check if current hero image is one of the women hero images
-  const isWomenHeroImage = currentHeroImage === "/images/fragances/women-hero.webp" || 
-                           currentHeroImage === "/images/clothes/women-hero.webp";
+  const isWomenHeroImage =
+    currentHeroImage === "/images/fragances/women-hero.webp" ||
+    currentHeroImage === "/images/clothes/women-hero.webp";
 
   const toggleMobileAccordion = (index: number) => {
     setOpenMobileAccordions((prev) => ({
@@ -183,7 +197,10 @@ export default function Header({ content }: { content: HeaderContent }) {
   const hasSubPath = /^\/(fragance|clothes)\/(men|women)\/.+/.test(normalized);
 
   const bgClass = hasSubPath ? "bg-white" : "bg-transparent";
-  const textClass = grupoDos.includes(normalized) || isWomenHeroImage ? "text-white" : "text-black";
+  const textClass =
+    grupoDos.includes(normalized) || isWomenHeroImage
+      ? "text-white"
+      : "text-black";
 
   // Solo tras pasar el primer viewport, el fondo del header se invierte
   // al color del texto del hero: texto negro -> fondo blanco, texto blanco -> fondo negro.
@@ -343,7 +360,7 @@ export default function Header({ content }: { content: HeaderContent }) {
               href={"/"}
               aria-label={"Ir a la página principal"}
               title={"Your best - Init"}
-              className='translate-x-[34%]'
+              className="translate-x-[34%]"
             >
               <p className="text-[20px] md:text-[24px] font-logo font-medium leading-[150%] uppercase">
                 your best
@@ -358,7 +375,7 @@ export default function Header({ content }: { content: HeaderContent }) {
                     return (
                       <li
                         key={index}
-                        className={`flex flex-row items-center justify-center group  w-auto text-center px-4 py-2`}
+                        className={`flex flex-row items-center justify-center group relative w-auto text-center px-4 py-2`}
                       >
                         <div className="relative transition-colors duration-300 flex justify-center items-center gap-2">
                           <p
@@ -377,8 +394,12 @@ export default function Header({ content }: { content: HeaderContent }) {
                             }`}
                           />
                         </div>
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block z-50">
-                          <MegaMenu lang={lang} content={content} />
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block z-50 w-max">
+                          <MegaMenu
+                            lang={lang}
+                            content={content}
+                            index={index}
+                          />
                         </div>
                       </li>
                     );
@@ -419,8 +440,8 @@ export default function Header({ content }: { content: HeaderContent }) {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed top-0 right-0 bottom-0 lg:hidden flex items-start justify-between bg-white text-primary flex-col overflow-y-auto z-[60]  pt-10 pb-6 gap-8 transition-transform duration-300 ease-out w-full px-4 h-[90%] ${
-          isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+        className={`fixed top-0 right-0 bottom-0 lg:hidden flex items-start justify-between bg-white text-primary flex-col overflow-y-auto z-[60]  pt-10 pb-6 gap-8 transition-transform duration-300 ease-out w-full px-4 h-full ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         id="mobile-menu"
       >
@@ -494,25 +515,30 @@ export default function Header({ content }: { content: HeaderContent }) {
                       {/* Moda (Two Columns Layout) */}
                       {index === 1 && (
                         <div className="grid grid-cols-2 gap-4">
-                          {content.moda.items.map((modaItem, modaIdx) => (
-                            <div key={modaIdx} className="flex flex-col gap-2">
-                              <p className="font-din-condensed font-bold text-lg text-black uppercase">
-                                {modaItem.title}
-                              </p>
-                              <div className="flex flex-col gap-1">
-                                {modaItem.list.map((subItem, subIdx) => (
-                                  <Link
-                                    key={subIdx}
-                                    href={subItem.href}
-                                    className="paragraph text-black text-sm uppercase py-1"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                  >
-                                    {subItem.label}
-                                  </Link>
-                                ))}
+                          {content.moda.items
+                            .slice(0, 1)
+                            .map((modaItem, modaIdx) => (
+                              <div
+                                key={modaIdx}
+                                className="flex flex-col gap-2"
+                              >
+                                <p className="font-din-condensed font-bold text-lg text-black uppercase">
+                                  {modaItem.title}
+                                </p>
+                                <div className="flex flex-col gap-1">
+                                  {modaItem.list.map((subItem, subIdx) => (
+                                    <Link
+                                      key={subIdx}
+                                      href={subItem.href}
+                                      className="paragraph text-black text-sm uppercase py-1"
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                      {subItem.label}
+                                    </Link>
+                                  ))}
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
                         </div>
                       )}
 

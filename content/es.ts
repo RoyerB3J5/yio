@@ -170,7 +170,7 @@ const content = {
         {
           image: "best-seller-1",
           name: "Expresa Tu Esencia",
-          href: "#",
+          href: "/fragances/men/santal-33",
           description:
             "Lujo discreto y amaderado que deja <br class='hidden lg:block'/> una huella eterna",
           label: "Ver Ahora",
@@ -178,7 +178,7 @@ const content = {
         {
           image: "best-seller-2",
           name: "Minimalismo que Impone",
-          href: "#",
+          href: "/clothes/men/yoga-accolade-1-4-pullover",
           description:
             "Diseñado para quienes entienden que el <br class='hidden lg:block'/> verdadero lujo está en los detalles.",
           label: "Ver Ahora",
@@ -186,7 +186,7 @@ const content = {
         {
           image: "best-seller-3",
           name: "Estilo Sin Esfuerzo",
-          href: "#",
+          href: "/fragances/men/bad-boy-elixir",
           description:
             "Dulce, oscuro y provocador, seducción que <br class='hidden xl:block'/> rompe todas las reglas",
           label: "Ver Ahora",
@@ -194,7 +194,7 @@ const content = {
         {
           image: "best-seller-4",
           name: "Comodidad Elevada",
-          href: "#",
+          href: "/clothes/men/hoodies-essentials",
           description:
             "Prendas versátiles que combinan estilo, <br class='hidden lg:block'/> confort y presencia en cualquier ocasión.",
           label: "Ver Ahora",
@@ -247,7 +247,7 @@ const content = {
         "Le Male, tan viril como sexy, rinde homenaje a la figura simbólica que siempre ha inspirado a Jean Paul Gaultier: el marinero.Este perfume masculino tiene una visión inconformista de la masculinidad. La lavanda, que evoca el familiar y reconfortante aroma de la espuma de afeitar, se ve realzada por la sensualidad de la vainilla.",
       button: {
         label: "comprar",
-        link: "#",
+        link: "/fragances/men/le-male",
       },
       image: "/images/products/jean-paul.webp",
     },
@@ -257,7 +257,7 @@ const content = {
         "Sauvage se ha convertido en un nombre inconfundible en el ámbito del perfume para hombre. Disponible en eau de toilette, eau de parfum, parfum —recargables— o elixir, Sauvage despliega fragancias características que combinan frescura, potencia y nobleza.",
       button: {
         label: "comprar",
-        link: "#",
+        link: "/fragances/men/sauvage-eau-de-toilette",
       },
       image: "/images/products/dior-savage.webp",
     },
@@ -267,7 +267,7 @@ const content = {
         "A todo el mundo le encanta la colección Accolade. Nuestra sudadera con capucha más vendida presenta un diseño informal con hombros caídos para un estilo impecable en el estudio de yoga y para salir a la calle, un bolsillo de canguro de gran tamaño, y un cómodo acanalado en los puños y el dobladillo. Se ha confeccionado con felpa francesa de peso medio con caída, suave por fuera y con forro polar por dentro. Sácale el máximo partido con el pantalón de chándal Accolade a juego. Encuentra el ajuste perfecto y descubre todas las formas de lucirlo.",
       button: {
         label: "comprar",
-        link: "#",
+        link: "/clothes/women/yoga-accolade-hoodie",
       },
       image: "/images/products/alo-hoddie.webp",
     },
@@ -277,11 +277,215 @@ const content = {
         "Los hoodies de Essentials (de la marca Fear of God) son prendas urbanas premium. Destacan por su estilo minimalista, corte holgado (oversize) y tejido grueso (algodón afelpado). Ofrecen máxima comodidad y se volvieron un básico de lujo muy popular",
       button: {
         label: "comprar",
-        link: "#",
+        link: "/clothes/men/hoodies-essentials",
       },
       image: "/images/products/essentials-hoddie.webp",
     },
   ],
+  fragances: {
+    men: {
+      hero: {
+        title: "Fragancias <br class='block lg:hidden'/>  Que Inspiran ",
+        carouselImages: [
+          {
+            image: "/images/fragances/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/fragances/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/clothes/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/clothes/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/best-seller/hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/main/hero.webp",
+            color: "text-white",
+          },
+        ],
+        changeColor: true,
+      },
+      gridProducts: {
+        title: "PRODUCTOS",
+        filter1: "FILTROS",
+        filter2: "ORDENAR POR",
+        image1: "men-grid-1",
+        image2: "men-grid-2",
+      },
+    },
+    women: {
+      hero: {
+        title: "Fragancias <br class='block lg:hidden'/>  Que Inspiran ",
+        carouselImages: [
+          {
+            image: "/images/fragances/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/clothes/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/clothes/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/best-seller/hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/main/hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/fragances/men-hero.webp",
+            color: "text-black",
+          },
+        ],
+        changeColor: false,
+      },
+      gridProducts: {
+        title: "PRODUCTOS",
+        filter1: "FILTROS",
+        filter2: "ORDENAR POR",
+        image1: "women-grid-1",
+      },
+    },
+  },
+  individualFragrance: {
+    button: "Comprar ahora",
+    recomendado:
+      "Encuentra tu <br /> siguiente <br class='hidden md:block'/> favorito.",
+    tag: "NOTAS ALTAS - NOTAS DEL CORAZÓN - NOTAS BÁSICAS",
+  },
+  clothes: {
+    men: {
+      hero: {
+        title: "MODA <br class='block md:hidden'/> EXCLUSIVA",
+        carouselImages: [
+          {
+            image: "/images/clothes/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/clothes/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/best-seller/hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/main/hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/fragances/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/fragances/women-hero.webp",
+            color: "text-white",
+          },
+        ],
+        changeColor: true,
+      },
+      gridProducts: {
+        title: "PRODUCTOS",
+        filter1: "FILTROS",
+        filter2: "ORDENAR POR",
+      },
+    },
+    women: {
+      hero: {
+        title: "MODA EXCLUSIVA",
+        carouselImages: [
+          {
+            image: "/images/clothes/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/best-seller/hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/main/hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/fragances/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/fragances/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/clothes/men-hero.webp",
+            color: "text-black",
+          },
+        ],
+        changeColor: false,
+      },
+      gridProducts: {
+        title: "PRODUCTOS",
+        filter1: "FILTROS",
+        filter2: "ORDENAR POR",
+      },
+    },
+  },
+  individualClothes: {
+    button: "Comprar ahora",
+    estilo: "Acopla tu Estilo",
+    recomendado:
+      "Encuentra tu <br /> siguiente <br class='hidden md:block'/> favorito.",
+  },
+  bestSellers: {
+    hero: {
+      title: "BEST SELLERS",
+      carouselImages: [
+        {
+          image: "/images/best-seller/hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/main/hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/fragances/men-hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/fragances/women-hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/clothes/men-hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/clothes/women-hero.webp",
+          color: "text-white",
+        },
+      ],
+      changeColor: true,
+    },
+    gridProducts: {
+      title: "PRODUCTOS",
+      filter1: "FILTROS",
+      filter2: "ORDENAR POR",
+    },
+  },
   footer: {
     description: {
       title: "INSCRÍBETE PARA <br/> RECIBIR NOVEDADES ",

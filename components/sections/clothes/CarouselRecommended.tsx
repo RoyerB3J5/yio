@@ -1,27 +1,19 @@
 "use client";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
-import Button from "../../ui/Button";
 import Link from "next/link";
+import { ClothingListItem } from "@/lib/shopify/transformers";
 
 interface BannersProps {
-  content: {
-    isNew: boolean;
-    isBestSeller: boolean;
-    name: string;
-    category: string;
-    price: number;
-    rate: number;
-    img: string;
-    href: string;
-  }[];
+  content: ClothingListItem[];
+  locale?: string;
 }
 
-export default function CarouselRecommended({ content }: BannersProps) {
+export default function CarouselRecommended({ content, locale }: BannersProps) {
   // --- DESKTOP CAROUSEL (3 items visible, shifts 1 item at a time) ---
   const numItems = content.length;
-  const desktopTriplicated = numItems > 0 ? [...content, ...content, ...content] : [];
+  const desktopTriplicated =
+    numItems > 0 ? [...content, ...content, ...content] : [];
 
   const [desktopIndex, setDesktopIndex] = useState(numItems);
   const [isDesktopTransitioning, setIsDesktopTransitioning] = useState(true);
@@ -36,7 +28,8 @@ export default function CarouselRecommended({ content }: BannersProps) {
 
   const measureDesktopDimensions = useCallback(() => {
     if (!desktopContainerRef.current) return;
-    const containerWidth = desktopContainerRef.current.getBoundingClientRect().width;
+    const containerWidth =
+      desktopContainerRef.current.getBoundingClientRect().width;
     // 3 items visible, gap-1 (4px gap between items) -> width per item
     // 2 gaps of 4px = 8px total gap per set of 3
     setDesktopItemWidth((containerWidth - 8) / 3);
@@ -89,7 +82,8 @@ export default function CarouselRecommended({ content }: BannersProps) {
     if (desktopIndex >= 2 * numItems || desktopIndex < numItems) {
       isDesktopResetting.current = true;
       setIsDesktopTransitioning(false);
-      const equivalentIndex = numItems + (((desktopIndex % numItems) + numItems) % numItems);
+      const equivalentIndex =
+        numItems + (((desktopIndex % numItems) + numItems) % numItems);
       setDesktopIndex(equivalentIndex);
     }
   };
@@ -173,8 +167,8 @@ export default function CarouselRecommended({ content }: BannersProps) {
     startDesktopAutoplay();
   };
 
-  const desktopTranslateX = -desktopIndex * (desktopItemWidth + 4) + desktopDragOffset;
-
+  const desktopTranslateX =
+    -desktopIndex * (desktopItemWidth + 4) + desktopDragOffset;
 
   // --- MOBILE CAROUSEL (2 items per slide - current behavior maintained) ---
   const pairs = [];
@@ -378,61 +372,71 @@ export default function CarouselRecommended({ content }: BannersProps) {
             className="flex items-stretch gap-1"
             style={{
               transform: `translate3d(${desktopTranslateX}px, 0, 0)`,
-              transition: isDesktopTransitioning ? "transform 300ms ease-out" : "none",
+              transition: isDesktopTransitioning
+                ? "transform 300ms ease-out"
+                : "none",
             }}
             onTransitionEnd={handleDesktopTransitionEnd}
           >
-            {desktopTriplicated.map((item, index) => (
-              <Link
-                href="#"
-                className="shrink-0 bg-white flex flex-col justify-center items-center"
-                style={{ width: `${desktopItemWidth}px` }}
-                key={index}
-              >
-                <div className="w-full h-auto aspect-357/420 relative overflow-hidden">
-                  <img
-                    src={item.img}
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                    width={357}
-                    height={470}
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
-                  <div className="flex justify-center items-start gap-2">
-                    {item.isNew && (
-                      <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
-                        New
-                      </div>
-                    )}
-                    {item.isBestSeller && (
-                      <div className="py-2 px-1 md:px-4 bg-[#181818] paragraph-xs text-white uppercase">
-                        Best Seller
-                      </div>
-                    )}
+            {desktopTriplicated.map((item, index) => {
+              const productType = item.productType ?? "clothes";
+              const productGender = item.gender ?? "men";
+              const itemHref = item.href.startsWith("/")
+                ? item.href
+                : `/${[locale, productType, productGender, item.href].filter(Boolean).join("/")}`;
+
+              return (
+                <Link
+                  href={itemHref}
+                  className="shrink-0 bg-white flex flex-col justify-center items-center"
+                  style={{ width: `${desktopItemWidth}px` }}
+                  key={index}
+                >
+                  <div className="w-full h-auto aspect-357/420 relative overflow-hidden">
+                    <img
+                      src={item.img}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                      width={357}
+                      height={470}
+                      decoding="async"
+                      loading="lazy"
+                    />
                   </div>
-                  <div className="flex flex-col justify-center items-start gap-2 text-black w-full">
-                    <div className="flex justify-between items-center w-full">
-                      <h3 className="title-h3">{item.name}</h3>
-                      <div className="flex justify-center items-center gap-2">
-                        <img
-                          src="/images/start.svg"
-                          alt="Star"
-                          className="w-[14px] h-[14px] text-[#151515]"
-                          width={14}
-                          height={14}
-                        />
-                        <p className="paragraph text-[#181818]">{item.rate}</p>
-                      </div>
+                  <div className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
+                    <div className="flex justify-center items-start gap-2">
+                      {item.isNew && (
+                        <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
+                          New
+                        </div>
+                      )}
+                      {item.isBestSeller && (
+                        <div className="py-2 px-1 md:px-4 bg-[#181818] paragraph-xs text-white uppercase">
+                          Best Seller
+                        </div>
+                      )}
                     </div>
-                    <p className="paragraph uppercase">{item.category}</p>
-                    <p className="paragraph-bold">${item.price.toFixed(2)}</p>
+                    <div className="flex flex-col justify-center items-start gap-2 text-black w-full">
+                      <div className="flex justify-between items-center w-full">
+                        <h3 className="title-h3">{item.name}</h3>
+                        <div className="flex justify-center items-center gap-2">
+                          <img
+                            src="/images/start.svg"
+                            alt="Star"
+                            className="w-[14px] h-[14px] text-[#151515]"
+                            width={14}
+                            height={14}
+                          />
+                          <p className="paragraph text-[#181818]">{item.rate}</p>
+                        </div>
+                      </div>
+                      <p className="paragraph uppercase">{item.category}</p>
+                      <p className="paragraph-bold">${item.price.toFixed(2)}</p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -464,58 +468,68 @@ export default function CarouselRecommended({ content }: BannersProps) {
                 key={slideIndex}
                 className="w-full shrink-0 grid grid-cols-2 gap-1 items-start"
               >
-                {pair.map((item, itemIndex) => (
-                  <Link
-                    href="#"
-                    className="w-full bg-white flex flex-col justify-center items-center"
-                    key={itemIndex}
-                  >
-                    <div className="w-full h-auto aspect-357/420 relative overflow-hidden">
-                      <img
-                        src={item.img}
-                        alt={item.name}
-                        className="w-full h-full object-cover"
-                        width={357}
-                        height={470}
-                        decoding="async"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
-                      <div className="flex justify-center items-start gap-2">
-                        {item.isNew && (
-                          <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
-                            New
-                          </div>
-                        )}
-                        {item.isBestSeller && (
-                          <div className="py-2 px-1 md:px-4 bg-[#181818] paragraph-xs text-white uppercase">
-                            Best Seller
-                          </div>
-                        )}
+                {pair.map((item, itemIndex) => {
+                  const productType = item.productType ?? "clothes";
+                  const productGender = item.gender ?? "men";
+                  const itemHref = item.href.startsWith("/")
+                    ? item.href
+                    : `/${[locale, productType, productGender, item.href].filter(Boolean).join("/")}`;
+
+                  return (
+                    <Link
+                      href={itemHref}
+                      className="w-full bg-white flex flex-col justify-center items-center"
+                      key={itemIndex}
+                    >
+                      <div className="w-full h-auto aspect-357/420 relative overflow-hidden">
+                        <img
+                          src={item.img}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                          width={357}
+                          height={470}
+                          decoding="async"
+                          loading="lazy"
+                        />
                       </div>
-                      <div className="flex flex-col justify-center items-start gap-2 text-black w-full">
-                        <div className="flex justify-between items-center w-full">
-                          <h3 className="title-h3">{item.name}</h3>
-                          <div className="flex justify-center items-center gap-2">
-                            <img
-                              src="/images/start.svg"
-                              alt="Star"
-                              className="w-[14px] h-[14px] text-[#151515]"
-                              width={14}
-                              height={14}
-                            />
-                            <p className="paragraph text-[#181818]">
-                              {item.rate}
-                            </p>
-                          </div>
+                      <div className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
+                        <div className="flex justify-center items-start gap-2">
+                          {item.isNew && (
+                            <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
+                              New
+                            </div>
+                          )}
+                          {item.isBestSeller && (
+                            <div className="py-2 px-1 md:px-4 bg-[#181818] paragraph-xs text-white uppercase">
+                              Best Seller
+                            </div>
+                          )}
                         </div>
-                        <p className="paragraph uppercase">{item.category}</p>
-                        <p className="paragraph-bold">${item.price.toFixed(2)}</p>
+                        <div className="flex flex-col justify-center items-start gap-2 text-black w-full">
+                          <div className="flex justify-between items-center w-full">
+                            <h3 className="title-h3">{item.name}</h3>
+                            <div className="flex justify-center items-center gap-2">
+                              <img
+                                src="/images/start.svg"
+                                alt="Star"
+                                className="w-[14px] h-[14px] text-[#151515]"
+                                width={14}
+                                height={14}
+                              />
+                              <p className="paragraph text-[#181818]">
+                                {item.rate}
+                              </p>
+                            </div>
+                          </div>
+                          <p className="paragraph uppercase">{item.category}</p>
+                          <p className="paragraph-bold">
+                            ${item.price.toFixed(2)}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  );
+                })}
               </div>
             ))}
           </div>

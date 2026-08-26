@@ -12,6 +12,7 @@ export interface FragranceListItem {
   isNew: boolean;
   isBestSeller: boolean;
   gender?: Gender;
+  productType?: "fragances";
   name: string;
   category: string;
   info: string;
@@ -25,6 +26,8 @@ export interface FragranceListItem {
 export interface ClothingListItem {
   isNew: boolean;
   isBestSeller: boolean;
+  gender?: Gender;
+  productType?: "clothes";
   name: string;
   category: string;
   price: number;
@@ -78,7 +81,7 @@ export interface ClothingProductPage {
   };
 }
 
-const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
+const TWO_WEEKS_IN_MS = 14 * 24 * 60 * 60 * 1000;
 
 function toPrice(amount: string) {
   const price = Number(amount);
@@ -89,8 +92,8 @@ function isNew(createdAt: string, now = Date.now()) {
   const createdAtMs = Date.parse(createdAt);
   return (
     Number.isFinite(createdAtMs) &&
-    createdAtMs >= now - THREE_DAYS_IN_MS &&
-    createdAtMs <= now
+    createdAtMs <= now &&
+    now <= createdAtMs + TWO_WEEKS_IN_MS
   );
 }
 
@@ -101,13 +104,23 @@ function isBestSeller(tags: string[]) {
   });
 }
 
-function genderFromTags(tags: string[]): Gender | undefined {
+function genderFromTags(tags: string[], fallbackGender?: Gender): Gender | undefined {
   const normalized = tags.map((tag) => tag.toLowerCase());
+  const hasWomen = normalized.some((t) =>
+    ["women", "women-fragances", "women-fragrances", "woman", "mujer", "femenino", "damas", "dama"].includes(t)
+  );
+  const hasMen = normalized.some((t) =>
+    ["men", "men-fragances", "men-fragrances", "man", "hombre", "masculino", "caballeros", "caballero"].includes(t)
+  );
 
-  if (normalized.includes("women")) return "women";
-  if (normalized.includes("men")) return "men";
+  if (fallbackGender && ((fallbackGender === "women" && hasWomen) || (fallbackGender === "men" && hasMen))) {
+    return fallbackGender;
+  }
 
-  return undefined;
+  if (hasWomen) return "women";
+  if (hasMen) return "men";
+
+  return fallbackGender;
 }
 
 function productRating(id: string) {
@@ -193,11 +206,12 @@ function toVariants(variants: ProductVariant[]) {
   }));
 }
 
-export function toFragranceListItem(product: ProductCard): FragranceListItem {
+export function toFragranceListItem(product: ProductCard, fallbackGender?: Gender): FragranceListItem {
   return {
     isNew: isNew(product.createdAt),
     isBestSeller: isBestSeller(product.tags),
-    gender: genderFromTags(product.tags),
+    gender: genderFromTags(product.tags, fallbackGender),
+    productType: "fragances",
     name: product.vendor,
     category: product.title,
     info: product.volumen?.value ?? "",
@@ -209,10 +223,15 @@ export function toFragranceListItem(product: ProductCard): FragranceListItem {
   };
 }
 
-export function toClothingListItem(product: ProductCard): ClothingListItem {
+export function toClothingListItem(
+  product: ProductCard,
+  fallbackGender?: Gender,
+): ClothingListItem {
   return {
     isNew: isNew(product.createdAt),
     isBestSeller: isBestSeller(product.tags),
+    gender: genderFromTags(product.tags, fallbackGender),
+    productType: "clothes",
     name: product.vendor,
     category: product.title,
     price: toPrice(product.priceRange.minVariantPrice.amount),

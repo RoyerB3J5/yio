@@ -27,6 +27,7 @@ export interface ProductCard {
   title: string;
   vendor: string;
   createdAt: string;
+  productType: string;
   tags: string[];
   featuredImage: ProductImage | null;
   priceRange: { minVariantPrice: Money };

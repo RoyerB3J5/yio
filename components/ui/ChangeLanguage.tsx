@@ -28,7 +28,7 @@ export default function ChangeLanguage({ locale }: { locale: string }) {
             }
             scroll={false}
             aria-current={option === locale ? "page" : undefined}
-            className={`block px-3 py-2 text-[14px] transition-colors hover:bg-accent text-primary ${
+            className={`block px-3 py-2 text-[14px] text-black transition-colors hover:bg-accent text-primary ${
               option === locale ? "font-semibold" : ""
             }`}
           >

@@ -1,66 +1,66 @@
 const content = {
   header: {
     topContent: {
-      paragraph: "Descubre nuestros Best Sellers",
-      buttonLabel: "Ir ahora",
+      paragraph: "Discover our Best Sellers",
+      buttonLabel: "Go now",
     },
     fracancia: {
-      title: "explora nuestras <br/> fragancias",
+      title: "explore our <br/> fragrances",
       items: [
-        { label: "Hombres", href: "/fragances/men" },
-        { label: "Mujeres", href: "/fragances/women" },
+        { label: "Men", href: "/fragances/men" },
+        { label: "Women", href: "/fragances/women" },
       ],
     },
     moda: {
-      title: "encuentra tu estilo <br/> en cada detalle",
+      title: "find your style <br/> in every detail",
       items: [
         {
-          title: "Ropa",
+          title: "Clothing",
           list: [
-            { label: "Hombres", href: "/clothes/men" },
-            { label: "Mujeres", href: "/clothes/women" },
+            { label: "Men", href: "/clothes/men" },
+            { label: "Women", href: "/clothes/women" },
           ],
         },
         {
-          title: "Ropa",
+          title: "Clothing",
           list: [
-            { label: "Hombres", href: "/clothes/men" },
-            { label: "Mujeres", href: "/clothes/women" },
+            { label: "Men", href: "/clothes/men" },
+            { label: "Women", href: "/clothes/women" },
           ],
         },
         {
-          title: "Ropa",
+          title: "Clothing",
           list: [
-            { label: "Hombres", href: "/clothes/men" },
-            { label: "Mujeres", href: "/clothes/women" },
+            { label: "Men", href: "/clothes/men" },
+            { label: "Women", href: "/clothes/women" },
           ],
         },
       ],
     },
     bestSellers: {
-      title: "lo más vendido por <br/> nuestros clientes",
+      title: "most sold by <br/> our customers",
       items: [
-        { label: "Ropa", href: "/best-sellers" },
-        { label: "Fragancias", href: "/best-sellers" },
+        { label: "Clothing", href: "/best-sellers" },
+        { label: "Fragrances", href: "/best-sellers" },
       ],
       banner: {
         title: "BEST SELLERS",
-        description: "Descubre lo más <br/> vendido del momento.",
+        description: "Discover the most <br/> sold right now.",
         button: {
-          label: "Ver más",
+          label: "View more",
           href: "/best-sellers",
         },
       },
     },
     nav: [
-      { label: "Fragancias", href: "#" },
-      { label: "Moda", href: "#" },
+      { label: "Fragrances", href: "#" },
+      { label: "Fashion", href: "#" },
       { label: "Best Sellers", href: "#" },
     ],
     mobileContent: {
-      label: "Lo más vendido del momento.",
+      label: "Most sold right now.",
       button: {
-        label: "Ver más",
+        label: "View more",
         href: "en/best-sellers",
       },
     },
@@ -73,7 +73,7 @@ const content = {
   },
   main: {
     hero: {
-      title: "Boutique <br class='block md:hidden'/>  online",
+      title: "Online <br class='block md:hidden'/> Boutique",
       carouselImages: [
         {
           image: "/images/main/hero.webp",
@@ -102,33 +102,33 @@ const content = {
       ],
     },
     fashion: {
-      title: "Moda exclusiva",
+      title: "Exclusive Fashion",
       buttons: [
         {
-          label: "Mujer",
+          label: "Women",
           href: "/fashion/women",
         },
         {
-          label: "Hombre",
+          label: "Men",
           href: "/fashion/men",
         },
       ],
     },
     categories: [
       {
-        title: "fragancias",
+        title: "fragrances",
         img: "fragance",
         href: "/fragances/men",
         button: {
-          label: "Ver más",
+          label: "View more",
         },
       },
       {
-        title: "moda",
+        title: "fashion",
         img: "fashion",
         href: "/clothes/men",
         button: {
-          label: "Ver más",
+          label: "View more",
         },
       },
       {
@@ -136,7 +136,7 @@ const content = {
         img: "lifestyle",
         href: "/clothes/women",
         button: {
-          label: "Ver más",
+          label: "View more",
         },
       },
       {
@@ -144,60 +144,60 @@ const content = {
         img: "best-seller",
         href: "/best-sellers",
         button: {
-          label: "Ver más",
+          label: "View more",
         },
       },
     ],
     collection: {
       title: "THE COLLECTION",
       description:
-        "Descubre piezas seleccionadas para quienes valoran el estilo y la exclusividad.",
+        "Discover curated pieces for those who value style and exclusivity.",
     },
     bestSeller: {
       title: "BEST SELLER",
-      description: "Lo que todos están buscando.",
+      description: "What everyone is looking for.",
       category: [
         {
-          name: "Mujer",
+          name: "Women",
           href: "/best-sellers",
         },
         {
-          name: "Hombre",
+          name: "Men",
           href: "/best-sellers",
         },
       ],
       collections: [
         {
           image: "best-seller-1",
-          name: "Expresa Tu Esencia",
-          href: "#",
+          name: "Express Your <br class='md:hidden'/>Essence",
+          href: "/fragances/men/santal-33",
           description:
-            "Lujo discreto y amaderado que deja <br class='hidden lg:block'/> una huella eterna",
-          label: "Ver Ahora",
+            "Discreet, woody luxury that leaves <br class='hidden lg:block'/> an eternal mark",
+          label: "View Now",
         },
         {
           image: "best-seller-2",
-          name: "Minimalismo que Impone",
-          href: "#",
+          name: "Minimalism That Commands",
+          href: "/clothes/men/yoga-accolade-1-4-pullover",
           description:
-            "Diseñado para quienes entienden que el <br class='hidden lg:block'/> verdadero lujo está en los detalles.",
-          label: "Ver Ahora",
+            "Designed for those who understand that <br class='hidden lg:block'/> true luxury lies in the details.",
+          label: "View Now",
         },
         {
           image: "best-seller-3",
-          name: "Estilo Sin Esfuerzo",
-          href: "#",
+          name: "Effortless Style",
+          href: "/fragances/men/bad-boy-elixir",
           description:
-            "Dulce, oscuro y provocador, seducción que <br class='hidden xl:block'/> rompe todas las reglas",
-          label: "Ver Ahora",
+            "Sweet, dark, and provocative, seduction that <br class='hidden xl:block'/> breaks all the rules",
+          label: "View Now",
         },
         {
           image: "best-seller-4",
-          name: "Comodidad Elevada",
-          href: "#",
+          name: "Elevated Comfort",
+          href: "/clothes/men/hoodies-essentials",
           description:
-            "Prendas versátiles que combinan estilo, <br class='hidden lg:block'/> confort y presencia en cualquier ocasión.",
-          label: "Ver Ahora",
+            "Versatile pieces that combine style, <br class='hidden lg:block'/> comfort and presence for any occasion.",
+          label: "View Now",
         },
       ],
     },
@@ -205,36 +205,36 @@ const content = {
       {
         title: "Lifestyle <br class='block md:hidden'/> Essentials",
         description:
-          "Todo lo que necesitas para completar tu estilo, en un solo lugar.",
+          "Everything you need to complete your style, in one place.",
         button: {
-          label: "VER lifestyle",
+          label: "VIEW LIFESTYLE",
           link: "clothes/women",
         },
       },
       {
-        title: "Tu aroma, tu <br class='block md:hidden'/>  esencia",
+        title: "Your scent, your <br class='block md:hidden'/> essence",
         description:
-          "Encuentra fragancias que dejan huella y convierten cada momento en algo memorable.",
+          "Find fragrances that leave a mark and turn every moment into something memorable.",
         button: {
-          label: "Ver Fragancias",
+          label: "View Fragrances",
           link: "fragances/women",
         },
       },
       {
-        title: "Los favoritos de <br class='block md:hidden'/>  todos",
+        title: "Everyone's <br class='block md:hidden'/> favorites",
         description:
-          "Descubre los productos más amados y entiende por qué siempre vuelven por ellos.",
+          "Discover the most loved products and understand why they always come back for them.",
         button: {
-          label: "Ver Best Sellers",
+          label: "View Best Sellers",
           link: "best-sellers",
         },
       },
       {
-        title: "Eleva tu <br class='block md:hidden'/>  estilo",
+        title: "Elevate your <br class='block md:hidden'/> style",
         description:
-          "Piezas seleccionadas para complementar tu look y destacar tu personalidad.",
+          "Curated pieces to complement your look and highlight your personality.",
         button: {
-          label: "Ver Fashion",
+          label: "View Fashion",
           link: "clothes/men",
         },
       },
@@ -244,72 +244,276 @@ const content = {
     {
       title: "Jean Paul Gaultier <br/>Le Male ",
       description:
-        "Le Male, tan viril como sexy, rinde homenaje a la figura simbólica que siempre ha inspirado a Jean Paul Gaultier: el marinero.Este perfume masculino tiene una visión inconformista de la masculinidad. La lavanda, que evoca el familiar y reconfortante aroma de la espuma de afeitar, se ve realzada por la sensualidad de la vainilla.",
+        "Le Male, as virile as it is sexy, pays homage to the symbolic figure that has always inspired Jean Paul Gaultier: the sailor. This masculine perfume has a nonconformist vision of masculinity. Lavender, evoking the familiar and comforting scent of shaving foam, is enhanced by the sensuality of vanilla.",
       button: {
-        label: "comprar",
-        link: "#",
+        label: "Buy",
+        link: "/fragances/men/le-male",
       },
       image: "/images/products/jean-paul.webp",
     },
     {
       title: "Dior <br/> sauvage ",
       description:
-        "Sauvage se ha convertido en un nombre inconfundible en el ámbito del perfume para hombre. Disponible en eau de toilette, eau de parfum, parfum —recargables— o elixir, Sauvage despliega fragancias características que combinan frescura, potencia y nobleza.",
+        "Sauvage has become an unmistakable name in the realm of men's perfume. Available in eau de toilette, eau de parfum, parfum —refillable— or elixir, Sauvage unfolds signature fragrances that combine freshness, power, and nobility.",
       button: {
-        label: "comprar",
-        link: "#",
+        label: "Buy",
+        link: "/fragances/men/sauvage-eau-de-toilette",
       },
       image: "/images/products/dior-savage.webp",
     },
     {
       title: "alo <br/> Yoga Accolade hoodie ",
       description:
-        "A todo el mundo le encanta la colección Accolade. Nuestra sudadera con capucha más vendida presenta un diseño informal con hombros caídos para un estilo impecable en el estudio de yoga y para salir a la calle, un bolsillo de canguro de gran tamaño, y un cómodo acanalado en los puños y el dobladillo. Se ha confeccionado con felpa francesa de peso medio con caída, suave por fuera y con forro polar por dentro. Sácale el máximo partido con el pantalón de chándal Accolade a juego. Encuentra el ajuste perfecto y descubre todas las formas de lucirlo.",
+        "Everyone loves the Accolade collection. Our best-selling hoodie features a relaxed design with dropped shoulders for effortless style from the yoga studio to the street, an oversized kangaroo pocket, and comfortable ribbed cuffs and hem. It's crafted from mid-weight French terry with drape, soft on the outside and fleece-lined inside. Get the most out of it with the matching Accolade jogger. Find the perfect fit and discover all the ways to wear it.",
       button: {
-        label: "comprar",
-        link: "#",
+        label: "Buy",
+        link: "/clothes/women/yoga-accolade-hoodie",
       },
       image: "/images/products/alo-hoddie.webp",
     },
     {
       title: "Essentials <br/> hoodie  ",
       description:
-        "Los hoodies de Essentials (de la marca Fear of God) son prendas urbanas premium. Destacan por su estilo minimalista, corte holgado (oversize) y tejido grueso (algodón afelpado). Ofrecen máxima comodidad y se volvieron un básico de lujo muy popular",
+        "Essentials hoodies (from the Fear of God brand) are premium urban garments. They stand out for their minimalist style, oversized fit, and thick fabric (brushed cotton). They offer maximum comfort and have become a very popular luxury staple.",
       button: {
-        label: "comprar",
-        link: "#",
+        label: "Buy",
+        link: "/clothes/men/hoodies-essentials",
       },
       image: "/images/products/essentials-hoddie.webp",
     },
   ],
-  footer: {
-    description: {
-      title: "INSCRÍBETE PARA <br/> RECIBIR NOVEDADES ",
-      name: "¿CUÁL ES TU NOMBRE?",
+  fragances: {
+    men: {
+      hero: {
+        title: "Fragrances <br class='block lg:hidden'/> That Inspire ",
+        carouselImages: [
+          {
+            image: "/images/fragances/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/fragances/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/clothes/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/clothes/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/best-seller/hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/main/hero.webp",
+            color: "text-white",
+          },
+        ],
+        changeColor: true,
+      },
+      gridProducts: {
+        title: "PRODUCTS",
+        filter1: "FILTERS",
+        filter2: "SORT BY",
+        image1: "men-grid-1",
+        image2: "men-grid-2",
+      },
     },
     women: {
-      title: "Mujeres",
+      hero: {
+        title: "Fragrances <br class='block lg:hidden'/> That Inspire ",
+        carouselImages: [
+          {
+            image: "/images/fragances/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/clothes/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/clothes/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/best-seller/hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/main/hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/fragances/men-hero.webp",
+            color: "text-black",
+          },
+        ],
+        changeColor: false,
+      },
+      gridProducts: {
+        title: "PRODUCTS",
+        filter1: "FILTERS",
+        filter2: "SORT BY",
+        image1: "women-grid-1",
+      },
+    },
+  },
+  individualFragrance: {
+    button: "Buy now",
+    recomendado:
+      "Find your <br /> next <br class='hidden md:block'/> favorite.",
+    tag: "TOP NOTES - HEART NOTES - BASE NOTES",
+  },
+  clothes: {
+    men: {
+      hero: {
+        title: "EXCLUSIVE <br class='block md:hidden'/> FASHION",
+        carouselImages: [
+          {
+            image: "/images/clothes/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/clothes/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/best-seller/hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/main/hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/fragances/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/fragances/women-hero.webp",
+            color: "text-white",
+          },
+        ],
+        changeColor: true,
+      },
+      gridProducts: {
+        title: "PRODUCTS",
+        filter1: "FILTERS",
+        filter2: "SORT BY",
+      },
+    },
+    women: {
+      hero: {
+        title: "EXCLUSIVE FASHION",
+        carouselImages: [
+          {
+            image: "/images/clothes/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/best-seller/hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/main/hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/fragances/men-hero.webp",
+            color: "text-black",
+          },
+          {
+            image: "/images/fragances/women-hero.webp",
+            color: "text-white",
+          },
+          {
+            image: "/images/clothes/men-hero.webp",
+            color: "text-black",
+          },
+        ],
+        changeColor: false,
+      },
+      gridProducts: {
+        title: "PRODUCTS",
+        filter1: "FILTERS",
+        filter2: "SORT BY",
+      },
+    },
+  },
+  individualClothes: {
+    button: "Buy now",
+    estilo: "Match Your Style",
+    recomendado:
+      "Find your <br /> next <br class='hidden md:block'/> favorite.",
+  },
+  bestSellers: {
+    hero: {
+      title: "BEST SELLERS",
+      carouselImages: [
+        {
+          image: "/images/best-seller/hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/main/hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/fragances/men-hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/fragances/women-hero.webp",
+          color: "text-white",
+        },
+        {
+          image: "/images/clothes/men-hero.webp",
+          color: "text-black",
+        },
+        {
+          image: "/images/clothes/women-hero.webp",
+          color: "text-white",
+        },
+      ],
+      changeColor: true,
+    },
+    gridProducts: {
+      title: "PRODUCTS",
+      filter1: "FILTERS",
+      filter2: "SORT BY",
+    },
+  },
+  footer: {
+    description: {
+      title: "SIGN UP TO <br/> RECEIVE UPDATES ",
+      name: "WHAT'S YOUR NAME?",
+    },
+    women: {
+      title: "Women",
       links: [
-        { label: "FRAGANCIAS", href: "/fragances/women" },
-        { label: "ROPA", href: "/clothes/women" },
+        { label: "FRAGRANCES", href: "/fragances/women" },
+        { label: "CLOTHING", href: "/clothes/women" },
       ],
     },
     men: {
-      title: "Hombres",
+      title: "Men",
       links: [
-        { label: "FRAGANCIAS", href: "/fragances/men" },
-        { label: "ROPA", href: "/clothes/men" },
+        { label: "FRAGRANCES", href: "/fragances/men" },
+        { label: "CLOTHING", href: "/clothes/men" },
       ],
     },
     bestseller: {
       title: "Best Sellers",
       links: [
-        { label: "FRAGANCIAS", href: "/best-seller" },
-        { label: "ROPA", href: "/best-seller" },
+        { label: "FRAGRANCES", href: "/best-seller" },
+        { label: "CLOTHING", href: "/best-seller" },
       ],
     },
     contact: {
-      title: "Contáctanos",
+      title: "Contact Us",
       links: [
         { icon: "", label: "+ 609 899 3421", href: "tel:+6098993421" },
         { icon: "tiktok", label: "yovani.b1", href: "#" },
