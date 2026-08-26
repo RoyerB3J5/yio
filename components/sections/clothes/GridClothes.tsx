@@ -6,6 +6,7 @@ import {
   FragranceListItem,
 } from "@/lib/shopify/transformers";
 import { useState } from "react";
+import ProductImage from "@/components/ui/ProductImage";
 
 type ProductItem = ClothingListItem | FragranceListItem;
 
@@ -115,88 +116,95 @@ export default function GridProducts({
           const productType =
             item.productType ?? ("variants" in item ? "clothes" : "fragances");
           const productGender = item.gender ?? gender;
-          const productHref = `/${[locale, productType, productGender, item.href]
+          const productHref = `/${[
+            locale,
+            productType,
+            productGender,
+            item.href,
+          ]
             .filter(Boolean)
             .join("/")}`;
 
           return (
-          <div
-            className="w-full bg-white flex flex-col justify-start items-center fade-up"
-            style={{ transitionDelay: `${index * 0.1}s` }}
-            key={index}
-          >
-            <div className="w-full h-auto aspect-357/420 relative overflow-hidden flex items-end group transition-all duration-300 ease-in-out">
-              <Link href={productHref} className="absolute inset-0 z-0">
-              <img
-                src={item.img}
-                alt={item.name}
-                className={
-                  productType === "fragances"
-                    ? "absolute inset-y-0 left-1/2 h-full w-[60%] -translate-x-1/2 object-contain object-center"
-                    : "w-full h-full object-cover absolute inset-0 object-center"
-                }
-                width={357}
-                height={470}
-                decoding="async"
-                loading="lazy"
-              />
-              </Link>
-              <div className="flex justify-center items-center gap-2 transition-all duration-300 ease-in-out z-10 relative w-full px-4 flex-wrap pb-4 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
-                {productType === "clothes" &&
-                  "variants" in item &&
-                  item.variants.map((variant) =>
-                    variant.availableForSale ? (
-                      <Link
-                        className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase cursor-pointer hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
-                        href={`${productHref}?variant=${encodeURIComponent(variant.id)}`}
-                        key={variant.id}
-                      >
-                        {variant.name}
-                      </Link>
-                    ) : (
-                      <button
-                        className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase opacity-50 cursor-not-allowed"
-                        disabled
-                        key={variant.id}
-                      >
-                        {variant.name}
-                      </button>
-                    ),
-                  )}
-              </div>
-            </div>
-            <Link href={productHref} className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
-              <div className="flex justify-center items-start gap-2">
-                {item.isNew && (
-                  <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
-                    New
-                  </div>
-                )}
-                {item.isBestSeller && (
-                  <div className="py-2 px-1 md:px-4 bg-[#181818] paragraph-xs text-white uppercase ">
-                    Best Seller
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col justify-center items-start gap-2 text-black w-full">
-                <div className="flex justify-between items-center w-full">
-                  <h3 className="title-h3">{item.name}</h3>
-                  <div className="flex justify-center items-center gap-2">
-                    <img
-                      src="/images/start.svg"
-                      alt="Star"
-                      className="w-[14px] h-[14px] text-[#151515]"
-                      width={14}
-                      height={14}
-                    />
-                    <p className="paragraph text-[#181818]">{item.rate}</p>
-                  </div>
+            <div
+              className="w-full bg-white flex flex-col justify-start items-center fade-up"
+              style={{ transitionDelay: `${index * 0.1}s` }}
+              key={index}
+            >
+              <div className="w-full h-auto aspect-357/420 relative overflow-hidden flex items-end group transition-all duration-300 ease-in-out">
+                <Link href={productHref} className="absolute inset-0 z-0">
+                  <ProductImage
+                    src={item.img}
+                    alt={item.name}
+                    className={
+                      productType === "fragances"
+                        ? "absolute inset-y-0 left-1/2 h-full w-[60%] -translate-x-1/2 object-contain object-center"
+                        : "w-full h-full object-cover absolute inset-0 object-center"
+                    }
+                    width={357}
+                    height={470}
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  />
+                </Link>
+                <div className="flex justify-center items-center gap-2 transition-all duration-300 ease-in-out z-10 relative w-full px-4 flex-wrap pb-4 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
+                  {productType === "clothes" &&
+                    "variants" in item &&
+                    item.variants.map((variant) =>
+                      variant.availableForSale ? (
+                        <Link
+                          className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase cursor-pointer hover:bg-black hover:text-white transition-all duration-300 ease-in-out"
+                          href={`${productHref}?variant=${encodeURIComponent(variant.id)}`}
+                          key={variant.id}
+                        >
+                          {variant.name}
+                        </Link>
+                      ) : (
+                        <button
+                          className="bg-white px-6 py-2 border border-black flex justify-center items-center paragraph text-black uppercase opacity-50 cursor-not-allowed"
+                          disabled
+                          key={variant.id}
+                        >
+                          {variant.name}
+                        </button>
+                      ),
+                    )}
                 </div>
-                <p className="paragraph uppercase">{item.category}</p>
-                <p className="paragraph-bold">${item.price.toFixed(2)}</p>
               </div>
-            </Link>
-          </div>
+              <Link
+                href={productHref}
+                className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4"
+              >
+                <div className="flex justify-center items-start gap-2">
+                  {item.isNew && (
+                    <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
+                      New
+                    </div>
+                  )}
+                  {item.isBestSeller && (
+                    <div className="py-2 px-1 md:px-4 bg-[#181818] paragraph-xs text-white uppercase ">
+                      Best Seller
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col justify-center items-start gap-2 text-black w-full">
+                  <div className="flex justify-between items-center w-full">
+                    <h3 className="title-h3">{item.name}</h3>
+                    <div className="flex justify-center items-center gap-2">
+                      <img
+                        src="/images/start.svg"
+                        alt="Star"
+                        className="w-[14px] h-[14px] text-[#151515]"
+                        width={14}
+                        height={14}
+                      />
+                      <p className="paragraph text-[#181818]">{item.rate}</p>
+                    </div>
+                  </div>
+                  <p className="paragraph uppercase">{item.category}</p>
+                  <p className="paragraph-bold">${item.price.toFixed(2)}</p>
+                </div>
+              </Link>
+            </div>
           );
         })}
       </div>

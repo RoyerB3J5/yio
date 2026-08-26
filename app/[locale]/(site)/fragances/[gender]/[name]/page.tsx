@@ -20,6 +20,7 @@ import {
   generateOrganizationJsonLd,
 } from "@/lib/seo";
 import type { FragranceProductPage } from "@/lib/shopify/transformers";
+import ProductImage from "@/components/ui/ProductImage";
 
 type MainContent = (typeof import("@/content/en"))["default"]["main"];
 type IndividualFragancesContent =
@@ -37,7 +38,12 @@ export async function generateMetadata({
   const { name, locale } = await params;
   const product = await getFragranceProductPage(name);
   if (!product) {
-    return generateProductPageMetadata(locale, {} as FragranceProductPage, `/${locale}/fragances`, []);
+    return generateProductPageMetadata(
+      locale,
+      {} as FragranceProductPage,
+      `/${locale}/fragances`,
+      [],
+    );
   }
   const path = `/${locale}/fragances/${product.section1.infoProduct.gender ?? "men"}/${name}`;
   return generateProductPageMetadata(locale, product, path, product.section3);
@@ -67,11 +73,23 @@ export default async function SingleFragrance({ params }: PageProps) {
   // product contains the raw Shopify fragrance detail data.
 
   const path = `/${locale}/fragances/${product.section1.infoProduct.gender ?? "men"}/${name}`;
-  const productJsonLd = generateProductJsonLd(product, path, locale, product.section3, product.section1.infoProduct.price);
+  const productJsonLd = generateProductJsonLd(
+    product,
+    path,
+    locale,
+    product.section3,
+    product.section1.infoProduct.price,
+  );
   const breadcrumbJsonLd = generateBreadcrumbJsonLd([
     { name: "Home", url: `/${locale}` },
-    { name: "Fragrances", url: `/${locale}/fragances/${product.section1.infoProduct.gender ?? "men"}` },
-    { name: `${product.section1.infoProduct.name} ${product.section1.infoProduct.category}`, url: path },
+    {
+      name: "Fragrances",
+      url: `/${locale}/fragances/${product.section1.infoProduct.gender ?? "men"}`,
+    },
+    {
+      name: `${product.section1.infoProduct.name} ${product.section1.infoProduct.category}`,
+      url: path,
+    },
   ]);
   const websiteJsonLd = generateWebsiteJsonLd();
   const organizationJsonLd = generateOrganizationJsonLd();
@@ -113,14 +131,13 @@ export default async function SingleFragrance({ params }: PageProps) {
               key={index}
               className={`w-full h-auto aspect-708/955 relative overflow-hidden group ${index === 0 ? "fade-right" : "fade-left"}`}
             >
-              <img
+              <ProductImage
                 src={image}
                 alt={`${product.section2.title} ${index + 1}`}
                 width={708}
                 height={955}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full h-full object-cover absolute object-center inset-0 transition-transform duration-1500 ease-linear group-hover:scale-115"
-                decoding="async"
-                loading="lazy"
               />
             </div>
           ))}

@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { ClothingListItem } from "@/lib/shopify/transformers";
+import ProductImage from "@/components/ui/ProductImage";
 
 interface BannersProps {
   content: ClothingListItem[];
@@ -393,14 +394,13 @@ export default function CarouselRecommended({ content, locale }: BannersProps) {
                   key={index}
                 >
                   <div className="w-full h-auto aspect-357/420 relative overflow-hidden">
-                    <img
+                    <ProductImage
                       src={item.img}
                       alt={item.name}
                       className="w-full h-full object-cover"
                       width={357}
                       height={470}
-                      decoding="async"
-                      loading="lazy"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
                   </div>
                   <div className="w-full flex flex-col justify-center items-start gap-4 px-2.5 py-4.5 md:p-4">
@@ -427,7 +427,9 @@ export default function CarouselRecommended({ content, locale }: BannersProps) {
                             width={14}
                             height={14}
                           />
-                          <p className="paragraph text-[#181818]">{item.rate}</p>
+                          <p className="paragraph text-[#181818]">
+                            {item.rate}
+                          </p>
                         </div>
                       </div>
                       <p className="paragraph uppercase">{item.category}</p>

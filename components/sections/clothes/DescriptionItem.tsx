@@ -1,3 +1,5 @@
+import ProductImage from "@/components/ui/ProductImage";
+
 interface DescriptionItemProps {
   description: {
     description: string;
@@ -41,14 +43,13 @@ export default function DescriptionItem({
         </div>
       </div>
       <div className="w-full md:w-[45%] lg:w-[52%] h-auto aspect-666/803 relative overflow-hidden order-1 md:order-2 group">
-        <img
-          src={images.at(-1)}
+        <ProductImage
+          src={images.at(-1) ?? ""}
           alt="Producto de YIO"
           width={666}
           height={803}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 52vw"
           className="w-full h-full object-cover transition-transform duration-1500 ease-linear group-hover:scale-115"
-          decoding="async"
-          loading="lazy"
         />
       </div>
     </section>

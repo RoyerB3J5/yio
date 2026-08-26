@@ -3,6 +3,7 @@ import { ChevronDown, SlidersHorizontal, Star } from "lucide-react";
 import Link from "next/link";
 import { FragranceListItem } from "@/lib/shopify/transformers";
 import { useMemo, useState } from "react";
+import ProductImage from "@/components/ui/ProductImage";
 
 type SortOption = {
   id: string;
@@ -189,14 +190,13 @@ export default function GridProducts({
                     <p className="paragraph text-[#181818]">{item.rate}</p>
                   </div>
                 </div>
-                <img
+                <ProductImage
                   src={item.img}
                   alt={item.name}
                   className="w-[55%] h-auto"
                   width={203}
                   height={270}
-                  decoding="async"
-                  loading="lazy"
+                  sizes="(max-width: 768px) 55vw, 25vw"
                 />
                 <div className="w-full flex justify-between items-end">
                   <div className="flex flex-col justify-center items-start gap-1 text-black">

@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { useState } from "react";
 import { useCartStore } from "@/store/cart";
+import ProductImage from "@/components/ui/ProductImage";
 
 interface HeroItemProps {
   product: {
@@ -66,36 +67,35 @@ export default function HeroItem({
             className="w-full h-auto aspect-352/528 relative overflow-hidden hidden md:block group"
             key={index}
           >
-            <img
+            <ProductImage
               src={image}
               alt={product.name + " " + (index + 1)}
               width={352}
               height={528}
-              decoding="async"
-              loading="lazy"
+              sizes="(max-width: 1024px) 27vw, 22vw"
               className="w-full h-full object-cover transition-transform duration-1500 ease-linear group-hover:scale-115"
+              priority={index === 0}
             />
           </div>
         ))}
         <div className="w-full h-auto aspect-375/562 relative overflow-hidden md:hidden block group">
-          <img
+          <ProductImage
             src={images[0]}
             alt={product.name + " 1"}
             width={375}
             height={562}
-            decoding="async"
-            loading="lazy"
+            sizes="100vw"
             className="w-full h-full object-cover transition-transform duration-1500 ease-linear group-hover:scale-115"
+            priority
           />
         </div>
         <div className="w-full h-auto aspect-708/759 relative overflow-hidden hidden col-span-2 md:block group">
-          <img
+          <ProductImage
             src={images[2]}
             alt={product.name + " 3"}
             width={708}
             height={759}
-            decoding="async"
-            loading="lazy"
+            sizes="(max-width: 1024px) 55vw, 45vw"
             className="w-full h-full object-cover transition-transform duration-1500 ease-linear group-hover:scale-115"
           />
         </div>
@@ -167,14 +167,13 @@ export default function HeroItem({
                 key={index}
               >
                 <div className="w-full h-auto aspect-240/283 relative overflow-hidden">
-                  <img
+                  <ProductImage
                     src={item.img}
                     alt={item.name}
                     className="w-full h-full object-cover"
                     width={240}
                     height={283}
-                    decoding="async"
-                    loading="lazy"
+                    sizes="(max-width: 640px) 45vw, 240px"
                   />
                 </div>
                 <div className="w-full flex flex-col justify-center items-start gap-2 px-2.5 py-4.5 md:px-4 md:py-6">

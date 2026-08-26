@@ -1,3 +1,4 @@
+import ProductImage from "@/components/ui/ProductImage";
 import { FragranceListItem } from "@/lib/shopify";
 import { Star } from "lucide-react";
 import Link from "next/link";
@@ -97,13 +98,13 @@ export default function Collection({
                       <p className="paragraph text-[#181818]">{item.rate}</p>
                     </div>
                   </div>
-                  <img
+                  <ProductImage
                     src={item.img}
                     alt={item.name}
                     className="w-[55%] h-auto"
-                    width={203}
-                    height={270}
-                    decoding="async"
+                    width={188}
+                    height={250}
+                    sizes="188px"
                     loading="lazy"
                   />
                   <div className="w-full flex justify-between items-end">

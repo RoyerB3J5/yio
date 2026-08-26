@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import ProductImage from "@/components/ui/ProductImage";
 import { useCartStore } from "@/store/cart";
 
 interface HeroProps {
@@ -32,14 +33,14 @@ export default function Hero({ productInfo, content }: HeroProps) {
   return (
     <section className="w-full flex flex-col md:flex-row justify-center items-center h-[calc(100vh-var(--header-height))] md:h-[50vh] xl:h-[calc(100vh-var(--header-height))]">
       <div className="w-full md:w-[60%] h-auto md:h-full relative overflow-hidden aspect-375/358 md:aspect-auto group">
-        <img
+        <ProductImage
           src={productInfo.image}
           alt={productInfo.infoProduct.name}
-          className="w-full h-full object-cover absolute inset-0 transition-transform duration-1500 ease-linear group-hover:scale-115 "
-          width="875"
-          height="695"
-          decoding="async"
-          loading="eager"
+          className="w-full h-full object-cover absolute inset-0 transition-transform duration-1500 ease-linear group-hover:scale-115"
+          width={875}
+          height={695}
+          sizes="(max-width: 768px) 100vw, 60vw"
+          preload
         />
       </div>
       <div className="w-full md:w-[40%] h-full flex flex-col justify-center items-center gap-6 px-10 bg-[#CAD6F2]">
@@ -64,14 +65,14 @@ export default function Hero({ productInfo, content }: HeroProps) {
             </p>
           </div>
         </div>
-        <img
+        <ProductImage
           src={productInfo.infoProduct.img}
           alt={productInfo.infoProduct.name}
           className="w-[40%] h-auto fade-up"
           width={203}
           height={270}
-          decoding="async"
-          loading="eager"
+          sizes="40vw"
+          preload
         />
         <div className="w-full flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-center gap-1 text-black">
@@ -87,7 +88,12 @@ export default function Hero({ productInfo, content }: HeroProps) {
             ${productInfo.infoProduct.price.toFixed(2)}
           </p>
         </div>
-        <Button label={content.button} paddingX="px-6 fade-up" onClick={handleAddToCart} disabled={isLoading} />
+        <Button
+          label={content.button}
+          paddingX="px-6 fade-up"
+          onClick={handleAddToCart}
+          disabled={isLoading}
+        />
       </div>
     </section>
   );

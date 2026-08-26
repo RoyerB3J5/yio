@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import ProductImage from "@/components/ui/ProductImage";
 
 interface DescriptionsProps {
   product: {
@@ -16,19 +17,20 @@ export default function Descriptions({ content, product }: DescriptionsProps) {
       <div className="flex flex-col justify-center items-start gap-8 w-full md:w-[35%] order-2 md:order-1">
         <div className="flex flex-col justify-center items-start gap-4">
           <h2 className="subtitle w-[75%] fade-left">{product.title}</h2>
-          <p className="paragraph text-[#6A6A6A] fade-left">{product.description}</p>
+          <p className="paragraph text-[#6A6A6A] fade-left">
+            {product.description}
+          </p>
         </div>
 
         <Button label={content.button} paddingX="px-6 fade-left" />
       </div>
       <div className="w-full md:w-[50%] h-auto aspect-588/702 relative overflow-hidden group">
-        <img
+        <ProductImage
           src={product.img}
           alt={product.title}
           width={588}
           height={702}
-          decoding="async"
-          loading="lazy"
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-full object-cover absolute object-center inset-0 transition-transform duration-1500 ease-linear group-hover:scale-115"
         />
       </div>

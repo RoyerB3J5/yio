@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Button from "../../ui/Button";
 import Link from "next/link";
+import ProductImage from "@/components/ui/ProductImage";
 
 interface BannersProps {
   content: {
@@ -237,14 +238,13 @@ export default function ProductsBanner({ content, locale }: BannersProps) {
                     </div>
                   </div>
 
-                  <img
+                  <ProductImage
                     src={item.img}
                     alt={item.name}
                     className="w-[60%] h-auto max-h-[270px] object-contain"
                     width={203}
                     height={270}
-                    decoding="async"
-                    loading="lazy"
+                    sizes="60vw"
                   />
 
                   <div className="w-full flex justify-between items-end mt-auto">
