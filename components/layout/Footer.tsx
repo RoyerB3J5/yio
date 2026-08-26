@@ -202,8 +202,8 @@ export default function Footer({ content }: { content: FooterContent }) {
             >
               Inkshape Group
             </Link>{" "}
-            | Privacy | <Link href="/">YIO</Link> | Greenville & Charlotte |
-            Call Now: <Link href="tel:+16098993421">(609) 899-3421</Link>
+            | Privacy | <Link href="/">YIO</Link> | Florida | Call Now:{" "}
+            <Link href="tel:+16098993421">(609) 899-3421</Link>
           </p>
         </div>
       </div>

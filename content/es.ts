@@ -106,11 +106,11 @@ const content = {
       buttons: [
         {
           label: "Mujer",
-          href: "/fashion/women",
+          href: "/clothes/women",
         },
         {
           label: "Hombre",
-          href: "/fashion/men",
+          href: "/clothes/men",
         },
       ],
     },
