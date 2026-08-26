@@ -296,8 +296,11 @@ export function generateProductPageMetadata(
 
   if (isFragrance) {
     const fragrance = product as FragranceProductPage;
-    const title = `${fragrance.section1.infoProduct.name} ${fragrance.section1.infoProduct.category} | ${SITE_NAME}`;
-    const description = fragrance.section2.description.slice(0, 160);
+    const productName = fragrance.section1?.infoProduct?.name ?? "Product";
+    const productCategory = fragrance.section1?.infoProduct?.category ?? "";
+    const description = fragrance.section2?.description?.slice(0, 160) ?? "";
+
+    const title = `${productName} ${productCategory} | ${SITE_NAME}`.trim();
 
     return generateMetadata({
       title,
@@ -313,15 +316,18 @@ export function generateProductPageMetadata(
       tags: [
         "fragrance",
         "perfume",
-        fragrance.section1.infoProduct.name,
+        productName,
         "shop",
       ],
     });
   }
 
   const clothing = product as ClothingProductPage;
-  const title = `${clothing.hero.name} ${clothing.hero.category} | ${SITE_NAME}`;
-  const description = clothing.hero.description.slice(0, 160);
+  const productName = clothing.hero?.name ?? "Product";
+  const productCategory = clothing.hero?.category ?? "";
+  const description = clothing.hero?.description?.slice(0, 160) ?? "";
+
+  const title = `${productName} ${productCategory} | ${SITE_NAME}`.trim();
 
   return generateMetadata({
     title,
@@ -334,7 +340,7 @@ export function generateProductPageMetadata(
       alt: title,
     })),
     type: "product",
-    tags: ["clothing", "fashion", clothing.hero.name, "shop"],
+    tags: ["clothing", "fashion", productName, "shop"],
   });
 }
 
