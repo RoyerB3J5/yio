@@ -1,12 +1,12 @@
 FROM node:22-slim AS deps
 WORKDIR /app
-RUN corepack enable && corepack prepare pnpm@latest --activate
-COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && corepack prepare pnpm@11.21.0 --activate
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 FROM node:22-slim AS builder
 WORKDIR /app
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@11.21.0 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -18,7 +18,7 @@ ARG SHOPIFY_STORE_DOMAIN
 ARG NEXT_PUBLIC_SHOPIFY_ACCOUNT_URL
 
 # 2. Asignarlos como Variables de Entorno para el Build
-ENV SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKE
+ENV SHOPIFY_STOREFRONT_ACCESS_TOKEN=$SHOPIFY_STOREFRONT_ACCESS_TOKEN
 ENV SHOPIFY_API_SECRET=$SHOPIFY_API_SECRET
 ENV SHOPIFY_STOREFRONT_API_VERSION=$SHOPIFY_STOREFRONT_API_VERSION
 ENV SHOPIFY_STORE_DOMAIN=$SHOPIFY_STORE_DOMAIN
