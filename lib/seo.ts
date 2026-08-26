@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import type { FragranceProductPage, ClothingProductPage } from "@/lib/shopify/transformers";
+import type {
+  FragranceProductPage,
+  ClothingProductPage,
+} from "@/lib/shopify/transformers";
 
 const SITE_URL = "https://enyermystudio.com";
 const SITE_NAME = "Your Best";
@@ -8,7 +11,12 @@ interface SEOProps {
   title: string;
   description: string;
   path: string;
-  images?: Array<{ url: string; width?: number; height?: number; alt?: string }>;
+  images?: Array<{
+    url: string;
+    width?: number;
+    height?: number;
+    alt?: string;
+  }>;
   noIndex?: boolean;
   noFollow?: boolean;
   type?: "website" | "article" | "product";
@@ -22,7 +30,9 @@ export function generateMetadata({
   title,
   description,
   path,
-  images = [{ url: "/images/main/hero.webp", width: 1200, height: 630, alt: SITE_NAME }],
+  images = [
+    { url: "/images/main/hero.webp", width: 1200, height: 630, alt: SITE_NAME },
+  ],
   noIndex = false,
   noFollow = false,
   type = "website",
@@ -32,6 +42,9 @@ export function generateMetadata({
   tags,
 }: SEOProps): Metadata {
   const fullUrl = `${SITE_URL}${path}`;
+
+  // Mapeamos "product" a "website" para OpenGraph estándar de Next.js
+  const ogType = type === "product" ? "website" : type;
 
   const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
@@ -57,7 +70,7 @@ export function generateMetadata({
       },
     },
     openGraph: {
-      type,
+      type: ogType, // Usamos la variable mapeada aquí
       siteName: SITE_NAME,
       title,
       description,
@@ -84,18 +97,21 @@ export function generateMetadata({
   if (type === "article" && publishedTime) {
     metadata.openGraph = {
       ...metadata.openGraph,
+      type: "article",
       publishedTime,
       modifiedTime: modifiedTime || publishedTime,
       authors: authors || [],
       tags: tags || [],
-    } as Metadata["openGraph"];
+    };
   }
 
+  // Para productos, la mejor práctica en SEO estructurado con Next.js es
+  // mantener "website" en OpenGraph y agregar datos de producto vía JSON-LD (Schema.org).
   if (type === "product") {
     metadata.openGraph = {
       ...metadata.openGraph,
-      type: "product",
-    } as Metadata["openGraph"];
+      type: "website",
+    };
   }
 
   return metadata;
@@ -239,8 +255,22 @@ export function generateCollectionPageMetadata(
     gridProducts: { title: string };
   },
 ): Metadata {
-  const genderLabel = locale === "es" ? (gender === "men" ? "Hombres" : "Mujeres") : gender === "men" ? "Men" : "Women";
-  const categoryLabel = category === "fragances" ? (locale === "es" ? "Fragancias" : "Fragrances") : (locale === "es" ? "Moda" : "Fashion");
+  const genderLabel =
+    locale === "es"
+      ? gender === "men"
+        ? "Hombres"
+        : "Mujeres"
+      : gender === "men"
+        ? "Men"
+        : "Women";
+  const categoryLabel =
+    category === "fragances"
+      ? locale === "es"
+        ? "Fragancias"
+        : "Fragrances"
+      : locale === "es"
+        ? "Moda"
+        : "Fashion";
 
   const title = `${genderLabel} ${categoryLabel} | ${SITE_NAME}`;
   const description =
@@ -273,9 +303,19 @@ export function generateProductPageMetadata(
       title,
       description,
       path,
-      images: images.map((url) => ({ url, width: 1200, height: 630, alt: title })),
+      images: images.map((url) => ({
+        url,
+        width: 1200,
+        height: 630,
+        alt: title,
+      })),
       type: "product",
-      tags: ["fragrance", "perfume", fragrance.section1.infoProduct.name, "shop"],
+      tags: [
+        "fragrance",
+        "perfume",
+        fragrance.section1.infoProduct.name,
+        "shop",
+      ],
     });
   }
 
@@ -287,7 +327,12 @@ export function generateProductPageMetadata(
     title,
     description,
     path,
-    images: images.map((url) => ({ url, width: 1200, height: 630, alt: title })),
+    images: images.map((url) => ({
+      url,
+      width: 1200,
+      height: 630,
+      alt: title,
+    })),
     type: "product",
     tags: ["clothing", "fashion", clothing.hero.name, "shop"],
   });
