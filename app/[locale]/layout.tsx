@@ -55,7 +55,7 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://enyermystudio.com"),
+  metadataBase: new URL("https://ybmybest.com/"),
 
   title: {
     default: "Your Best | Online Boutique - Fragrances & Fashion",
@@ -109,7 +109,7 @@ export const metadata: Metadata = {
     title: "Your Best | Online Boutique - Fragrances & Fashion",
     description:
       "Discover Your Best - your exclusive online boutique for luxury fragrances and fashion. Shop curated collections for men and women.",
-    url: "https://enyermystudio.com",
+    url: "https://ybmybest.com/",
     images: [
       {
         url: "/images/main/hero.webp",

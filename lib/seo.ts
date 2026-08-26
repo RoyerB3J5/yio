@@ -4,7 +4,7 @@ import type {
   ClothingProductPage,
 } from "@/lib/shopify/transformers";
 
-const SITE_URL = "https://enyermystudio.com";
+const SITE_URL = "https://ybmybest.com/";
 const SITE_NAME = "Your Best";
 
 interface SEOProps {

@@ -4,7 +4,7 @@ import { getFragranceListByGender } from "@/lib/shopify";
 import { getClothingListByGender } from "@/lib/shopify";
 import { getBestSellerProducts } from "@/lib/shopify";
 
-const SITE_URL = "https://enyermystudio.com";
+const SITE_URL = "https://ybmybest.com/";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = locales.flatMap((locale) => [
