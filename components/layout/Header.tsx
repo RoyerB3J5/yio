@@ -334,7 +334,7 @@ export default function Header({ content }: { content: HeaderContent }) {
           }`}
         >
           <div className="container-full flex justify-between items-center py-3 md:py-1">
-            <div className="flex justify-center items-center md:hidden gap-2">
+            <div className="flex justify-between items-center md:hidden gap-2 w-[90.28px]">
               <button
                 type="button"
                 aria-label="Abrir menú de navegación"
@@ -360,13 +360,13 @@ export default function Header({ content }: { content: HeaderContent }) {
               href={"/"}
               aria-label={"Ir a la página principal"}
               title={"Your best - Init"}
-              className="translate-x-[34%]"
+              className="translate-x-[0%]"
             >
               <p className="text-[20px] md:text-[24px] font-logo font-medium leading-[150%] uppercase">
                 your best
               </p>
             </Link>
-            <div className="relative bg-transparent flex flex-row justify-center items-center h-auto w-auto z-10 transform translate-x-0 transition-transform duration-300 ease-out">
+            <div className="relative bg-transparent md:flex flex-row justify-center items-center h-auto w-auto z-10 transform translate-x-0 transition-transform duration-300 ease-out hidden ">
               <nav>
                 <ul className="hidden relative lg:flex items-center flex-row justify-center w-auto">
                   {content.nav.map((item, index) => {
