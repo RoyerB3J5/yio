@@ -73,16 +73,6 @@ export default async function Page({
             )}
           </code>
         </pre> */}
-        <pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
-          <code>
-            {JSON.stringify(
-              bestSellerProducts,
-              (key, value) =>
-                typeof value === "bigint" ? value.toString() : value,
-              2,
-            )}
-          </code>
-        </pre>
         <GridClothes
           content={content.gridProducts}
           products={bestSellerProducts}
