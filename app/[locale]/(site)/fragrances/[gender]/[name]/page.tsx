@@ -41,11 +41,11 @@ export async function generateMetadata({
     return generateProductPageMetadata(
       locale,
       {} as FragranceProductPage,
-      `/${locale}/fragances`,
+      `/${locale}/fragrances`,
       [],
     );
   }
-  const path = `/${locale}/fragances/${product.section1.infoProduct.gender ?? "men"}/${name}`;
+  const path = `/${locale}/fragrances/${product.section1.infoProduct.gender ?? "men"}/${name}`;
   return generateProductPageMetadata(locale, product, path, product.section3);
 }
 
@@ -72,7 +72,7 @@ export default async function SingleFragrance({ params }: PageProps) {
   }
   // product contains the raw Shopify fragrance detail data.
 
-  const path = `/${locale}/fragances/${product.section1.infoProduct.gender ?? "men"}/${name}`;
+  const path = `/${locale}/fragrances/${product.section1.infoProduct.gender ?? "men"}/${name}`;
   const productJsonLd = generateProductJsonLd(
     product,
     path,
@@ -84,7 +84,7 @@ export default async function SingleFragrance({ params }: PageProps) {
     { name: "Home", url: `/${locale}` },
     {
       name: "Fragrances",
-      url: `/${locale}/fragances/${product.section1.infoProduct.gender ?? "men"}`,
+      url: `/${locale}/fragrances/${product.section1.infoProduct.gender ?? "men"}`,
     },
     {
       name: `${product.section1.infoProduct.name} ${product.section1.infoProduct.category}`,
@@ -124,7 +124,11 @@ export default async function SingleFragrance({ params }: PageProps) {
             )}
           </code>
         </pre>*/}
-        <Descriptions product={product.section2} content={content} />
+        <Descriptions
+          product={product.section2}
+          content={content}
+          variantId={product.section1.infoProduct.idVariant}
+        />
         <section className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
           {product.section3.map((image, index) => (
             <div
@@ -142,7 +146,11 @@ export default async function SingleFragrance({ params }: PageProps) {
             </div>
           ))}
         </section>
-        <Information product={product.section4} content={content} />
+        <Information
+          product={product.section4}
+          content={content}
+          variantID={product.section1.infoProduct.idVariant}
+        />
         <RecommendedItem
           label={content.recomendado}
           products={recommendedProducts}

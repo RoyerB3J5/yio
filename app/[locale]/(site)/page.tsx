@@ -11,7 +11,11 @@ import { hasLocale } from "@/i18n/routing";
 import { getFragranceListByGender } from "@/lib/shopify";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { generateHomeMetadata, generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/seo";
+import {
+  generateHomeMetadata,
+  generateWebsiteJsonLd,
+  generateOrganizationJsonLd,
+} from "@/lib/seo";
 
 type MainContent = (typeof import("@/content/en"))["default"]["main"];
 type ProductBannerContent =

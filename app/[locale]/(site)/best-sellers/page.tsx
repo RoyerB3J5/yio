@@ -7,7 +7,11 @@ import { getContent } from "@/i18n/content";
 import { hasLocale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { generateBestSellersMetadata, generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/seo";
+import {
+  generateBestSellersMetadata,
+  generateWebsiteJsonLd,
+  generateOrganizationJsonLd,
+} from "@/lib/seo";
 
 type MainContent = (typeof import("@/content/en"))["default"]["main"];
 type BestSellersContent =
@@ -69,6 +73,16 @@ export default async function Page({
             )}
           </code>
         </pre> */}
+        <pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
+          <code>
+            {JSON.stringify(
+              bestSellerProducts,
+              (key, value) =>
+                typeof value === "bigint" ? value.toString() : value,
+              2,
+            )}
+          </code>
+        </pre>
         <GridClothes
           content={content.gridProducts}
           products={bestSellerProducts}

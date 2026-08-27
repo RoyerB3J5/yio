@@ -149,7 +149,7 @@ export default function GridProducts({
             "#D7835B",
           ];
           const hoverColor = hoverColors[index % hoverColors.length];
-          const productType = item.productType ?? "fragances";
+          const productType = item.productType ?? "fragrances";
           const productGender = item.gender ?? gender;
           const productHref = `/${[locale, productType, productGender, item.href].filter(Boolean).join("/")}`;
 

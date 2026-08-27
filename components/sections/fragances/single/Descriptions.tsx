@@ -1,5 +1,7 @@
+"use client";
 import Button from "@/components/ui/Button";
 import ProductImage from "@/components/ui/ProductImage";
+import { useCartStore } from "@/store/cart";
 
 interface DescriptionsProps {
   product: {
@@ -10,8 +12,19 @@ interface DescriptionsProps {
   content: {
     button: string;
   };
+  variantId: string;
 }
-export default function Descriptions({ content, product }: DescriptionsProps) {
+export default function Descriptions({
+  content,
+  product,
+  variantId,
+}: DescriptionsProps) {
+  const addItem = useCartStore((state) => state.addItem);
+  const isLoading = useCartStore((state) => state.isLoading);
+
+  const handleAddToCart = async () => {
+    await addItem(variantId, 1);
+  };
   return (
     <section className="container-full flex flex-col md:flex-row justify-center md:justify-start items-center py-8 md:py-20 gap-6 md:gap-35">
       <div className="flex flex-col justify-center items-start gap-8 w-full md:w-[35%] order-2 md:order-1">
@@ -22,7 +35,12 @@ export default function Descriptions({ content, product }: DescriptionsProps) {
           </p>
         </div>
 
-        <Button label={content.button} paddingX="px-6 fade-left" />
+        <Button
+          label={content.button}
+          paddingX="px-6 fade-left"
+          onClick={handleAddToCart}
+          disabled={isLoading}
+        />
       </div>
       <div className="w-full md:w-[50%] h-auto aspect-588/702 relative overflow-hidden group">
         <ProductImage

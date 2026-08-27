@@ -8,7 +8,11 @@ import { hasLocale, Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getFragranceListByGender } from "@/lib/shopify";
 import type { Metadata } from "next";
-import { generateCollectionPageMetadata, generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/seo";
+import {
+  generateCollectionPageMetadata,
+  generateWebsiteJsonLd,
+  generateOrganizationJsonLd,
+} from "@/lib/seo";
 
 type MainContent = (typeof import("@/content/en"))["default"]["main"];
 type FragancesContent = (typeof import("@/content/en"))["default"]["fragances"];
@@ -29,7 +33,12 @@ export async function generateMetadata({
     fragances: FragancesContent;
   }>(locale);
 
-  return generateCollectionPageMetadata(locale, currentGender, "fragances", content[currentGender]);
+  return generateCollectionPageMetadata(
+    locale,
+    currentGender,
+    "fragrances",
+    content[currentGender],
+  );
 }
 
 export default async function Page({ params }: PageProps) {
@@ -81,6 +90,7 @@ export default async function Page({ params }: PageProps) {
           content={content[currentGender].gridProducts}
           products={products}
           gender={currentGender}
+          locale={locale}
         />
         <BestSeller content={fixedContent.bestSeller} locale={locale} />
         <Banners content={fixedContent.banners} locale={locale} />

@@ -47,7 +47,10 @@ type GraphQLError = { message: string };
 type GraphQLResponse<T> = { data?: T; errors?: GraphQLError[] };
 
 function getStorefrontUrl() {
-  const domain = process.env.SHOPIFY_STORE_DOMAIN?.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const domain = process.env.SHOPIFY_STORE_DOMAIN?.replace(
+    /^https?:\/\//,
+    "",
+  ).replace(/\/$/, "");
   const version = process.env.SHOPIFY_STOREFRONT_API_VERSION ?? "2026-07";
 
   if (!domain) {
@@ -85,13 +88,17 @@ async function storefrontFetch<T>(
   });
 
   if (!response.ok) {
-    throw new Error(`Shopify Storefront API request failed with status ${response.status}.`);
+    throw new Error(
+      `Shopify Storefront API request failed with status ${response.status}.`,
+    );
   }
 
   const result = (await response.json()) as GraphQLResponse<T>;
 
   if (result.errors?.length) {
-    throw new Error(`Shopify Storefront API error: ${result.errors.map((error) => error.message).join("; ")}`);
+    throw new Error(
+      `Shopify Storefront API error: ${result.errors.map((error) => error.message).join("; ")}`,
+    );
   }
 
   if (!result.data) {
@@ -124,7 +131,7 @@ async function getFragranceProductsByGenderTag(
   gender: Gender,
   { first = 20, after }: { first?: number; after?: string | null } = {},
 ) {
-  const query = `product_type:Fragance AND tag:${gender}`;
+  const query = `product_type:Fragrances AND tag:${gender}`;
 
   return storefrontFetch<{
     products: {
@@ -175,11 +182,19 @@ export async function getFragranceListByGender(
   const first = options?.first ?? 10;
 
   if (gender) {
-    const { collection } = await getFragrancesByGender(gender, { ...options, first });
+    const { collection } = await getFragrancesByGender(gender, {
+      ...options,
+      first,
+    });
 
     return {
-      products: collection?.products.nodes.map((p) => toFragranceListItem(p, gender)) ?? [],
-      pageInfo: collection?.products.pageInfo ?? { hasNextPage: false, endCursor: null },
+      products:
+        collection?.products.nodes.map((p) => toFragranceListItem(p, gender)) ??
+        [],
+      pageInfo: collection?.products.pageInfo ?? {
+        hasNextPage: false,
+        endCursor: null,
+      },
     };
   }
 
@@ -189,8 +204,12 @@ export async function getFragranceListByGender(
     getFragranceProductsByGenderTag("women", { ...options, first: perGender }),
   ]);
 
-  const menProducts = men.products.nodes.map((p) => toFragranceListItem(p, "men"));
-  const womenProducts = women.products.nodes.map((p) => toFragranceListItem(p, "women"));
+  const menProducts = men.products.nodes.map((p) =>
+    toFragranceListItem(p, "men"),
+  );
+  const womenProducts = women.products.nodes.map((p) =>
+    toFragranceListItem(p, "women"),
+  );
 
   // Interleave products from both genders so we get half men, half women (total 10)
   const interleaved: FragranceListItem[] = [];
@@ -204,7 +223,8 @@ export async function getFragranceListByGender(
     products: interleaved.slice(0, first),
     pageInfo: {
       hasNextPage:
-        men.products.pageInfo.hasNextPage || women.products.pageInfo.hasNextPage,
+        men.products.pageInfo.hasNextPage ||
+        women.products.pageInfo.hasNextPage,
       endCursor:
         men.products.pageInfo.endCursor ?? women.products.pageInfo.endCursor,
     },
@@ -222,16 +242,23 @@ export async function getClothingListByGender(
       collection?.products.nodes.map((product) =>
         toClothingListItem(product, gender),
       ) ?? [],
-    pageInfo: collection?.products.pageInfo ?? { hasNextPage: false, endCursor: null },
+    pageInfo: collection?.products.pageInfo ?? {
+      hasNextPage: false,
+      endCursor: null,
+    },
   };
 }
 
-export async function getFragranceProductPage(handle: string): Promise<FragranceProductPage | null> {
+export async function getFragranceProductPage(
+  handle: string,
+): Promise<FragranceProductPage | null> {
   const { product } = await getFragranceByHandle(handle);
   return product ? toFragranceProductPage(product) : null;
 }
 
-export async function getClothingProductPage(handle: string): Promise<ClothingProductPage | null> {
+export async function getClothingProductPage(
+  handle: string,
+): Promise<ClothingProductPage | null> {
   const { product } = await getClothingByHandle(handle);
   return product ? toClothingProductPage(product) : null;
 }
@@ -247,52 +274,71 @@ export async function getBestSellerProducts(
 
   return {
     products: (products?.nodes ?? []).map((product) =>
-      ["fragance", "fragrance"].includes(product.productType.toLowerCase())
+      ["fragrances", "fragrances"].includes(product.productType.toLowerCase())
         ? toFragranceListItem(product)
-        : toClothingListItem(product)
+        : toClothingListItem(product),
     ),
     pageInfo: products?.pageInfo ?? { hasNextPage: false, endCursor: null },
   };
 }
 
-export async function createCart(lines: Array<{ merchandiseId: string; quantity: number }> = []): Promise<Cart> {
-  const data = await storefrontFetch<{ cartCreate: { cart: Cart; userErrors: Array<{ field: string; message: string }> } }>(
-    CART_CREATE,
-    { input: { lines } },
-    ["shopify", "shopify:cart"],
-  );
+export async function createCart(
+  lines: Array<{ merchandiseId: string; quantity: number }> = [],
+): Promise<Cart> {
+  const data = await storefrontFetch<{
+    cartCreate: {
+      cart: Cart;
+      userErrors: Array<{ field: string; message: string }>;
+    };
+  }>(CART_CREATE, { input: { lines } }, ["shopify", "shopify:cart"]);
 
   console.log("createCart raw response:", JSON.stringify(data, null, 2));
 
   if (data.cartCreate.userErrors.length) {
-    throw new Error(data.cartCreate.userErrors.map(e => `${e.field}: ${e.message}`).join(", "));
+    throw new Error(
+      data.cartCreate.userErrors
+        .map((e) => `${e.field}: ${e.message}`)
+        .join(", "),
+    );
   }
 
   return data.cartCreate.cart;
 }
 
-export async function addCartLines(cartId: string, lines: Array<{ merchandiseId: string; quantity: number }>): Promise<Cart> {
-  const data = await storefrontFetch<{ cartLinesAdd: { cart: Cart; userErrors: Array<{ field: string; message: string }> } }>(
-    CART_LINES_ADD,
-    { cartId, lines },
-    ["shopify", "shopify:cart"],
-  );
+export async function addCartLines(
+  cartId: string,
+  lines: Array<{ merchandiseId: string; quantity: number }>,
+): Promise<Cart> {
+  const data = await storefrontFetch<{
+    cartLinesAdd: {
+      cart: Cart;
+      userErrors: Array<{ field: string; message: string }>;
+    };
+  }>(CART_LINES_ADD, { cartId, lines }, ["shopify", "shopify:cart"]);
 
   console.log("addCartLines raw response:", JSON.stringify(data, null, 2));
 
   if (data.cartLinesAdd.userErrors.length) {
-    throw new Error(data.cartLinesAdd.userErrors.map(e => `${e.field}: ${e.message}`).join(", "));
+    throw new Error(
+      data.cartLinesAdd.userErrors
+        .map((e) => `${e.field}: ${e.message}`)
+        .join(", "),
+    );
   }
 
   return data.cartLinesAdd.cart;
 }
 
-export async function updateCartLines(cartId: string, lines: Array<{ id: string; quantity: number }>): Promise<Cart> {
-  const data = await storefrontFetch<{ cartLinesUpdate: { cart: Cart; userErrors: Array<{ field: string; message: string }> } }>(
-    CART_LINES_UPDATE,
-    { cartId, lines },
-    ["shopify", "shopify:cart"],
-  );
+export async function updateCartLines(
+  cartId: string,
+  lines: Array<{ id: string; quantity: number }>,
+): Promise<Cart> {
+  const data = await storefrontFetch<{
+    cartLinesUpdate: {
+      cart: Cart;
+      userErrors: Array<{ field: string; message: string }>;
+    };
+  }>(CART_LINES_UPDATE, { cartId, lines }, ["shopify", "shopify:cart"]);
 
   if (data.cartLinesUpdate.userErrors.length) {
     throw new Error(data.cartLinesUpdate.userErrors[0].message);
@@ -301,12 +347,16 @@ export async function updateCartLines(cartId: string, lines: Array<{ id: string;
   return data.cartLinesUpdate.cart;
 }
 
-export async function removeCartLines(cartId: string, lineIds: string[]): Promise<Cart> {
-  const data = await storefrontFetch<{ cartLinesRemove: { cart: Cart; userErrors: Array<{ field: string; message: string }> } }>(
-    CART_LINES_REMOVE,
-    { cartId, lineIds },
-    ["shopify", "shopify:cart"],
-  );
+export async function removeCartLines(
+  cartId: string,
+  lineIds: string[],
+): Promise<Cart> {
+  const data = await storefrontFetch<{
+    cartLinesRemove: {
+      cart: Cart;
+      userErrors: Array<{ field: string; message: string }>;
+    };
+  }>(CART_LINES_REMOVE, { cartId, lineIds }, ["shopify", "shopify:cart"]);
 
   if (data.cartLinesRemove.userErrors.length) {
     throw new Error(data.cartLinesRemove.userErrors[0].message);

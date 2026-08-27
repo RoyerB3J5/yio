@@ -191,10 +191,10 @@ export default function Header({ content }: { content: HeaderContent }) {
   const normalized =
     pathname.replace(/^\/(en|es)/, "").replace(/\/$/, "") || "/";
 
-  const grupoDos = ["/fragance/women", "/clothes/women"];
+  const grupoDos = ["/fragrance/women", "/clothes/women"];
 
   // Detecta si hay contenido después de /men o /women (ej. /clothes/women/detalle-123)
-  const hasSubPath = /^\/(fragance|clothes)\/(men|women)\/.+/.test(normalized);
+  const hasSubPath = /^\/(fragrance|clothes)\/(men|women)\/.+/.test(normalized);
 
   const bgClass = hasSubPath ? "bg-white" : "bg-transparent";
   const textClass =

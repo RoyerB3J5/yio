@@ -12,7 +12,7 @@ export interface FragranceListItem {
   isNew: boolean;
   isBestSeller: boolean;
   gender?: Gender;
-  productType?: "fragances";
+  productType?: "fragrances";
   name: string;
   category: string;
   info: string;
@@ -107,10 +107,10 @@ function isBestSeller(tags: string[]) {
 function genderFromTags(tags: string[], fallbackGender?: Gender): Gender | undefined {
   const normalized = tags.map((tag) => tag.toLowerCase());
   const hasWomen = normalized.some((t) =>
-    ["women", "women-fragances", "women-fragrances", "woman", "mujer", "femenino", "damas", "dama"].includes(t)
+    ["women", "women-fragrances", "women-fragrances", "woman", "mujer", "femenino", "damas", "dama"].includes(t)
   );
   const hasMen = normalized.some((t) =>
-    ["men", "men-fragances", "men-fragrances", "man", "hombre", "masculino", "caballeros", "caballero"].includes(t)
+    ["men", "men-fragrances", "men-fragrances", "man", "hombre", "masculino", "caballeros", "caballero"].includes(t)
   );
 
   if (fallbackGender && ((fallbackGender === "women" && hasWomen) || (fallbackGender === "men" && hasMen))) {
@@ -211,7 +211,7 @@ export function toFragranceListItem(product: ProductCard, fallbackGender?: Gende
     isNew: isNew(product.createdAt),
     isBestSeller: isBestSeller(product.tags),
     gender: genderFromTags(product.tags, fallbackGender),
-    productType: "fragances",
+    productType: "fragrances",
     name: product.vendor,
     category: product.title,
     info: product.volumen?.value ?? "",

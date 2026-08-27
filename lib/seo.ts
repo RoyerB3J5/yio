@@ -249,7 +249,7 @@ export function generateOrganizationJsonLd() {
 export function generateCollectionPageMetadata(
   locale: string,
   gender: string,
-  category: "fragances" | "clothes",
+  category: "fragrances" | "clothes",
   _content: {
     hero: { title: string };
     gridProducts: { title: string };
@@ -264,7 +264,7 @@ export function generateCollectionPageMetadata(
         ? "Men"
         : "Women";
   const categoryLabel =
-    category === "fragances"
+    category === "fragrances"
       ? locale === "es"
         ? "Fragancias"
         : "Fragrances"

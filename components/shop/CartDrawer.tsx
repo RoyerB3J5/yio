@@ -23,8 +23,8 @@ function buildProductUrl(
   const productType = product.productType.toLowerCase();
 
   const typeMap: Record<string, string> = {
-    fragrance: "fragances",
-    fragance: "fragances",
+    fragrance: "fragrances",
+    fragance: "fragrances",
     clothing: "clothes",
     clothes: "clothes",
   };

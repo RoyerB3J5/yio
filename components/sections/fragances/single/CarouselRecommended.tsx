@@ -379,7 +379,7 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
             onTransitionEnd={handleDesktopTransitionEnd}
           >
             {desktopTriplicated.map((item, index) => {
-              const productType = item.productType ?? "fragances";
+              const productType = item.productType ?? "fragrances";
               const productGender = item.gender ?? "men";
               const itemHref = item.href.startsWith("/")
                 ? item.href
@@ -463,7 +463,7 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
             onTransitionEnd={handleTransitionEnd}
           >
             {expandedContent.map((item, index) => {
-              const productType = item.productType ?? "fragances";
+              const productType = item.productType ?? "fragrances";
               const productGender = item.gender ?? "men";
               const itemHref = item.href.startsWith("/")
                 ? item.href

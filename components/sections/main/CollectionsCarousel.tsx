@@ -220,7 +220,7 @@ export default function ProductsBanner({ content, locale }: BannersProps) {
               {/* SEGUNDO MAP: Itera sobre los 2 productos dentro de esa pareja */}
               {pair.map((item, itemIndex) => (
                 <Link
-                  href={`/${[locale, item.productType ?? "fragances", item.gender ?? "men", item.href].filter(Boolean).join("/")}`}
+                  href={`/${[locale, item.productType ?? "fragrances", item.gender ?? "men", item.href].filter(Boolean).join("/")}`}
                   className="bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4 w-full"
                   key={itemIndex}
                 >

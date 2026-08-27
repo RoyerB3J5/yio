@@ -114,7 +114,8 @@ export default function GridProducts({
       <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-1 grid-flow-dense jusitfy-center items-stretch">
         {sortedProducts.map((item, index) => {
           const productType =
-            item.productType ?? ("variants" in item ? "clothes" : "fragances");
+            item.productType ??
+            (item.productType == "clothes" ? "clothes" : "fragrances");
           const productGender = item.gender ?? gender;
           const productHref = `/${[
             locale,
@@ -137,7 +138,7 @@ export default function GridProducts({
                     src={item.img}
                     alt={item.name}
                     className={
-                      productType === "fragances"
+                      productType === "fragrances"
                         ? "absolute inset-y-0 left-1/2 h-full w-[60%] -translate-x-1/2 object-contain object-center"
                         : "w-full h-full object-cover absolute inset-0 object-center"
                     }

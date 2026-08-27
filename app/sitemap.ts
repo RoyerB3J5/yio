@@ -20,24 +20,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     },
     {
-      url: `${SITE_URL}/${locale}/fragances/men`,
+      url: `${SITE_URL}/${locale}/fragrances/men`,
       lastModified: new Date(),
       changeFrequency: "daily" as const,
       priority: 0.8,
       alternates: {
         languages: Object.fromEntries(
-          locales.map((l) => [l, `${SITE_URL}/${l}/fragances/men`]),
+          locales.map((l) => [l, `${SITE_URL}/${l}/fragrances/men`]),
         ),
       },
     },
     {
-      url: `${SITE_URL}/${locale}/fragances/women`,
+      url: `${SITE_URL}/${locale}/fragrances/women`,
       lastModified: new Date(),
       changeFrequency: "daily" as const,
       priority: 0.8,
       alternates: {
         languages: Object.fromEntries(
-          locales.map((l) => [l, `${SITE_URL}/${l}/fragances/women`]),
+          locales.map((l) => [l, `${SITE_URL}/${l}/fragrances/women`]),
         ),
       },
     },
@@ -89,7 +89,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const fragranceRoutes = locales.flatMap((locale) =>
       [...(fragranceMen.products ?? []), ...(fragranceWomen.products ?? [])].map(
         (product) => ({
-          url: `${SITE_URL}/${locale}/fragances/${product.gender ?? "men"}/${product.href}`,
+          url: `${SITE_URL}/${locale}/fragrances/${product.gender ?? "men"}/${product.href}`,
           lastModified: new Date(product.createdAt),
           changeFrequency: "weekly" as const,
           priority: 0.7,
@@ -97,7 +97,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             languages: Object.fromEntries(
               locales.map((l) => [
                 l,
-                `${SITE_URL}/${l}/fragances/${product.gender ?? "men"}/${product.href}`,
+                `${SITE_URL}/${l}/fragrances/${product.gender ?? "men"}/${product.href}`,
               ]),
             ),
           },

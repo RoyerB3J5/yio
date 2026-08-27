@@ -7,8 +7,8 @@ const content = {
     fracancia: {
       title: "explore our <br/> fragrances",
       items: [
-        { label: "Men", href: "/fragances/men" },
-        { label: "Women", href: "/fragances/women" },
+        { label: "Men", href: "/fragrances/men" },
+        { label: "Women", href: "/fragrances/women" },
       ],
     },
     moda: {
@@ -118,7 +118,7 @@ const content = {
       {
         title: "fragrances",
         img: "fragance",
-        href: "/fragances/men",
+        href: "/fragrances/men",
         button: {
           label: "View more",
         },
@@ -170,7 +170,7 @@ const content = {
         {
           image: "best-seller-1",
           name: "Express Your <br class='md:hidden'/>Essence",
-          href: "/fragances/men/santal-33",
+          href: "/fragrances/men/santal-33",
           description:
             "Discreet, woody luxury that leaves <br class='hidden lg:block'/> an eternal mark",
           label: "View Now",
@@ -186,7 +186,7 @@ const content = {
         {
           image: "best-seller-3",
           name: "Effortless Style",
-          href: "/fragances/men/bad-boy-elixir",
+          href: "/fragrances/men/bad-boy-elixir",
           description:
             "Sweet, dark, and provocative, seduction that <br class='hidden xl:block'/> breaks all the rules",
           label: "View Now",
@@ -217,7 +217,7 @@ const content = {
           "Find fragrances that leave a mark and turn every moment into something memorable.",
         button: {
           label: "View Fragrances",
-          link: "fragances/women",
+          link: "fragrances/women",
         },
       },
       {
@@ -247,7 +247,7 @@ const content = {
         "Le Male, as virile as it is sexy, pays homage to the symbolic figure that has always inspired Jean Paul Gaultier: the sailor. This masculine perfume has a nonconformist vision of masculinity. Lavender, evoking the familiar and comforting scent of shaving foam, is enhanced by the sensuality of vanilla.",
       button: {
         label: "Buy",
-        link: "/fragances/men/le-male",
+        link: "/fragrances/men/le-male",
       },
       image: "/images/products/jean-paul.webp",
     },
@@ -257,7 +257,7 @@ const content = {
         "Sauvage has become an unmistakable name in the realm of men's perfume. Available in eau de toilette, eau de parfum, parfum —refillable— or elixir, Sauvage unfolds signature fragrances that combine freshness, power, and nobility.",
       button: {
         label: "Buy",
-        link: "/fragances/men/sauvage-eau-de-toilette",
+        link: "/fragrances/men/sauvage-eau-de-toilette",
       },
       image: "/images/products/dior-savage.webp",
     },
@@ -494,14 +494,14 @@ const content = {
     women: {
       title: "Women",
       links: [
-        { label: "FRAGRANCES", href: "/fragances/women" },
+        { label: "FRAGRANCES", href: "/fragrances/women" },
         { label: "CLOTHING", href: "/clothes/women" },
       ],
     },
     men: {
       title: "Men",
       links: [
-        { label: "FRAGRANCES", href: "/fragances/men" },
+        { label: "FRAGRANCES", href: "/fragrances/men" },
         { label: "CLOTHING", href: "/clothes/men" },
       ],
     },

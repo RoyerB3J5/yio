@@ -21,7 +21,7 @@ export default function Collection({
       <div className="aspect-718/972 w-full h-auto relative md:hidden block fade-right">
         <img
           src={"/images/main/collection.webp"}
-          alt={"Collection YIO Fragance"}
+          alt={"Collection YIO Fragrance"}
           width={718}
           height={972}
           className="w-full h-full object-cover object-center absolute inset-0 "
@@ -41,7 +41,7 @@ export default function Collection({
         <div className="sticky top-0 w-1/2 h-auto aspect-718/972 relative overflow-hidden fade-right group">
           <img
             src={"/images/main/collection.webp"}
-            alt={"Collection YIO Fragance"}
+            alt={"Collection YIO Fragrance"}
             width={718}
             height={972}
             className="w-full h-full object-cover object-center absolute inset-0 transition-transform duration-1500 ease-linear group-hover:scale-115"
@@ -63,7 +63,7 @@ export default function Collection({
             const hoverColor = hoverColors[index % hoverColors.length];
             return (
               <Link
-                href={`/${[locale, item.productType ?? "fragances", item.gender ?? "men", item.href].filter(Boolean).join("/")}`}
+                href={`/${[locale, item.productType ?? "fragrances", item.gender ?? "men", item.href].filter(Boolean).join("/")}`}
                 className="fade-up w-full flex justify-center items-center"
                 style={
                   {
