@@ -1,25 +1,11 @@
 "use client";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import Button from "../../ui/Button";
-import Link from "next/link";
-import ProductImage from "@/components/ui/ProductImage";
+import { FragranceListItem } from "@/lib/shopify";
+import ProductCard from "@/components/ui/ProductCard";
 
 interface BannersProps {
-  content: {
-    isNew: boolean;
-    isBestSeller: boolean;
-    name: string;
-    category: string;
-    info: string;
-    price: number;
-    rate: number;
-    img: string;
-    gender?: string;
-    productType?: string;
-    href: string;
-  }[];
+  content: FragranceListItem[];
   locale: string;
 }
 
@@ -219,49 +205,12 @@ export default function ProductsBanner({ content, locale }: BannersProps) {
             >
               {/* SEGUNDO MAP: Itera sobre los 2 productos dentro de esa pareja */}
               {pair.map((item, itemIndex) => (
-                <Link
-                  href={`/${[locale, item.productType ?? "fragrances", item.gender ?? "men", item.href].filter(Boolean).join("/")}`}
-                  className="bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4 w-full"
-                  key={itemIndex}
-                >
-                  <div className="w-full flex justify-between items-center">
-                    <div className="flex justify-center items-start gap-2">
-                      {item.isNew && (
-                        <div className="py-2 px-4 bg-black/5 paragraph-xs text-[#181818] uppercase">
-                          New
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex justify-center items-center gap-2">
-                      <Star className="w-[14px] h-[14px] fill-current text-[#151515]" />
-                      <p className="paragraph text-[#181818]">{item.rate}</p>
-                    </div>
-                  </div>
-
-                  <ProductImage
-                    src={item.img}
-                    alt={item.name}
-                    className="w-[60%] h-auto max-h-[270px] object-contain"
-                    width={203}
-                    height={270}
-                    sizes="60vw"
-                  />
-
-                  <div className="w-full flex justify-between items-end mt-auto">
-                    <div className="flex flex-col justify-center items-start gap-1 text-black">
-                      <h3 className="title-h3">{item.name}</h3>
-                      <p className="paragraph uppercase text-sm text-gray-500">
-                        {item.category}
-                      </p>
-                      <p className="paragraph uppercase text-xs text-gray-400">
-                        {item.info}
-                      </p>
-                    </div>
-                    <p className="paragraph-bold text-lg">
-                      ${item.price.toFixed(2)}
-                    </p>
-                  </div>
-                </Link>
+                <ProductCard
+                  key={`${slideIndex}-${itemIndex}`}
+                  item={item}
+                  locale={locale}
+                  index={slideIndex * 2 + itemIndex}
+                />
               ))}
             </div>
           ))}

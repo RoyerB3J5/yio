@@ -149,7 +149,7 @@ const MegaMenu = ({
               className="text-black paragraph text-start"
             />
             <Button
-              href={`/${lang}${content.bestSellers.banner.button.href}`}
+              href={`/${lang}/best-sellers`}
               label={content.bestSellers.banner.button.label}
               paddingX="px-12"
             />

@@ -16,11 +16,11 @@ export default function Button({
   type = "button",
   disabled,
   href,
-  paddingX = "px-12",
+  paddingX = "",
   wFull = false,
 }: ButtonProps) {
-  const baseClasses = `group relative overflow-hidden cursor-pointer flex justify-center items-center ${paddingX} py-2 focus:outline-none text-[14px] font-medium leading-[150%] uppercase text-center z-10 bg-black text-white ${
-    wFull ? "w-full" : "w-auto"
+  const baseClasses = `group relative overflow-hidden cursor-pointer flex justify-center items-center ${paddingX} py-3 focus:outline-none text-[14px] font-medium leading-[150%] uppercase text-center z-10 bg-black text-white ${
+    wFull ? "w-full" : "w-40"
   }`;
 
   const renderContent = () => (

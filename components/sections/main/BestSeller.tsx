@@ -61,7 +61,7 @@ export default function BestSeller({ content, locale }: BestSellerProps) {
                 dangerouslySetInnerHTML={{ __html: item.name }}
               ></h3>
               <p
-                className="text-[#6A6A6A] paragraph w-full md:w-[90%] lg:w-full grow"
+                className="text-[#6A6A6A] paragraph w-full md:w-[90%] lg:w-full grow hidden md:block"
                 dangerouslySetInnerHTML={{ __html: item.description }}
               />
               <a href={`/${locale}${item.href}`} className="link-style">

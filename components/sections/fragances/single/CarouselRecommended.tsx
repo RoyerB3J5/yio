@@ -1,31 +1,22 @@
 "use client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
-import Button from "../../../ui/Button";
 import Link from "next/link";
 import { FragranceListItem } from "@/lib/shopify";
-
-interface FragranceItem {
-  isNew: boolean;
-  isBestSeller: boolean;
-  name: string;
-  category: string;
-  info: string;
-  price: number;
-  rate: number;
-  img: string;
-  href: string;
-}
+import ProductCard from "@/components/ui/ProductCard";
 
 interface CarouselRecommendedProps {
   content: FragranceListItem[];
   locale?: string;
 }
 
-export default function CarouselRecommended({ content, locale }: CarouselRecommendedProps) {
+export default function CarouselRecommended({
+  content,
+  locale,
+}: CarouselRecommendedProps) {
   const numItems = content.length;
-  const desktopTriplicated = numItems > 0 ? [...content, ...content, ...content] : [];
+  const desktopTriplicated =
+    numItems > 0 ? [...content, ...content, ...content] : [];
 
   const [desktopIndex, setDesktopIndex] = useState(numItems);
   const [isDesktopTransitioning, setIsDesktopTransitioning] = useState(true);
@@ -40,7 +31,8 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
 
   const measureDesktopDimensions = useCallback(() => {
     if (!desktopContainerRef.current) return;
-    const containerWidth = desktopContainerRef.current.getBoundingClientRect().width;
+    const containerWidth =
+      desktopContainerRef.current.getBoundingClientRect().width;
     setDesktopItemWidth((containerWidth - 8) / 3);
   }, []);
 
@@ -91,7 +83,8 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
     if (desktopIndex >= 2 * numItems || desktopIndex < numItems) {
       isDesktopResetting.current = true;
       setIsDesktopTransitioning(false);
-      const equivalentIndex = numItems + (((desktopIndex % numItems) + numItems) % numItems);
+      const equivalentIndex =
+        numItems + (((desktopIndex % numItems) + numItems) % numItems);
       setDesktopIndex(equivalentIndex);
     }
   };
@@ -175,13 +168,23 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
     startDesktopAutoplay();
   };
 
-  const desktopTranslateX = -desktopIndex * (desktopItemWidth + 4) + desktopDragOffset;
+  const desktopTranslateX =
+    -desktopIndex * (desktopItemWidth + 4) + desktopDragOffset;
 
+  // --- MOBILE CAROUSEL (2 items per slide - pairs) ---
+  // AGRUPAMOS LOS ITEMS EN PAREJAS DE 2
+  const pairs = [];
+  for (let i = 0; i < content.length; i += 2) {
+    pairs.push(content.slice(i, i + 2));
+  }
 
-  // --- MOBILE CAROUSEL (1 item per slide for fragrances) ---
-  const expandedContent = numItems > 0 ? [...content, ...content, ...content] : [];
+  const N = pairs.length; // Ahora N es el número de SLIDES (parejas)
+  if (N === 0) return null;
 
-  const [currentIndex, setCurrentIndex] = useState(numItems);
+  // Triplicamos las parejas para el bucle infinito sin costuras
+  const expandedContent = [...pairs, ...pairs, ...pairs];
+
+  const [currentIndex, setCurrentIndex] = useState(N);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [dimensions, setDimensions] = useState({ itemWidth: 0 });
   const [dragOffset, setDragOffset] = useState(0);
@@ -229,12 +232,11 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
 
   const startAutoplay = useCallback(() => {
     stopAutoplay();
-    if (numItems <= 0) return;
     autoplayTimer.current = setInterval(() => {
       setIsTransitioning(true);
       setCurrentIndex((prev) => prev + 1);
     }, 8000);
-  }, [numItems, stopAutoplay]);
+  }, [stopAutoplay]);
 
   useEffect(() => {
     startAutoplay();
@@ -242,12 +244,12 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
   }, [startAutoplay, stopAutoplay]);
 
   const handleTransitionEnd = () => {
-    if (numItems <= 0 || isResetting.current) return;
+    if (isResetting.current) return;
 
-    if (currentIndex >= 2 * numItems || currentIndex < numItems) {
+    if (currentIndex >= 2 * N || currentIndex < N) {
       isResetting.current = true;
       setIsTransitioning(false);
-      const equivalentIndex = numItems + (((currentIndex % numItems) + numItems) % numItems);
+      const equivalentIndex = N + (((currentIndex % N) + N) % N);
       setCurrentIndex(equivalentIndex);
     }
   };
@@ -374,7 +376,9 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
             className="flex items-stretch gap-1"
             style={{
               transform: `translate3d(${desktopTranslateX}px, 0, 0)`,
-              transition: isDesktopTransitioning ? "transform 300ms ease-out" : "none",
+              transition: isDesktopTransitioning
+                ? "transform 300ms ease-out"
+                : "none",
             }}
             onTransitionEnd={handleDesktopTransitionEnd}
           >
@@ -462,68 +466,30 @@ export default function CarouselRecommended({ content, locale }: CarouselRecomme
             }}
             onTransitionEnd={handleTransitionEnd}
           >
-            {expandedContent.map((item, index) => {
-              const productType = item.productType ?? "fragrances";
-              const productGender = item.gender ?? "men";
-              const itemHref = item.href.startsWith("/")
-                ? item.href
-                : `/${[locale, productType, productGender, item.href].filter(Boolean).join("/")}`;
+            {expandedContent.map((pair, slideIndex) => (
+              <div
+                key={slideIndex}
+                className="w-full shrink-0 grid grid-cols-2 gap-1 items-stretch"
+              >
+                {pair.map((item, itemIndex) => {
+                  const productType = item.productType ?? "fragrances";
+                  const productGender = item.gender ?? "men";
+                  const itemHref = item.href.startsWith("/")
+                    ? item.href
+                    : `/${[locale, productType, productGender, item.href].filter(Boolean).join("/")}`;
 
-              return (
-                <div
-                  key={index}
-                  className="w-full shrink-0 flex justify-center"
-                  style={{ width: `${dimensions.itemWidth}px` }}
-                >
-                  <Link
-                    href={itemHref}
-                    className="w-full bg-[#F8F7F3] flex flex-col justify-center items-center gap-10 p-4 max-w-sm"
-                  >
-                    <div className="w-full flex justify-between items-center">
-                      <div className="flex justify-center items-start gap-2">
-                        {item.isNew && (
-                          <div className="py-2 px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
-                            New
-                          </div>
-                        )}
-                        {item.isBestSeller && (
-                          <div className="py-2 px-4 bg-[#181818] paragraph-xs text-white uppercase hidden lg:block">
-                            Best Seller
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex justify-center items-center gap-2">
-                        <img
-                          src="/images/start.svg"
-                          alt="Star"
-                          className="w-[14px] h-[14px] text-[#151515]"
-                          width={14}
-                          height={14}
-                        />
-                        <p className="paragraph text-[#181818]">{item.rate}</p>
-                      </div>
-                    </div>
-                    <img
-                      src={item.img}
-                      alt={item.name}
-                      className="w-[65%] h-auto"
-                      width={203}
-                      height={270}
-                      decoding="async"
-                      loading="lazy"
+                  return (
+                    <ProductCard
+                      key={`${slideIndex}-${itemIndex}`}
+                      item={item}
+                      locale={locale}
+                      index={slideIndex * 2 + itemIndex}
+                      className="w-full"
                     />
-                    <div className="w-full flex justify-between items-end">
-                      <div className="w-full flex flex-col justify-center items-start gap-1 text-black">
-                        <h3 className="title-h3">{item.name}</h3>
-                        <p className="paragraph uppercase">{item.category}</p>
-                        <p className="paragraph uppercase">{item.info}</p>
-                      </div>
-                      <p className="paragraph-bold">${item.price.toFixed(2)}</p>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
 

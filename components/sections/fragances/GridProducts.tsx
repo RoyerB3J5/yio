@@ -1,9 +1,8 @@
 "use client";
-import { ChevronDown, SlidersHorizontal, Star } from "lucide-react";
-import Link from "next/link";
+import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { FragranceListItem } from "@/lib/shopify/transformers";
 import { useMemo, useState } from "react";
-import ProductImage from "@/components/ui/ProductImage";
+import ProductCard from "@/components/ui/ProductCard";
 
 type SortOption = {
   id: string;
@@ -140,76 +139,16 @@ export default function GridProducts({
           </div>
         )}
 
-        {sortedProducts.map((item, index) => {
-          const hoverColors = [
-            "#C5EDAF",
-            "#E5B7CD",
-            "#CAD6F2",
-            "#F2DC94",
-            "#D7835B",
-          ];
-          const hoverColor = hoverColors[index % hoverColors.length];
-          const productType = item.productType ?? "fragrances";
-          const productGender = item.gender ?? gender;
-          const productHref = `/${[locale, productType, productGender, item.href].filter(Boolean).join("/")}`;
-
-          return (
-            <Link
-              href={productHref}
-              className="w-full flex flex-col justify-center items-center aspect-357/484 fade-up"
-              style={
-                { transitionDelay: `${index * 50}ms` } as React.CSSProperties
-              }
-              key={index}
-            >
-              <div
-                className="w-full flex flex-col justify-between items-center p-4 aspect-357/484 bg-[#F8F7F3] hover:bg-[var(--hover-color)] transition-colors duration-300 ease-in-out"
-                style={{ "--hover-color": hoverColor } as React.CSSProperties}
-              >
-                <div className="w-full flex justify-between items-center">
-                  <div className="flex justify-center items-start gap-2">
-                    {item.isNew && (
-                      <div className="py-2 px-1 md:px-4 bg-black/8 paragraph-xs text-[#181818] uppercase">
-                        New
-                      </div>
-                    )}
-                    {item.isBestSeller && (
-                      <div className="py-2 px-1 md:px-4 bg-[#181818] paragraph-xs text-white uppercase">
-                        Best Seller
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex justify-center items-center gap-2">
-                    <img
-                      src="/images/start.svg"
-                      alt="Star"
-                      className="w-[14px] h-[14px] text-[#151515]"
-                      width={14}
-                      height={14}
-                    />
-                    <p className="paragraph text-[#181818]">{item.rate}</p>
-                  </div>
-                </div>
-                <ProductImage
-                  src={item.img}
-                  alt={item.name}
-                  className="w-[55%] h-auto"
-                  width={203}
-                  height={270}
-                  sizes="(max-width: 768px) 55vw, 25vw"
-                />
-                <div className="w-full flex justify-between items-end">
-                  <div className="flex flex-col justify-center items-start gap-1 text-black">
-                    <h3 className="title-h3">{item.name}</h3>
-                    <p className="paragraph uppercase">{item.category}</p>
-                    <p className="paragraph uppercase">{item.info}</p>
-                  </div>
-                  <p className="paragraph-bold">${item.price.toFixed(2)}</p>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
+        {sortedProducts.map((item, index) => (
+          <ProductCard
+            key={item.href}
+            item={item}
+            locale={locale}
+            gender={gender}
+            index={index}
+            transitionDelay={index * 50}
+          />
+        ))}
       </div>
     </section>
   );
