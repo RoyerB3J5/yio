@@ -234,7 +234,7 @@ export function generateOrganizationJsonLd() {
     url: SITE_URL,
     logo: `${SITE_URL}/images/main/hero.webp`,
     sameAs: [
-      "https://www.instagram.com/yovani.store",
+      "https://www.instagram.com/your.best.10?igsi=MTg4OGlpcmc0Z284ZA==",
       "https://www.tiktok.com/@yovani.b1",
     ],
     contactPoint: {
@@ -313,12 +313,7 @@ export function generateProductPageMetadata(
         alt: title,
       })),
       type: "product",
-      tags: [
-        "fragrance",
-        "perfume",
-        productName,
-        "shop",
-      ],
+      tags: ["fragrance", "perfume", productName, "shop"],
     });
   }
 

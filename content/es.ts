@@ -67,7 +67,11 @@ const content = {
     contact: {
       links: [
         { icon: "tiktok", label: "yovani.b1", href: "#" },
-        { icon: "instagram", label: "@yovani.store", href: "#" },
+        {
+          icon: "instagram",
+          label: "@your.best.10",
+          href: "https://www.instagram.com/your.best.10?igsi=MTg4OGlpcmc0Z284ZA==",
+        },
       ],
     },
   },
@@ -517,7 +521,11 @@ const content = {
       links: [
         { icon: "", label: "+ 609 899 3421", href: "tel:+6098993421" },
         { icon: "tiktok", label: "yovani.b1", href: "#" },
-        { icon: "instagram", label: "@yovani.store", href: "#" },
+        {
+          icon: "instagram",
+          label: "@your.best.10",
+          href: "https://www.instagram.com/your.best.10?igsi=MTg4OGlpcmc0Z284ZA==",
+        },
       ],
     },
   },
