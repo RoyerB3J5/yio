@@ -70,7 +70,7 @@ const content = {
         {
           icon: "instagram",
           label: "@your.best.10",
-          href: "https://www.instagram.com/your.best.10?igsi=MTg4OGlpcmc0Z284ZA==",
+          href: "https://www.instagram.com/your.best.10",
         },
       ],
     },
@@ -524,7 +524,7 @@ const content = {
         {
           icon: "instagram",
           label: "@your.best.10",
-          href: "https://www.instagram.com/your.best.10?igsi=MTg4OGlpcmc0Z284ZA==",
+          href: "https://www.instagram.com/your.best.10",
         },
       ],
     },

@@ -234,7 +234,7 @@ export function generateOrganizationJsonLd() {
     url: SITE_URL,
     logo: `${SITE_URL}/images/main/hero.webp`,
     sameAs: [
-      "https://www.instagram.com/your.best.10?igsi=MTg4OGlpcmc0Z284ZA==",
+      "https://www.instagram.com/your.best.10",
       "https://www.tiktok.com/@yovani.b1",
     ],
     contactPoint: {
