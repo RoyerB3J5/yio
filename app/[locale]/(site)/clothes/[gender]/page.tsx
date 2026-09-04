@@ -8,7 +8,11 @@ import { hasLocale, Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getClothingListByGender } from "@/lib/shopify";
 import type { Metadata } from "next";
-import { generateCollectionPageMetadata, generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/seo";
+import {
+  generateCollectionPageMetadata,
+  generateWebsiteJsonLd,
+  generateOrganizationJsonLd,
+} from "@/lib/seo";
 
 type MainContent = (typeof import("@/content/en"))["default"]["main"];
 type ClothesContent = (typeof import("@/content/en"))["default"]["clothes"];
@@ -29,7 +33,12 @@ export async function generateMetadata({
     clothes: ClothesContent;
   }>(locale);
 
-  return generateCollectionPageMetadata(locale, currentGender, "clothes", content[currentGender]);
+  return generateCollectionPageMetadata(
+    locale,
+    currentGender,
+    "clothes",
+    content[currentGender],
+  );
 }
 
 export default async function Page({ params }: PageProps) {
@@ -48,7 +57,7 @@ export default async function Page({ params }: PageProps) {
     clothes: ClothesContent;
     productBanner: ProductBannerContent;
   }>(locale);
-  const { products } = await getClothingListByGender(currentGender);
+  const { products, pageInfo } = await getClothingListByGender(currentGender);
   // `products` already matches the `GridClothes` prop structure.
   // collection?.products.nodes contains the raw Shopify product cards.
   //const productos = collection?.products.nodes ?? [];
@@ -86,6 +95,7 @@ export default async function Page({ params }: PageProps) {
           products={products}
           gender={currentGender}
           locale={locale}
+          pageInfo={pageInfo}
         />
         <BestSeller content={fixedContent.bestSeller} locale={locale} />
         <Banners content={fixedContent.banners} locale={locale} />

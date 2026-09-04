@@ -46,7 +46,7 @@ export default async function Page({
     bestSellers: BestSellersContent;
     productBanner: ProductBannerContent;
   }>(locale);
-  const { products: bestSellerProducts } = await getBestSellerProducts();
+  const { products: bestSellerProducts, pageInfo } = await getBestSellerProducts();
 
   const websiteJsonLd = generateWebsiteJsonLd();
   const organizationJsonLd = generateOrganizationJsonLd();
@@ -77,6 +77,8 @@ export default async function Page({
           content={content.gridProducts}
           products={bestSellerProducts}
           locale={locale}
+          pageInfo={pageInfo}
+          pageType="bestsellers"
         />
         <Banners content={fixedContent.banners} locale={locale} />
         <ProductsBanner content={productBanner} locale={locale} />

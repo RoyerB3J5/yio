@@ -5,8 +5,10 @@ import {
   ClothingListItem,
   FragranceListItem,
 } from "@/lib/shopify/transformers";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import ProductImage from "@/components/ui/ProductImage";
+import { loadMoreClothing, loadMoreBestSellers } from "@/lib/shopify/actions";
+import { Gender } from "@/lib/shopify/types";
 
 type ProductItem = ClothingListItem | FragranceListItem;
 
@@ -44,23 +46,35 @@ const sortOptions: SortOption[] = [
     sortFn: (p) => p.filter((product) => product.isBestSeller === true),
   },
 ];
-
+interface PageInfo {
+  hasNextPage: boolean;
+  endCursor: string | null;
+}
+type PageType = "clothing" | "bestsellers";
 interface GridProductsProps {
   content: {
     title: string;
     filter1: string;
     filter2: string;
   };
-  gender?: string;
+  gender?: Gender;
   locale?: string;
   products: ProductItem[];
+  pageInfo: PageInfo;
+  pageType?: PageType;
 }
 export default function GridProducts({
   content,
-  products,
+  products: initialProducts,
   gender,
   locale,
+  pageInfo: initialPageInfo,
+  pageType = "clothing",
 }: GridProductsProps) {
+  const [products, setProducts] = useState(initialProducts);
+  const [pageInfo, setPageInfo] = useState(initialPageInfo);
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
   const [idSortFilter, setIdSortFilter] = useState("1");
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
 
@@ -69,6 +83,31 @@ export default function GridProducts({
 
   // Aplicar solo el ordenamiento directamente sobre tus productos
   const sortedProducts = selectedSortOption.sortFn(products);
+  function loadMore() {
+    if (!pageInfo.endCursor) return;
+    setError(null);
+
+    startTransition(async () => {
+      try {
+        let newProducts: ProductItem[];
+        let newPageInfo: PageInfo;
+        if (pageType === "bestsellers") {
+          const result = await loadMoreBestSellers(pageInfo.endCursor!);
+          newProducts = result.products;
+          newPageInfo = result.pageInfo;
+        } else {
+          const result = await loadMoreClothing(gender!, pageInfo.endCursor!);
+          newProducts = result.products;
+          newPageInfo = result.pageInfo;
+        }
+
+        setProducts((prev) => [...prev, ...newProducts]);
+        setPageInfo(newPageInfo);
+      } catch {
+        setError("We couldn't load more products. Please try again later.");
+      }
+    });
+  }
   return (
     <section className="w-full flex flex-col justify-center items-center gap-8 md:gap-12 py-8 md:py-12">
       <div className="container-full flex justify-between items-center md:py-3 text-black z-5">
@@ -209,6 +248,19 @@ export default function GridProducts({
           );
         })}
       </div>
+      {pageInfo.hasNextPage && (
+        <div className="flex justify-center py-8">
+          <button
+            onClick={loadMore}
+            disabled={isPending}
+            className="px-6 py-2 border rounded disabled:opacity-50 cursor-pointer"
+          >
+            {isPending ? "Loading..." : "See More Products"}
+          </button>
+        </div>
+      )}
+
+      {error && <p className="text-red-500 text-center">{error}</p>}
     </section>
   );
 }

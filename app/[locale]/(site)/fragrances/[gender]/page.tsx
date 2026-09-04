@@ -56,7 +56,7 @@ export default async function Page({ params }: PageProps) {
     fragances: FragancesContent;
     productBanner: ProductBannerContent;
   }>(locale);
-  const { products } = await getFragranceListByGender(currentGender);
+  const { products, pageInfo } = await getFragranceListByGender(currentGender);
 
   const websiteJsonLd = generateWebsiteJsonLd();
   const organizationJsonLd = generateOrganizationJsonLd();
@@ -91,6 +91,7 @@ export default async function Page({ params }: PageProps) {
           products={products}
           gender={currentGender}
           locale={locale}
+          pageInfo={pageInfo}
         />
         <BestSeller content={fixedContent.bestSeller} locale={locale} />
         <Banners content={fixedContent.banners} locale={locale} />

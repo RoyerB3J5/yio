@@ -179,7 +179,7 @@ export async function getFragranceListByGender(
   gender?: Gender,
   options?: { first?: number; after?: string | null },
 ) {
-  const first = options?.first ?? 10;
+  const first = options?.first ?? 20;
 
   if (gender) {
     const { collection } = await getFragrancesByGender(gender, {
@@ -268,7 +268,7 @@ export async function getBestSellerProducts(
 ) {
   const { collection } = await getCollectionProducts(
     BEST_SELLER_COLLECTION_HANDLE,
-    { ...options, first: options.first ?? 100 },
+    { ...options, first: options.first ?? 20 },
   );
   const products = collection?.products;
 

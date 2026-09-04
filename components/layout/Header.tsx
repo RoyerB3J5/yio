@@ -151,7 +151,7 @@ const MegaMenu = ({
             <Button
               href={`/${lang}/best-sellers`}
               label={content.bestSellers.banner.button.label}
-              paddingX="px-12"
+              paddingX="px-1"
             />
           </div>
         </div>

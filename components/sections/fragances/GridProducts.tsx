@@ -1,8 +1,10 @@
 "use client";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { FragranceListItem } from "@/lib/shopify/transformers";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 import ProductCard from "@/components/ui/ProductCard";
+import { loadMoreFragrances } from "@/lib/shopify/actions";
+import { Gender } from "@/lib/shopify/types";
 
 type SortOption = {
   id: string;
@@ -39,6 +41,11 @@ const sortOptions: SortOption[] = [
   },
 ];
 
+interface PageInfo {
+  hasNextPage: boolean;
+  endCursor: string | null;
+}
+
 interface GridProductsProps {
   content: {
     title: string;
@@ -47,17 +54,23 @@ interface GridProductsProps {
     image1: string;
     image2?: string;
   };
-  gender: string;
+  gender: Gender;
   locale?: string;
   products: FragranceListItem[];
+  pageInfo: PageInfo;
 }
 
 export default function GridProducts({
   content,
-  products,
+  products: initialProducts,
   gender,
   locale,
+  pageInfo: initialPageInfo,
 }: GridProductsProps) {
+  const [products, setProducts] = useState(initialProducts);
+  const [pageInfo, setPageInfo] = useState(initialPageInfo);
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
   const [idSortFilter, setIdSortFilter] = useState("1");
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
 
@@ -66,6 +79,22 @@ export default function GridProducts({
 
   // Aplicar solo el ordenamiento directamente sobre tus productos
   const sortedProducts = selectedSortOption.sortFn(products);
+  function loadMore() {
+    if (!pageInfo.endCursor) return;
+    setError(null);
+
+    startTransition(async () => {
+      try {
+        const { products: newProducts, pageInfo: newPageInfo } =
+          await loadMoreFragrances(gender, pageInfo.endCursor!);
+
+        setProducts((prev) => [...prev, ...newProducts]);
+        setPageInfo(newPageInfo);
+      } catch {
+        setError("We couldn't load more products. Please try again later.");
+      }
+    });
+  }
   return (
     <section className="w-full flex flex-col justify-center items-center gap-8 md:gap-12  py-8 md:py-12 lg:py-20">
       <div className="container-full flex justify-between items-center md:py-3 text-black z-5">
@@ -150,6 +179,19 @@ export default function GridProducts({
           />
         ))}
       </div>
+      {pageInfo.hasNextPage && (
+        <div className="flex justify-center py-8">
+          <button
+            onClick={loadMore}
+            disabled={isPending}
+            className="px-6 py-2 border rounded disabled:opacity-50 cursor-pointer"
+          >
+            {isPending ? "Loading..." : "See More Products"}
+          </button>
+        </div>
+      )}
+
+      {error && <p className="text-red-500 text-center">{error}</p>}
     </section>
   );
 }
