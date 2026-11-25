@@ -203,9 +203,13 @@ export const CLOTHING_PRODUCT_QUERY = /* GraphQL */ `
   }
 `;
 
-export const BEST_SELLER_PRODUCTS_QUERY = /* GraphQL */ `
-  query BestSellerProducts($first: Int!, $after: String) {
-    products(first: $first, after: $after, query: "tag:best-seller") {
+export const BEST_SELLER_FRAGRANCES_QUERY = /* GraphQL */ `
+  query BestSellerFragrances($first: Int!, $after: String) {
+    products(
+      first: $first
+      after: $after
+      query: "tag:bestseller AND product_type:Fragrances"
+    ) {
       nodes {
         ...ProductCard
       }

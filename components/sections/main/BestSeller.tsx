@@ -37,7 +37,7 @@ export default function BestSeller({ content, locale }: BestSellerProps) {
           ))}
         </div>
       </div>
-      <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-x-1 gap-y-4 items-start lg:items-center justify-center ">
+      <div className="w-full grid grid-cols-2 lg:grid-cols-2 gap-x-1 gap-y-4 items-start lg:items-center justify-center ">
         {content.collections.map((item, index) => (
           <div
             className="flex flex-col justify-center items-center gap-4 h-full fade-up"

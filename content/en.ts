@@ -11,7 +11,7 @@ const content = {
         { label: "Women", href: "/fragrances/women" },
       ],
     },
-    moda: {
+    /*moda: {
       title: "find your style <br/> in every detail",
       items: [
         {
@@ -36,11 +36,11 @@ const content = {
           ],
         },
       ],
-    },
+    },*/
     bestSellers: {
       title: "most sold by <br/> our customers",
       items: [
-        { label: "Clothing", href: "/best-sellers" },
+        //{ label: "Clothing", href: "/best-sellers" },
         { label: "Fragrances", href: "/best-sellers" },
       ],
       banner: {
@@ -54,7 +54,7 @@ const content = {
     },
     nav: [
       { label: "Fragrances", href: "#" },
-      { label: "Fashion", href: "#" },
+      //{ label: "Fashion", href: "#" },
       { label: "Best Sellers", href: "#" },
     ],
     mobileContent: {
@@ -127,7 +127,7 @@ const content = {
           label: "View more",
         },
       },
-      {
+      /*{
         title: "fashion",
         img: "fashion",
         href: "/clothes/men",
@@ -142,7 +142,7 @@ const content = {
         button: {
           label: "View more",
         },
-      },
+      },*/
       {
         title: "best sellers",
         img: "best-seller",
@@ -179,14 +179,14 @@ const content = {
             "Discreet, woody luxury that leaves <br class='hidden lg:block'/> an eternal mark",
           label: "View Now",
         },
-        {
+        /*{
           image: "best-seller-2",
           name: "Minimalism That Commands",
           href: "/clothes/men/yoga-accolade-1-4-pullover",
           description:
             "Designed for those who understand that <br class='hidden lg:block'/> true luxury lies in the details.",
           label: "View Now",
-        },
+        },*/
         {
           image: "best-seller-3",
           name: "Effortless Style",
@@ -195,18 +195,18 @@ const content = {
             "Sweet, dark, and provocative, seduction that <br class='hidden xl:block'/> breaks all the rules",
           label: "View Now",
         },
-        {
+        /*{
           image: "best-seller-4",
           name: "Elevated Comfort",
           href: "/clothes/men/hoodies-essentials",
           description:
             "Versatile pieces that combine style, <br class='hidden lg:block'/> comfort and presence for any occasion.",
           label: "View Now",
-        },
+        },*/
       ],
     },
     banners: [
-      {
+      /*{
         title: "Lifestyle <br class='block md:hidden'/> Essentials",
         description:
           "Everything you need to complete your style, in one place.",
@@ -214,7 +214,7 @@ const content = {
           label: "VIEW LIFESTYLE",
           link: "clothes/women",
         },
-      },
+      },*/
       {
         title: "Your scent, your <br class='block md:hidden'/> essence",
         description:
@@ -233,7 +233,7 @@ const content = {
           link: "best-sellers",
         },
       },
-      {
+      /*{
         title: "Elevate your <br class='block md:hidden'/> style",
         description:
           "Curated pieces to complement your look and highlight your personality.",
@@ -241,7 +241,7 @@ const content = {
           label: "View Fashion",
           link: "clothes/men",
         },
-      },
+      },*/
     ],
   },
   productBanner: [
@@ -265,7 +265,7 @@ const content = {
       },
       image: "/images/products/dior-savage.webp",
     },
-    {
+    /*{
       title: "alo <br/> Yoga Accolade hoodie ",
       description:
         "Everyone loves the Accolade collection. Our best-selling hoodie features a relaxed design with dropped shoulders for effortless style from the yoga studio to the street, an oversized kangaroo pocket, and comfortable ribbed cuffs and hem. It's crafted from mid-weight French terry with drape, soft on the outside and fleece-lined inside. Get the most out of it with the matching Accolade jogger. Find the perfect fit and discover all the ways to wear it.",
@@ -284,7 +284,7 @@ const content = {
         link: "/clothes/men/hoodies-essentials",
       },
       image: "/images/products/essentials-hoddie.webp",
-    },
+    },*/
   ],
   fragances: {
     men: {
@@ -499,21 +499,21 @@ const content = {
       title: "Women",
       links: [
         { label: "FRAGRANCES", href: "/fragrances/women" },
-        { label: "CLOTHING", href: "/clothes/women" },
+        //{ label: "CLOTHING", href: "/clothes/women" },
       ],
     },
     men: {
       title: "Men",
       links: [
         { label: "FRAGRANCES", href: "/fragrances/men" },
-        { label: "CLOTHING", href: "/clothes/men" },
+        //{ label: "CLOTHING", href: "/clothes/men" },
       ],
     },
     bestseller: {
       title: "Best Sellers",
       links: [
         { label: "FRAGRANCES", href: "/best-seller" },
-        { label: "CLOTHING", href: "/best-seller" },
+        //{ label: "CLOTHING", href: "/best-seller" },
       ],
     },
     contact: {

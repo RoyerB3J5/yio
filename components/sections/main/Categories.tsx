@@ -17,7 +17,7 @@ export default function Categories({ content, locale }: CategoriesProps) {
   const baseLocale = locale ?? defaultLocale;
 
   return (
-    <section className="w-full grid grid-cols-2 md:grid-cols-4 gap-1 ">
+    <section className="w-full grid grid-cols-2 md:grid-cols-2 gap-1 ">
       {content.map((category, index) => {
         const isAnchor = category.href.startsWith("#");
         const href = isAnchor ? category.href : `/${baseLocale}${category.href}`;

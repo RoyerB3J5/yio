@@ -11,7 +11,7 @@ const content = {
         { label: "Mujeres", href: "/fragrances/women" },
       ],
     },
-    moda: {
+    /*moda: {
       title: "encuentra tu estilo <br/> en cada detalle",
       items: [
         {
@@ -36,11 +36,11 @@ const content = {
           ],
         },
       ],
-    },
+    },*/
     bestSellers: {
       title: "lo más vendido por <br/> nuestros clientes",
       items: [
-        { label: "Ropa", href: "/best-sellers" },
+        //{ label: "Ropa", href: "/best-sellers" },
         { label: "Fragancias", href: "/best-sellers" },
       ],
       banner: {
@@ -54,7 +54,7 @@ const content = {
     },
     nav: [
       { label: "Fragancias", href: "#" },
-      { label: "Moda", href: "#" },
+      //{ label: "Moda", href: "#" },
       { label: "Best Sellers", href: "#" },
     ],
     mobileContent: {
@@ -91,7 +91,7 @@ const content = {
           image: "/images/fragances/women-hero.webp",
           color: "text-white",
         },
-        {
+        /*{
           image: "/images/clothes/men-hero.webp",
           color: "text-black",
         },
@@ -102,7 +102,7 @@ const content = {
         {
           image: "/images/best-seller/hero.webp",
           color: "text-black",
-        },
+        },*/
       ],
     },
     fashion: {
@@ -127,7 +127,7 @@ const content = {
           label: "Ver más",
         },
       },
-      {
+      /*{
         title: "moda",
         img: "fashion",
         href: "/clothes/men",
@@ -142,7 +142,7 @@ const content = {
         button: {
           label: "Ver más",
         },
-      },
+      },*/
       {
         title: "best sellers",
         img: "best-seller",
@@ -179,14 +179,14 @@ const content = {
             "Lujo discreto y amaderado que deja <br class='hidden lg:block'/> una huella eterna",
           label: "Ver Ahora",
         },
-        {
+        /*{
           image: "best-seller-2",
           name: "Minimalismo que Impone",
           href: "/clothes/men/yoga-accolade-1-4-pullover",
           description:
             "Diseñado para quienes entienden que el <br class='hidden lg:block'/> verdadero lujo está en los detalles.",
           label: "Ver Ahora",
-        },
+        },*/
         {
           image: "best-seller-3",
           name: "Estilo Sin Esfuerzo",
@@ -195,18 +195,18 @@ const content = {
             "Dulce, oscuro y provocador, seducción que <br class='hidden xl:block'/> rompe todas las reglas",
           label: "Ver Ahora",
         },
-        {
+        /*{
           image: "best-seller-4",
           name: "Comodidad Elevada",
           href: "/clothes/men/hoodies-essentials",
           description:
             "Prendas versátiles que combinan estilo, <br class='hidden lg:block'/> confort y presencia en cualquier ocasión.",
           label: "Ver Ahora",
-        },
+        },*/
       ],
     },
     banners: [
-      {
+      /*{
         title: "Lifestyle <br class='block md:hidden'/> Essentials",
         description:
           "Todo lo que necesitas para completar tu estilo, en un solo lugar.",
@@ -214,7 +214,7 @@ const content = {
           label: "VER lifestyle",
           link: "clothes/women",
         },
-      },
+      },*/
       {
         title: "Tu aroma, tu <br class='block md:hidden'/>  esencia",
         description:
@@ -233,7 +233,7 @@ const content = {
           link: "best-sellers",
         },
       },
-      {
+      /*{
         title: "Eleva tu <br class='block md:hidden'/>  estilo",
         description:
           "Piezas seleccionadas para complementar tu look y destacar tu personalidad.",
@@ -241,7 +241,7 @@ const content = {
           label: "Ver Fashion",
           link: "clothes/men",
         },
-      },
+      },*/
     ],
   },
   productBanner: [
@@ -265,7 +265,7 @@ const content = {
       },
       image: "/images/products/dior-savage.webp",
     },
-    {
+    /*{
       title: "alo <br/> Yoga Accolade hoodie ",
       description:
         "A todo el mundo le encanta la colección Accolade. Nuestra sudadera con capucha más vendida presenta un diseño informal con hombros caídos para un estilo impecable en el estudio de yoga y para salir a la calle, un bolsillo de canguro de gran tamaño, y un cómodo acanalado en los puños y el dobladillo. Se ha confeccionado con felpa francesa de peso medio con caída, suave por fuera y con forro polar por dentro. Sácale el máximo partido con el pantalón de chándal Accolade a juego. Encuentra el ajuste perfecto y descubre todas las formas de lucirlo.",
@@ -284,7 +284,7 @@ const content = {
         link: "/clothes/men/hoodies-essentials",
       },
       image: "/images/products/essentials-hoddie.webp",
-    },
+    },*/
   ],
   fragances: {
     men: {
@@ -499,21 +499,21 @@ const content = {
       title: "Mujeres",
       links: [
         { label: "FRAGANCIAS", href: "/fragrances/women" },
-        { label: "ROPA", href: "/clothes/women" },
+        //{ label: "ROPA", href: "/clothes/women" },
       ],
     },
     men: {
       title: "Hombres",
       links: [
         { label: "FRAGANCIAS", href: "/fragrances/men" },
-        { label: "ROPA", href: "/clothes/men" },
+        //{ label: "ROPA", href: "/clothes/men" },
       ],
     },
     bestseller: {
       title: "Best Sellers",
       links: [
         { label: "FRAGANCIAS", href: "/best-seller" },
-        { label: "ROPA", href: "/best-seller" },
+        //{ label: "ROPA", href: "/best-seller" },
       ],
     },
     contact: {

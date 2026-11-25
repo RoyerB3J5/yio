@@ -61,7 +61,7 @@ export default async function Home({
       />
       <main className="w-full flex flex-col justify-center items-center pt-(--top-bar-height)">
         <Hero content={content.hero} />
-        <Fashion content={content.fashion} locale={locale} />
+        {/*<Fashion content={content.fashion} locale={locale} /> */}
         <Categories content={content.categories} locale={locale} />
         {/*<pre className="bg-gray-100 p-4 rounded-lg overflow-auto max-w-full block">
           <code>

@@ -62,8 +62,7 @@ const MegaMenu = ({
       </div>
     );
   }
-
-  if (index === 1) {
+  {/*if (index === 1) {
     // ----------------- COLUMNA 2: Moda -----------------
     return (
       <div className="w-[420px] h-[550px] 3xl:h-[614px] bg-white overflow-hidden relative">
@@ -104,9 +103,10 @@ const MegaMenu = ({
         </div>
       </div>
     );
-  }
+  } */}
+  
 
-  if (index === 2) {
+  if (index === 1) {
     // ----------------- COLUMNA 3: Best Sellers -----------------
     return (
       <div className="w-[380px] 3xl:w-[412px] h-[550px] 3xl:h-[614px] bg-white overflow-hidden relative shrink-0">

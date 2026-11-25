@@ -1,7 +1,7 @@
 // lib/shopify/actions.ts
 "use server";
 
-import { getFragranceListByGender, getClothingListByGender, getBestSellerProducts } from "./index";
+import { getFragranceListByGender, getClothingListByGender, getBestSellerFragrances } from "./index";
 import type { Gender } from "./types";
 
 export async function loadMoreFragrances(gender: Gender, after: string) {
@@ -13,5 +13,5 @@ export async function loadMoreClothing(gender: Gender, after: string) {
 }
 
 export async function loadMoreBestSellers(after: string) {
-  return getBestSellerProducts({ first: 20, after });
+  return getBestSellerFragrances({ first: 20, after });
 }

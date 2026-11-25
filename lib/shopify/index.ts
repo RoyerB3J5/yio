@@ -1,6 +1,7 @@
 import "server-only";
 
 import {
+  BEST_SELLER_FRAGRANCES_QUERY,
   CART_CREATE,
   CART_LINES_ADD,
   CART_LINES_REMOVE,
@@ -20,6 +21,7 @@ import type {
   Gender,
   ProductCard,
   ProductCollection,
+  ProductConnection,
 } from "@/lib/shopify/types";
 import {
   toClothingListItem,
@@ -279,6 +281,21 @@ export async function getBestSellerProducts(
         : toClothingListItem(product),
     ),
     pageInfo: products?.pageInfo ?? { hasNextPage: false, endCursor: null },
+  };
+}
+
+export async function getBestSellerFragrances(
+  { first = 20, after }: { first?: number; after?: string | null } = {},
+) {
+  const { products } = await storefrontFetch<{ products: ProductConnection }>(
+    BEST_SELLER_FRAGRANCES_QUERY,
+    { first: normalizeFirst(first), after: after ?? null },
+    ["shopify", `shopify:collection:${BEST_SELLER_COLLECTION_HANDLE}`],
+  );
+
+  return {
+    products: products.nodes.map((product) => toFragranceListItem(product)),
+    pageInfo: products.pageInfo,
   };
 }
 

@@ -2,7 +2,7 @@ import Banners from "@/components/sections/Banners";
 import GridClothes from "@/components/sections/clothes/GridClothes";
 import Hero from "@/components/sections/main/Hero";
 import ProductsBanner from "@/components/sections/ProductsBanner";
-import { getBestSellerProducts } from "@/lib/shopify";
+import { getBestSellerFragrances } from "@/lib/shopify";
 import { getContent } from "@/i18n/content";
 import { hasLocale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
@@ -46,7 +46,7 @@ export default async function Page({
     bestSellers: BestSellersContent;
     productBanner: ProductBannerContent;
   }>(locale);
-  const { products: bestSellerProducts, pageInfo } = await getBestSellerProducts();
+  const { products: bestSellerProducts, pageInfo } = await getBestSellerFragrances();
 
   const websiteJsonLd = generateWebsiteJsonLd();
   const organizationJsonLd = generateOrganizationJsonLd();
